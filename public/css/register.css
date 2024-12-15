@@ -1,0 +1,119 @@
+* {
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    background-color: #E9CD91;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.right-panel {
+    background-color: #996447;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-text {
+    text-align: center;
+}
+
+.right-text .main-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+}
+
+.right-text .sub-title {
+    font-size: 18px;
+    color: white;
+    line-height: 1.5;
+}
+
+.login-box {
+    text-align: center;
+    width: 80%;
+}
+
+.name-username {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-group {
+    width: 48%;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #7F7F7F;
+    font-size: 14px;
+}
+
+.login-btn {
+    background-color: #f19062;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #d77c52;
+}
+
+.social-login {
+    margin-top: 20px;
+}
+
+.social-login img {
+    width: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+#gmailimg, #facebookimg, #lineimg {
+    border-radius: 50%;
+    object-fit: cover;    
+    display: inline-block;
+    margin: 0 20px;       
+  }
+
+#gmail {
+    background-color: #f0f0f0;
+}
+
+p {
+    margin: 20px 0;
+    color: #7F7F7F;
+    font-size: 14px;
+}
