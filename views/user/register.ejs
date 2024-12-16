@@ -12,7 +12,7 @@
     <div class="left-panel">
         <div class="login-box">
             <!-- เริ่มต้นด้วย form เพื่อส่งข้อมูลไปที่ server -->
-            <form onsubmit="event.preventDefault(); submitForm();">
+            <form action="/register" onsubmit="event.preventDefault(); submitForm();">
                 <div class="name-username">
                     <div class="input-group">
                         <label for="name">Name</label>
@@ -73,7 +73,7 @@
             }
     
             // ส่งข้อมูลไปยังเซิร์ฟเวอร์โดยใช้ AJAX (fetch API)
-            fetch('/', {
+            fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@
                     document.getElementById('confirm').value = '';
     
                     // พาผู้ใช้ไปยัง route ใหม่หลังจากกดยืนยัน
-                    window.location.href = '/route-xxx'; // เปลี่ยนเป็น route ที่ต้องการ
+                    window.location.href = '/home'; // เปลี่ยนเป็น route ที่ต้องการ
                 }
             })
             .catch(error => {

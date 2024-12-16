@@ -36,8 +36,16 @@ app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'views'));
 
+app.get('/register', (req, res) => {
+    res.render('user/register', { title: 'Register Page' });
+});
+
+app.get('/home', (req, res) => {
+    res.render('user/home', { title: 'Home Page' });
+});
+
 app.get('/', (req, res) => {
-    res.render('user/register', { title: 'Home Page' });
+    res.redirect('/register');
 });
 
 app.use(express.static('public'));
@@ -49,7 +57,7 @@ app.listen(PORT, () => {
 });
 
 
-app.post('/', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { name, username, email, password } = req.body;
 
     if (!name || !username || !email || !password) {
