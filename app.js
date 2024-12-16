@@ -24,7 +24,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
+<<<<<<< HEAD
     res.render('user/home', { title: 'Home Page' });
+=======
+    res.render('user/register', { title: 'Home Page' });
+>>>>>>> 1bb3db1c3c2e24931689968d92cbbf7a8733996d
 });
 
 app.use(express.static('public'));
