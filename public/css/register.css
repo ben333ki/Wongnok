@@ -1,5 +1,8 @@
 * {
     font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -48,22 +51,26 @@ body {
 
 .name-username {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* จัดระยะห่างให้เหมาะสม */
+    gap: 20px; /* เพิ่มระยะห่างระหว่างช่อง Name และ Username */
+    margin-bottom: 20px;
 }
 
 .input-group {
-    width: 48%;
+    width: 100%;  /* เปลี่ยนความกว้างของทุก input-group ให้เต็ม */
     text-align: left;
 }
 
 input[type="text"],
-input[type="password"] {
-    width: 100%;
+input[type="password"],
+input[type="email"] {
+    width: 100%;  /* ทุกช่องกรอกข้อมูลให้ยาวเต็ม */
     padding: 10px;
     margin: 10px 0;
-    border: none;
+    border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f0f0f0;
+    font-size: 14px;
 }
 
 label {
@@ -74,7 +81,7 @@ label {
     font-size: 14px;
 }
 
-.login-btn {
+button[type="submit"] {
     background-color: #f19062;
     color: white;
     padding: 10px 20px;
@@ -87,7 +94,7 @@ label {
     transition: background-color 0.3s ease;
 }
 
-.login-btn:hover {
+button[type="submit"]:hover {
     background-color: #d77c52;
 }
 
@@ -103,17 +110,37 @@ label {
 
 #gmailimg, #facebookimg, #lineimg {
     border-radius: 50%;
-    object-fit: cover;    
+    object-fit: cover;
     display: inline-block;
-    margin: 0 20px;       
-  }
-
-#gmail {
-    background-color: #f0f0f0;
+    margin: 0 20px;
 }
 
 p {
     margin: 20px 0;
     color: #7F7F7F;
     font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .left-panel {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .right-panel {
+        display: none;
+    }
+
+    .name-username {
+        flex-direction: column;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .social-login img {
+        margin: 0 5px;
+    }
 }

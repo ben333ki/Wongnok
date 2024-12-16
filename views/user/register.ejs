@@ -11,26 +11,37 @@
 <body>
     <div class="left-panel">
         <div class="login-box">
-            <div class="name-username">
-                <div class="input-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" placeholder="">
+            <!-- เริ่มต้นด้วย form เพื่อส่งข้อมูลไปที่ server -->
+            <form onsubmit="event.preventDefault(); submitForm();">
+                <div class="name-username">
+                    <div class="input-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name">
+                    </div>
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Choose a username">
+                    </div>
                 </div>
+
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your email" required>
                 </div>
-            </div>
-            <label for="email">Email</label>
-            <input type="text" id="email" placeholder=""><br>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder=""><br>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Your password" required>
+                </div>
 
-            <label for="confirm">Confirm</label>
-            <input type="password" id="confirm" placeholder=""><br>
+                <div class="input-group">
+                    <label for="confirm">Confirm Password</label>
+                    <input type="password" id="confirm" name="confirm" placeholder="Confirm your password" required>
+                </div>
 
-            <button class="login-btn">Sign Up</button>
+                <button type="submit" class="login-btn">Sign Up</button>
+            </form>
+
             <p>or continue with</p>
             <div class="social-login">
                 <img src="/images/gmail.png" id="gmailimg" alt="gmail">
@@ -45,6 +56,61 @@
             <p class="sub-title">สูตรอาหารอร่อยที่เข้าถึงได้ง่าย</p>
         </div>
     </div>
+
+    <script>
+        function submitForm() {
+            // ดึงค่าจากฟอร์ม
+            var name = document.getElementById('name').value;
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirm = document.getElementById('confirm').value;
+    
+            // ตรวจสอบว่า confirm password ตรงกับ password หรือไม่
+            if (password !== confirm) {
+                alert("Password และ Confirm Password ไม่ตรงกัน");
+                return;
+            }
+    
+            // ส่งข้อมูลไปยังเซิร์ฟเวอร์โดยใช้ AJAX (fetch API)
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    username: username,
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                // แสดงผลข้อความจากเซิร์ฟเวอร์ (สำเร็จหรือผิดพลาด)
+                alert(data); // หรือแสดงในส่วนของ HTML
+    
+                // ถ้าสมัครสมาชิกสำเร็จ
+                if (data === 'สมัครสมาชิกสำเร็จ') {
+                    // ล้างฟอร์ม
+                    document.getElementById('name').value = '';
+                    document.getElementById('username').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('password').value = '';
+                    document.getElementById('confirm').value = '';
+    
+                    // พาผู้ใช้ไปยัง route ใหม่หลังจากกดยืนยัน
+                    window.location.href = '/route-xxx'; // เปลี่ยนเป็น route ที่ต้องการ
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการสมัครสมาชิก');
+            });
+        }
+    </script>
+    
+    
 </body>
 
 </html>
