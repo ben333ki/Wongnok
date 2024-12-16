@@ -12,21 +12,30 @@ body {
     background-color: #996447;
     color: white;
     width: 70%;
+    height: 100vh; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin: 0;
+    padding: 0;
 }
 
-.big-font{
+.descript-text {
+    text-align: center; /* จัดข้อความตรงกลางภายใน */
+}
+
+.descript-text p {
+    cursor: default;
+}
+
+.big-font {
     font-size: 45px;
-    margin-top: 300px;
-    margin-bottom: 0px;
+    margin: 0; /* ลบ margin เพิ่มเติม */
 }
 
-.small-font{
+.small-font {
     font-size: 24px;
-}
-
-
-.left-panel p {
-    margin-left: 350px;
+    margin: 0;
 }
 
 .right-panel {
@@ -40,18 +49,18 @@ body {
 .login-box {
     text-align: center;
     width: 80%;
+    display: flex;
+    flex-direction: column;  
+    align-items: center;    
 }
 
-.login-box input{
-    outline: none;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
+.login-box input,
+.login-btn {
+    width: 100%; 
     padding: 10px;
-    margin: 10px 0;
-    border: none;
+    margin: 10px 0;  
+    border: none;  
+    outline: none; 
     border-radius: 5px;
     background-color: #f0f0f0;
 }
@@ -59,23 +68,14 @@ input[type="password"] {
 .login-btn {
     background-color: #f19062;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .login-btn:hover {
     background-color: #d77c52;
     color: white;
-  }
-
-.social-login {
-    margin-top: 20px;
 }
 
 .social-login img {
@@ -84,18 +84,33 @@ input[type="password"] {
     cursor: pointer;
 }
 
-.login-box p{
-    margin: 50px;
+.login-box p {
+    margin: 25px;
     color: #7F7F7F;
 }
 
-#gmailimg, #facebookimg, #lineimg {
+#gmailimg,
+#facebookimg,
+#lineimg {
     border-radius: 50%;
-    object-fit: cover;    
+    object-fit: cover;
     display: inline-block;
-    margin: 0 20px;       
-  }
+    margin: 0 20px;
+}
 
 #gmail {
     background-color: #f0f0f0;
+}
+
+.text-signup {
+    display: flex;
+    align-items: center; 
+}
+
+.text-signup p {
+    margin-right: 10px;
+}
+
+.text-signup a {
+    color: #3b8ec1;
 }

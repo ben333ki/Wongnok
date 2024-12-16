@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 
 /* Header styles */
@@ -140,7 +141,7 @@ main {
 }
 
 .rating-stars {
-    color: #6d6d6d; /* สีดาว */
+    color: #6d6d6d; 
 }
 
 .rating-value {
@@ -151,7 +152,7 @@ main {
     font-size: 14px;
     color: #000000;
     margin-top: 5px;
-    text-align: left; /* จัดให้ข้อความชิดซ้าย */
+    text-align: left;
 }
 
 
@@ -161,7 +162,7 @@ main {
 
 .ingredients-section {
     width: 100%;
-    background-color: #F4EFDC; /* สีพื้นหลังอ่อน */
+    background-color: #F4EFDC; 
     border-radius: 5px;
     padding: 10px;
     font-family: Arial, sans-serif;
@@ -172,8 +173,8 @@ main {
     justify-content: space-between;
     padding: 8px 0;
     font-weight: bold;
-    color: #8C4D2B; /* สีของหัวข้อ */
-    border-bottom: 1px solid #ddd; /* เส้นขอบใต้หัวข้อ */
+    color: #8C4D2B; 
+    border-bottom: 1px solid #ddd; 
 }
 
 .ingredient-item {

@@ -1,49 +1,52 @@
+* {
+  font-family: "Inter", sans-serif;
+}
+
 .profile-container {
-    margin-top: 15px;
-    justify-items: center;
-    border-radius: 10px;
-    padding: 15px;
-  }
-  
-  /* Logo and Name Section */
-  .logo-name {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .logo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .name-edit {
-    flex: 1;
-    margin-left: 75px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .name-edit h2 {
-    font-size: 20px;
-    color: #8C4D2B;
-  }
-  
-  .name-edit button {
-    margin-left: 10px;
-    background-color: #f7935a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .name-edit button:hover {
-    background-color: #e0763b;
-  }
+  margin-top: 15px;
+  justify-items: center;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.logo-name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.logo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.name-edit {
+  flex: 1;
+  margin-left: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name-edit h2 {
+  font-size: 20px;
+  color: #8C4D2B;
+}
+
+.name-edit button {
+  margin-left: 10px;
+  background-color: #f7935a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.name-edit button:hover {
+  background-color: #e0763b;
+}

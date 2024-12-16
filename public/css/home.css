@@ -33,6 +33,7 @@ body {
 }
 
 .logo {
+    cursor: pointer;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -41,6 +42,7 @@ body {
 }
 
 .menu {
+    cursor: pointer;
     margin-right: 15px;
     font-size: 16px;
     color: #fff;
@@ -67,6 +69,7 @@ body {
 }
 
 .profile-pic {
+    cursor: pointer;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -130,7 +133,7 @@ body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 0px 20px;
+    gap: 0px 35px;
     overflow-x: auto;
 }
 
@@ -141,6 +144,7 @@ body {
 }
 
 .typefood img , .profilefollow img{
+    cursor: pointer;
     width: 80px;
     height: auto;
 }
@@ -149,7 +153,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 0px 40px;
+    gap: 0px 45px;
     width: 1340px;
     margin: 0 auto;
 }
@@ -159,6 +163,7 @@ body {
 /* post */
 
 .recipe-card {
+    cursor: pointer;
     width: 300px;
     border: 1px solid #ddd;
     border-radius: 20px;

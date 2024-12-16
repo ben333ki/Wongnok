@@ -10,10 +10,12 @@
 
 <body>
     <div class="left-panel">
-        <p class="big-font">แบ่งปันสูตรอาหาร</p>
-        <p class="small-font">ที่แสนอร่อยของคุณได้ง่ายๆที่วงนอก</p>
+        <div class="descript-text">
+            <p class="big-font">แบ่งปันสูตรอาหาร</p>
+            <p class="small-font">ที่แสนอร่อยของคุณได้ง่ายๆที่วงนอก</p>
+        </div>
     </div>
-    
+
     <div class="right-panel">
         <form class="login-box" action="/login" method="POST">
             <input type="text" id="username" name="username" placeholder="Username" required><br>
@@ -25,8 +27,11 @@
                 <img src="/images/facebook.png" id="facebookimg" alt="Log in with Facebook">
                 <img src="/images/line.png" id="lineimg" alt="Log in with Line">
             </div>
+            <div class="text-signup">
+                <p>No account</p><a href="">Sign up</a>
+            </div>
+
         </form>
-        
     </div>
 </body>
 
