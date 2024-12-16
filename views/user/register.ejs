@@ -59,19 +59,21 @@
 
     <script>
         function submitForm() {
-            // ดึงค่าจากฟอร์ม
             var name = document.getElementById('name').value;
             var username = document.getElementById('username').value;
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var confirm = document.getElementById('confirm').value;
-    
-            // ตรวจสอบว่า confirm password ตรงกับ password หรือไม่
+            // 1. ตรวจสอบความยาวของ Password
+            if (password.length < 8) {
+                alert("รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร");
+                return;
+            }
+            // 2. ตรวจสอบว่า confirm password ตรงกับ password หรือไม่
             if (password !== confirm) {
                 alert("Password และ Confirm Password ไม่ตรงกัน");
                 return;
             }
-    
             // ส่งข้อมูลไปยังเซิร์ฟเวอร์โดยใช้ AJAX (fetch API)
             fetch('/register', {
                 method: 'POST',
@@ -82,14 +84,13 @@
                     name: name,
                     username: username,
                     email: email,
-                    password: password
+                    password: password,
+                    confirm: confirm  // ส่ง confirm password ไปด้วย
                 })
             })
             .then(response => response.text())
             .then(data => {
-                // แสดงผลข้อความจากเซิร์ฟเวอร์ (สำเร็จหรือผิดพลาด)
-                alert(data); // หรือแสดงในส่วนของ HTML
-    
+                alert(data); // แสดงข้อความจากเซิร์ฟเวอร์
                 // ถ้าสมัครสมาชิกสำเร็จ
                 if (data === 'สมัครสมาชิกสำเร็จ') {
                     // ล้างฟอร์ม
@@ -98,16 +99,16 @@
                     document.getElementById('email').value = '';
                     document.getElementById('password').value = '';
                     document.getElementById('confirm').value = '';
-    
                     // พาผู้ใช้ไปยัง route ใหม่หลังจากกดยืนยัน
-                    window.location.href = '/home'; // เปลี่ยนเป็น route ที่ต้องการ
+                    window.location.href = '/login'; // เปลี่ยนเป็น route ที่ต้องการ
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('เกิดข้อผิดพลาดในการสมัครสมาชิก');
             });
-        }
+    }
+
     </script>
     
     
