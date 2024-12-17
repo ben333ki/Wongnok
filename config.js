@@ -1,5 +1,5 @@
 // config.js
 module.exports = {
-    mongoURI: 'mongodb://localhost:27017/myDatabase'
+    mongoURI: 'mongodb://localhost:27017/WongnokDB'
 };
 
