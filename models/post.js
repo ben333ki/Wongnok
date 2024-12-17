@@ -1,23 +1,12 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    topic: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+    post_topic: { type: String, required: true },
+    post_picture: { type: String },
+    avg_score: { type: Number, default: 0 },
+    post_time: { type: Date, default: Date.now },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 });
+
 
 module.exports = mongoose.model('Post', postSchema);

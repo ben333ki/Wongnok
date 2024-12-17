@@ -39,11 +39,27 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/', require('./routes/auth'));
-app.use('/', require('./routes/posts'));
-app.use('/', require('./routes/users'));
-app.use('/', require('./routes/dashboard'));
+const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/post');
+const recipeRoutes = require('./routes/recipe');
+const processRoutes = require('./routes/process');
+const ingredientRoutes = require('./routes/ingredient');
+const userRoutes = require('./routes/user');
+const followRoutes = require('./routes/follow');
+const commentRoutes = require('./routes/comment');
+const ratingRoutes = require('./routes/rating');
+
+// Use routes
+app.use(authRoutes);
+app.use(postRoutes);
+app.use(recipeRoutes);
+app.use(processRoutes);
+app.use(ingredientRoutes);
+app.use(userRoutes);
+app.use(followRoutes);
+app.use(commentRoutes);
+app.use(ratingRoutes);
+
 
 // Start the server
 const PORT = 3000;

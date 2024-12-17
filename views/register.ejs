@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+    <div class="left-panel">
+        <div class="signup-box">
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                <div class="name-username">
+                    <div class="input-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="profile_name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                </div>
+
+                <label for="email">Email</label>
+                <input type="email" name="user_email" required>
+
+                <label for="password">Password</label>
+                <input type="password" name="user_password" required>
+
+                <label for="confirm">Confirm</label>
+                <input type="password" name="user_password_confirm" required>
+
+                <button class="signup-btn" type="submit">Sign Up</button>
+            </form>
+            <p>or continue with</p>
+            <div class="social-signup">
+                <img src="/images/gmail.png" id="gmailimg" alt="gmail">
+                <img src="/images/facebook.png" id="facebookimg" alt="facebook">
+                <img src="/images/line.png" id="lineimg" alt="line">
+            </div>
+            <div class="text-login">
+                <p>Have an account?</p><a href="">Sign in</a>
+            </div>
+        </div>
+    </div>
+    <div class="right-panel">
+        <div class="right-text">
+            <p class="main-title">วงนอก</p>
+            <p class="sub-title">สูตรอาหารอร่อยที่เข้าถึงได้ง่าย</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const password = document.querySelector('input[name="user_password"]').value;
+            const confirmPassword = document.querySelector('input[name="user_password_confirm"]').value;
+
+            // Check if the passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                event.preventDefault();  // Prevent form submission
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
