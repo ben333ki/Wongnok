@@ -24,6 +24,7 @@
 .header-right {
     display: flex;
     align-items: center;
+    
 }
 
 .logo {
@@ -51,8 +52,6 @@
 }
 
 .create-post {
-    background-color: #7e7e7e;
-    color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -159,6 +158,54 @@ main {
     font-family: Arial, sans-serif;
 }
 
+
+/* สไตล์สำหรับ input ที่มี class "amount" */
+.ingredient-item .amount{
+    appearance: none;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 8px;
+    margin-right: 8px;
+}
+.ingredient-item .ingredient{
+    appearance: none;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 8px;
+    margin-right: 8px;
+}
+
+
+/* สไตล์สำหรับทุกปุ่มใน HTML */
+button {
+    background: #ED975C;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;;
+}
+
+/* สไตล์เมื่อ hover ปุ่ม */
+button:hover {
+    background: #d18451;
+    transform: scale(1.05);
+}
+
+#add-ingredient {
+    display: block; /* แสดงปุ่มเป็น block เพื่อให้ตั้งค่าความกว้างได้ */
+    margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+    width: 50%; /* ความกว้าง 50% ของหน้าจอ */
+    max-width: 300px; /* กำหนดความกว้างสูงสุดเพื่อให้ไม่ใหญ่เกินไป */
+    padding: 10px 16px;
+    margin-top: 10px;
+
+}
+
 .ingredients-header {
     display: flex;
     justify-content: space-between;
@@ -176,7 +223,7 @@ main {
 }
 
 .ingredient-item:nth-child(even) {
-    background-color: #eaeaea; 
+    background-color: #ece7d4; 
 }
 
 .ingredient {
@@ -189,43 +236,106 @@ main {
     text-align: right;
 }
 
-.svg-upload-video {
-    width: 60%;
-    height: 100%;
-    border-radius: 10px;
-}
-
 .video-section {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 800px;
-    height: 300px;
-    background-color: #F4ECC7;
+    background-color: #F4ECC7; /* จัดให้อยู่กึ่งกลางแนวนอน */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    width: 100%; /* ใช้พื้นที่เต็มหน้าจอ */
+    padding: 10px; /* เพิ่ม Padding เล็กน้อย */
+    box-sizing: border-box; /* ควบคุมขนาดรวม Padding */
 }
 
+.custom-file-upload {
+    display: block; /* ใช้ Block เพื่อให้ SVG มีขนาดเต็ม */
+    width: 500px; /* กำหนดความกว้างที่ต้องการ */
+    height: 281px; /* กำหนดความสูงที่ต้องการ */
+    cursor: pointer; /* แสดง Cursor เป็น Pointer */
+    overflow: hidden; /* ป้องกันการเกินพื้นที่ */
+    text-align: center;
+}
+
+#video-upload {
+    display: none; /* ซ่อน Input File */
+}
+
+.svg-upload-video {
+    display: block;
+    max-width: 100%; /* จำกัดความกว้างให้ไม่เกินพื้นที่ */
+    height: auto; /* รักษาอัตราส่วน */
+}
+
+
 .steps-section {
-    width: 100%;
-    background-color: #F4EFDC; /* สีพื้นหลัง */
-    padding: 10px;
     font-family: Arial, sans-serif;
+    background-color: #F4EFDC;
+    padding: 20px;
 }
 
 .step-list {
     display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 8px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.step-content {
-    padding-left: 1%;
-    flex: 1;
-    font-size: 14px;
-    color: #333;
-    text-align: left;
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* ระยะห่างระหว่างองค์ประกอบ */
+    width: 100%;
 }
+
+.custom-upload-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: #D9D9D9;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.svg-upload-icon {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.step-describe {
+    flex-grow: 1; /* กล่องข้อความขยายเต็มพื้นที่ */
+    height: 60px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* ปิดการปรับขนาด */
+}
+
+.add-step-button {
+    display: block; /* แสดงปุ่มเป็น block เพื่อให้ตั้งค่าความกว้างได้ */
+    margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+    width: 50%; /* ความกว้าง 50% ของหน้าจอ */
+    max-width: 300px; /* กำหนดความกว้างสูงสุดเพื่อให้ไม่ใหญ่เกินไป */
+    padding: 10px 16px;
+    margin-top: 10px;
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .step-item {
+        flex-wrap: wrap;
+    }
+    .custom-upload-box,
+    .remove-step {
+        flex: 0 0 auto;
+    }
+    .step-describe {
+        flex: 1 1 100%;
+    }
+}
+
 
 .form-input, .form-textarea, .step-describe {
     width: 350px; /* Full width of the container */
@@ -244,20 +354,6 @@ main {
     resize: none; /* Disable resizing */
 }
 
-.step-describe{
-    width: 600px;
-    height: 96px;
-    resize: none; /* Disable resizing */
-    margin-top: 15px;
-}
-
-.ingredient-item-add {
-    background-color: #ED975C;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
 
 .add-item-button {
     margin-top: 5px;
@@ -273,4 +369,40 @@ input[type="file"] {
 }
 
 
+.submit-section{
+    display: flex;
+    justify-content: space-between; /* จัดปุ่มให้อยู่คนละฝั่ง */
+    align-items: center;
+    padding: 20px 0;
+}
 
+
+.cancel-button {
+    background-color: #ef5a50; /* สีแดง */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.submit-button {
+    background-color: #4BA36E; /* สีเขียว */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 15px;
+}
+
+.submit-button:hover {
+    background: #459666;
+}
+
+.cancel-button:hover {
+    background: #e5574d;
+}
