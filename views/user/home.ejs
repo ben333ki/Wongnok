@@ -13,5 +13,50 @@
         <%- include('../partials/menu-followpage.ejs') %>
         <%- include('../partials/containpost.ejs') %>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // เมนูประเภทอาหาร
+            setupCarousel(
+                ".containtypefoodmenu-wrapper",
+                ".containtypefoodmenu",
+                ".left-arrowtypefood",
+                ".right-arrowtypefood"
+            );
+
+            // เมนูผู้ติดตาม
+            setupCarousel(
+                ".containtypefollowmenu-wrapper",
+                ".containfollowmenu",
+                ".left-arrowfollow",
+                ".right-arrowfollow"
+            );
+
+            function setupCarousel(wrapperSelector, containerSelector, leftArrowSelector, rightArrowSelector) {
+                const containerWrapper = document.querySelector(wrapperSelector);
+                const container = document.querySelector(containerSelector);
+                const leftArrow = document.querySelector(leftArrowSelector);
+                const rightArrow = document.querySelector(rightArrowSelector);
+
+                const itemWidth = container.querySelector("div").offsetWidth + 35; // ความกว้างของไอเท็ม + ช่วงห่าง
+                let scrollPosition = 0;
+
+                rightArrow.addEventListener("click", () => {
+                    const maxScroll = container.scrollWidth - containerWrapper.clientWidth;
+                    if (scrollPosition < maxScroll) {
+                        scrollPosition = Math.min(scrollPosition + itemWidth, maxScroll);
+                        container.style.transform = `translateX(-${scrollPosition}px)`;
+                    }
+                });
+
+                leftArrow.addEventListener("click", () => {
+                    if (scrollPosition > 0) {
+                        scrollPosition = Math.max(scrollPosition - itemWidth, 0);
+                        container.style.transform = `translateX(-${scrollPosition}px)`;
+                    }
+                });
+            }
+        });
+
+    </script>
 </body>
 </html>
