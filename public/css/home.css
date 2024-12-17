@@ -252,6 +252,11 @@ body {
     justify-content: center;
 }
 
+.favorite-button.favorite-active {
+    background-color: #F25252; /* สีแดง */
+    color: #FFFFFF; /* สีไอคอนขาว */
+}
+
 .rating-count {
     color: #996447;
 }

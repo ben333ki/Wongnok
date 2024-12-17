@@ -9,81 +9,97 @@
 </head>
 
 <body>
-    <header>
-        <div class="header">
-            <div class="header-left">
-                <img src="/images/LogoSample.png" alt="Logo" class="logo">
-                <span class="menu">กำลังติดตาม</span>
-                <span class="menu">ชื่นชอบ</span>
-                <input type="text" class="search-bar" placeholder="ค้นหาจาก...">
+    <div class="body">
+        <div class="containpost">
+            <div class="recipe-card">
+                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
+                <div class="recipe-details">
+                    <p class="chef-name">gordon ramsay</p>
+                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
+                    <div class="recipe-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">1,000 rating</span>
+                    </div>
+                </div>
+                <button class="favorite-button">♥</button>
             </div>
-            <div class="header-right">
-                <button class="create-post">+ สร้างโพส</button>
-                <img src="/images/LogoSample.png" alt="Profile" class="profile-pic">
+
+            <div class="recipe-card">
+                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
+                <div class="recipe-details">
+                    <p class="chef-name">gordon ramsay</p>
+                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
+                    <div class="recipe-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">1,000 rating</span>
+                    </div>
+                </div>
+                <button class="favorite-button">♥</button>
             </div>
-        </div>
-    </header>
-    <div class="typefoodmenu">
-        <p class="menutext">ประเภทอาหาร</p>
-        <div class="containtypefoodmenu-wrapper">
-            <button class="arrow left-arrow">❮</button>
-            <div class="containtypefoodmenu">
-                <div class="typefood">
-                    <img src="/images/boiled.png" alt="">
-                    <p>ต้ม</p>
+
+            <div class="recipe-card">
+                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
+                <div class="recipe-details">
+                    <p class="chef-name">gordon ramsay</p>
+                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
+                    <div class="recipe-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">1,000 rating</span>
+                    </div>
                 </div>
-                <div class="typefood">
-                    <img src="/images/puff.png" alt="">
-                    <p>ผัด</p>
-                </div>
-                <div class="typefood">
-                    <img src="/images/curry.png" alt="">
-                    <p>แกง</p>
-                </div>
-                <div class="typefood">
-                    <img src="/images/fry.png" alt="">
-                    <p>ทอด</p>
-                </div>
-                <div class="typefood">
-                    <img src="/images/salad.png" alt="">
-                    <p>ยำ</p>
-                </div>
-                <div class="typefood">
-                    <img src="/images/dessert.png" alt="">
-                    <p>ของหวาน</p>
-                </div>
+                <button class="favorite-button">♥</button>
             </div>
-            <button class="arrow right-arrow">❯</button>
+
+            <div class="recipe-card">
+                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
+                <div class="recipe-details">
+                    <p class="chef-name">gordon ramsay</p>
+                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
+                    <div class="recipe-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">1,000 rating</span>
+                    </div>
+                </div>
+                <button class="favorite-button">♥</button>
+            </div>
+
+            <div class="recipe-card">
+                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
+                <div class="recipe-details">
+                    <p class="chef-name">gordon ramsay</p>
+                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
+                    <div class="recipe-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">1,000 rating</span>
+                    </div>
+                </div>
+                <button class="favorite-button">♥</button>
+            </div>
+
+            <div class="recipe-card">
+                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
+                <div class="recipe-details">
+                    <p class="chef-name">gordon ramsay</p>
+                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
+                    <div class="recipe-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">1,000 rating</span>
+                    </div>
+                </div>
+                <button class="favorite-button">♥</button>
+            </div>
         </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-    const containerWrapper = document.querySelector(".containtypefoodmenu-wrapper");
-    const container = document.querySelector(".containtypefoodmenu");
-    const leftArrow = document.querySelector(".left-arrow");
-    const rightArrow = document.querySelector(".right-arrow");
-    const range = 35;
+            const favoriteButtons = document.querySelectorAll(".favorite-button");
 
-    const itemWidth = container.querySelector(".typefood").offsetWidth + range; 
-    let scrollPosition = 0;
-
-    rightArrow.addEventListener("click", () => {
-        const maxScroll = container.scrollWidth - containerWrapper.clientWidth;
-        if (scrollPosition < maxScroll) {
-            scrollPosition = Math.min(scrollPosition + itemWidth, maxScroll);
-            container.style.transform = `translateX(-${scrollPosition}px)`;
-        }
-    });
-
-    leftArrow.addEventListener("click", () => {
-        if (scrollPosition > 0) {
-            scrollPosition = Math.max(scrollPosition - itemWidth, 0);
-            container.style.transform = `translateX(-${scrollPosition}px)`;
-        }
-    });
-});
-
-
+            favoriteButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    button.classList.toggle("favorite-active");
+                });
+            });
+        });
 
     </script>
 </body>
