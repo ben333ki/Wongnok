@@ -60,6 +60,6 @@ app.listen(PORT, () => {
     create post                 : /main/post/create
     edit post                   : /main/post/:postID/edit
     following users and post    : /main/user/:userID/following
-    following users and post    : /main/user/:userID/favorites
+    favorates post              : /main/user/:userID/favorites
     user profile                : /main/user/:userID
 */
