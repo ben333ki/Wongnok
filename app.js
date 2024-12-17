@@ -2,13 +2,31 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const config = require('./config');
-const User = require('./models/user');
-const bodyParser = require('body-parser');
-
-
-// Middleware to serve static files and parse request bodies
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/uploads', express.static('public/uploads'));
+
+
+app.use(
+    session({
+        secret: 'yourSecretKey', // Replace with a strong secret
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({
+            mongoUrl: config.mongoURI, // MongoDB connection string
+            ttl: 7 * 24 * 60 * 60, // Session expiration: 1 day in seconds
+        }),
+        cookie: {
+            maxAge: 7 * 24 * 60 * 60 * 1000, // Session expires in 1 day
+            httpOnly: true, // Prevent client-side JavaScript access
+            secure: false, // Set to true if using HTTPS
+        },
+    })
+);
 
 
 // Connect to MongoDB
@@ -16,59 +34,32 @@ mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: t
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error(err));
 
-// Set up views and template engine
+// View Engine
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 // Routes
-app.get('/', (req, res) => {
-    res.render('testIndex', { message:'Home', isLogin:'No login' });
-});
-
-
-
-app.get('/create', (req, res) => {
-    res.render('user/create/create');
-});
-
-app.get('/register', (req, res) => {
-    res.render('testRegister');
-});
-
-app.post('/register', function(req, res) {
-    const newUser = new User({
-        name: req.body.name,  // Extract 'name' from the form
-        email: req.body.email, // Extract 'email' from the form
-        password: req.body.password // Extract 'password' from the form
-    });
-
-    newUser.save()
-        .then(() => {
-            console.log('User successfully saved!');
-            res.redirect('/'); // Redirect to the homepage after saving
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send('Failed to save user');
-        });
-});
-
-
-
-app.get('/users', (req, res) => {
-    User.find({})
-        .then(users => {
-            res.render('testUsers', { users }); // Pass the 'users' array to the EJS view
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send('Error retrieving users from the database');
-        });
-});
-
+app.use('/', require('./routes/index'));
+app.use('/', require('./routes/auth'));
+app.use('/', require('./routes/posts'));
+app.use('/', require('./routes/users'));
+app.use('/', require('./routes/dashboard'));
 
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+/*
+    register                    : /register  
+    login                       : /login
+    main page                   : /main
+    post detail                 : /main/post/:postID
+    create post                 : /main/post/create
+    edit post                   : /main/post/:postID/edit
+    following users and post    : /main/user/:userID/following
+    following users and post    : /main/user/:userID/favorites
+    user profile                : /main/user/:userID
+*/

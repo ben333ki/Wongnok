@@ -6,6 +6,7 @@
     <title>User List</title>
 </head>
 <body>
+
     <h1>All Users</h1>
     <table border="1">
         <thead>
@@ -15,13 +16,20 @@
             </tr>
         </thead>
         <tbody>
-            <% users.forEach(user => { %>
+            <% if (users.length === 0) { %>
                 <tr>
-                    <td><%= user.name %></td>
-                    <td><%= user.email %></td>
+                    <td colspan="2">No other users available.</td>
                 </tr>
-            <% }) %>
+            <% } else { %>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
         </tbody>
+        
     </table>
 </body>
 </html>

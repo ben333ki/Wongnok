@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>EJS Test</title>
-</head>
-<body>
-  <h1><%= message %></h1>
-  <p>Status: <%= isLogin %></p>
-  <% if (isLogin === 'Logged in') { %>
+<%- include('partials/header') %>
+<% if (isLogin === 'Logged in') { %>
       <a href="/logout">Logout</a>
   <% } else { %>
       <a href="/login">Login</a>
@@ -14,6 +7,9 @@
   <br>
   <a href="/register">Go to register</a><br>
   <a href="/users">Go to Users list</a><br>
-  <a href="/create">Go to Create page</a>
+  <a href="/posts/create">Go to Create Post</a><br>
+  <a href="/posts">See all Posts</a><br>
+  <a href="/dashboard">Go to Dashboard</a>
+  
 </body>
 </html>
