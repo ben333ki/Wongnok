@@ -1,67 +1,165 @@
-.recipe-card {
-    cursor: pointer;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    background-color: #E9B249;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 30px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.recipe-image {
-    width: 100%;
-    height: auto;
+footer {
+    background-color: #9b6144;
 }
 
-.recipe-details {
-    padding: 10px;
-    background-color: #F1EBD1;
+.comment-section {
+    max-width: 800px; /* กำหนดความกว้างสูงสุด */
+    margin: 40px auto 0; /* จัดให้อยู่ตรงกลางด้วย margin: auto */
+    padding: 20px;
+    background-color: #9b6144;
 }
 
-.chef-name {
-    font-size: 12px;
-    color: #8C4D2B;
+
+.comment-title {
+    font-size: 1.6rem;
+    color: #f3daa5;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-.recipe-title {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #8C4D2B;
-}
-
-.recipe-rating {
-    font-size: 12px;
-    color: gray;
-}
-
-.favorite-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #B7B7B7;
-    border: none;
-    font-size: 18px;
-    color: #FDFDFD;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+.comment-input {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-bottom: 10px;
 }
 
-.favorite-button.favorite-active {
-    background-color: #E74C3C; /* สีแดง */
-    color: #FFFFFF; /* สีไอคอนขาว */
+.user-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
-
-.rating-count {
-    color: #996447;
+.comment-input input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #fff;
+    padding: 8px 10px;
+    background-color: #ffffff00;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.stars {
-    color: #E9B249;
-} 
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.cancel-btn,
+.send-btn {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #f3daa5;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.cancel-btn {
+    background-color: #ffffff00;
+}
+
+.send-btn {
+    background-color: #ffffff00;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start; /* จัดให้อยู่ด้านบนสุดของความสูง */
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.comment-details {
+    flex-grow: 1;
+}
+
+.username {
+    font-size: 1rem;
+    color: #F3DBA6;
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    font-size: 0.95rem;
+    color: #f0f0f0;
+    line-height: 1.5;
+}
+
+.comment-input input::placeholder {
+    color: #ffffff8c;
+}
+
+.delete-btn {
+    background-color: #ffffff00;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 10px; 
+    margin-top: 5px;   
+    height: fit-content; 
+}
+
+.comment-input input::placeholder {
+    color: #ffffff8c;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-btn {
+    width: 23px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-options {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #333;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.menu-options button {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-options button:hover {
+    background-color: #555;
+    border-radius: 5px;
+}

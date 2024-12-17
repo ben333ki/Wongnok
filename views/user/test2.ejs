@@ -4,103 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Comment System</title>
     <link rel="stylesheet" href="/css/test2.css">
 </head>
 
 <body>
-    <div class="body">
-        <div class="containpost">
-            <div class="recipe-card">
-                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-                <div class="recipe-details">
-                    <p class="chef-name">gordon ramsay</p>
-                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-                    <div class="recipe-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-count">1,000 rating</span>
-                    </div>
-                </div>
-                <button class="favorite-button">♥</button>
+    <footer>
+        <div class="comment-section">
+            <h2 class="comment-title">ความคิดเห็น</h2>
+            <div class="comment-input">
+                <img src="/images/LogoSample.png" alt="User Logo" class="user-logo">
+                <input type="text" id="commentInput" placeholder="เพิ่มการตอบกลับ" class="input-comment">
             </div>
-
-            <div class="recipe-card">
-                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-                <div class="recipe-details">
-                    <p class="chef-name">gordon ramsay</p>
-                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-                    <div class="recipe-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-count">1,000 rating</span>
-                    </div>
-                </div>
-                <button class="favorite-button">♥</button>
+            <div class="button-group">
+                <button class="cancel-btn" id="clearComment" onclick="clearComment()">ยกเลิก</button>
+                <button class="send-btn" id="sendBtn">ส่งความคิดเห็น</button>
             </div>
-
-            <div class="recipe-card">
-                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-                <div class="recipe-details">
-                    <p class="chef-name">gordon ramsay</p>
-                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-                    <div class="recipe-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-count">1,000 rating</span>
+            <div id="commentsContainer">
+                <!-- ตัวอย่างคอมเมนต์ -->
+                <div class="comment">
+                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                    <div class="comment-details">
+                        <p class="username">@สมชาย</p>
+                        <p class="comment-text">วันนี้ได้มีโอกาสลองชิมข้าวผัดตะเลจากร้าน ต้องบอกว่าไม่ผิดหวังเลย</p>
                     </div>
                 </div>
-                <button class="favorite-button">♥</button>
-            </div>
-
-            <div class="recipe-card">
-                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-                <div class="recipe-details">
-                    <p class="chef-name">gordon ramsay</p>
-                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-                    <div class="recipe-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-count">1,000 rating</span>
+                <div class="comment">
+                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                    <div class="comment-details">
+                        <p class="username">@สมชาย</p>
+                        <p class="comment-text">วันนี้ได้มีโอกาสลองชิมข้าวผัดตะเลจากร้าน ต้องบอกว่าไม่ผิดหวังเลย</p>
                     </div>
                 </div>
-                <button class="favorite-button">♥</button>
-            </div>
 
-            <div class="recipe-card">
-                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-                <div class="recipe-details">
-                    <p class="chef-name">gordon ramsay</p>
-                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-                    <div class="recipe-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-count">1,000 rating</span>
+                <div class="comment">
+                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                    <div class="comment-details">
+                        <p class="username">@สมชาย</p>
+                        <p class="comment-text">เป็นครั้งแรกที่ได้ลองซูชิจากร้านนี้
+                            รสชาติสดใหม่ของปลาแซลมอนและปลาทูน่าเข้ากับข้าวญี่ปุ่นอย่างลงตัว</p>
                     </div>
                 </div>
-                <button class="favorite-button">♥</button>
-            </div>
 
-            <div class="recipe-card">
-                <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-                <div class="recipe-details">
-                    <p class="chef-name">gordon ramsay</p>
-                    <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-                    <div class="recipe-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-count">1,000 rating</span>
+                <div class="comment">
+                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                    <div class="comment-details">
+                        <p class="username">@สมชาย</p>
+                        <p class="comment-text">สเต๊กเนื้อที่นี่ไม่ธรรมดาจริงๆ! เนื้อย่างมาแบบมีความชุ่มฉ่ำอยู่ภายใน
+                            ขนาดที่พอดีในทุกคำ</p>
                     </div>
                 </div>
-                <button class="favorite-button">♥</button>
             </div>
         </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const favoriteButtons = document.querySelectorAll(".favorite-button");
+    </footer>
 
-            favoriteButtons.forEach(button => {
-                button.addEventListener("click", () => {
-                    button.classList.toggle("favorite-active");
-                });
-            });
+
+    <script>
+        // ฟังก์ชันสำหรับการเพิ่มคอมเมนต์ใหม่
+        document.getElementById('sendBtn').addEventListener('click', function () {
+            const commentInput = document.getElementById('commentInput'); // รับค่าจาก input
+            const commentText = commentInput.value.trim(); // ตัดช่องว่างซ้ายขวา
+
+            if (commentText) { // เช็คว่ามีข้อความหรือไม่
+                const commentContainer = document.getElementById('commentsContainer');
+
+                // สร้าง DOM ของคอมเมนต์ใหม่
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `
+                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                    <div class="comment-details">
+                        <p class="username">@คุณ</p>
+                        <p class="comment-text">${commentText}</p>
+                    </div>
+                    <div class="menu-container">
+                        <img src="/images/ellipsis-vertical.png" class="menu-btn" onclick="toggleMenu(this)">
+                        <div class="menu-options">
+                            <button onclick="deleteComment(this)">ลบ</button>
+                        </div>
+                    </div>
+                `;
+                commentContainer.appendChild(newComment);
+
+                commentInput.value = '';
+            } else {
+                alert('กรุณาใส่ข้อความก่อนส่งความคิดเห็น');
+            }
         });
 
+        // ฟังก์ชันสำหรับเคลียร์ input
+        function toggleMenu(button) {
+            const menuOptions = button.nextElementSibling;
+            menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
+        }
+        function clearComment() {
+            const commentInput = document.getElementById('commentInput'); // เลือก input
+            commentInput.value = ''; // เคลียร์ค่าใน input
+        }
+
+        // ฟังก์ชันสำหรับลบคอมเมนต์
+        function deleteComment(button) {
+            const comment = button.closest('.comment');
+            comment.remove();
+        }
     </script>
 </body>
 
