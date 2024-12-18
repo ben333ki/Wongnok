@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-    res.render('user/post', { title: 'Home Page' });
+    res.render('user/profile', { title: 'Home Page' });
 });
 
 app.use(express.static('public'));
