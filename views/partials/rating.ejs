@@ -1,100 +1,109 @@
+<style>
+    .rating-container {
+        display: flex;
+        align-items: center;
+        gap: 0px 20px;
+    }
+
+    .stars {
+        margin-top: 0px;
+        display: flex;
+        gap: 0px 5px;
+    }
+
+    .star-button {
+        width: 20px;
+        height: 20px;
+        font-size: 30px;
+        color: #444;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .star-button.hover {
+        color: #F0BE5F;
+    }
+
+    .avg-score {
+        font-size: 16px;
+        color: #000;
+    }
+
+    .rating-value {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .post-rating p{
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+</style>
+
 <div class="post-rating">
-    <label for="rating">Rate this Post:</label>
-    <p>
-      <strong>Average Score:</strong>
-      <%= post.avg_score.toFixed(2) %> (Out of 5)
-    </p>
-    
-    <div class="stars" id="starRating">
-      <% for (let i = 1; i <= 5; i++) { %>
-        <button type="button" class="star-button" data-value="<%= i %>">★</button>
-      <% } %>
+    <div class="rating-container">
+        <div class="stars" id="starRating">
+            <% for (let i=1; i <=5; i++) { %>
+                <button type="submit" class="star-button" data-value="<%= i %>">★</button>
+                <% } %>
+                <p class="avg-score"><%= post.avg_score.toFixed(2) %></p>
+                <p class="rating-value"><%= post.rating_count %> ratings</p>
+        </div>
+
+        
     </div>
-    
-    <input type="hidden" name="rating" id="rating" value="0">
-    <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
-  </div>
-  
-  <script>
+</div>
+
+<script>
     const starContainer = document.getElementById('starRating');
     const hiddenInput = document.getElementById('rating');
     let selectedRating = 0;
-  
+
     function highlightStars(count) {
-      document.querySelectorAll('.star-button').forEach((button, index) => {
-        if (index < count) {
-          button.classList.add('hover');
-        } else {
-          button.classList.remove('hover');
-        }
-      });
+        document.querySelectorAll('.star-button').forEach((button, index) => {
+            if (index < count) {
+                button.classList.add('hover');
+            } else {
+                button.classList.remove('hover');
+            }
+        });
     }
-  
+
     function submitRating(rating) {
-      const formData = new FormData();
-      formData.append('rating', rating);
-  
-      // ส่งคำขอ POST ไปยังเซิร์ฟเวอร์
-      fetch(`/main/post/<%= post._id %>/rate`, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        // การตอบสนองจากเซิร์ฟเวอร์
-        console.log(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        const formData = new FormData();
+        formData.append('rating', rating);
+
+        fetch(`/main/post/<%= post._id %>/rate`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
-  
+
     starContainer.addEventListener('mouseover', (e) => {
-      if (e.target.classList.contains('star-button')) {
-        highlightStars(e.target.dataset.value);
-      }
+        if (e.target.classList.contains('star-button')) {
+            highlightStars(e.target.dataset.value);
+        }
     });
-  
+
     starContainer.addEventListener('mouseout', () => {
-      highlightStars(selectedRating);
-    });
-  
-    starContainer.addEventListener('click', (e) => {
-      if (e.target.classList.contains('star-button')) {
-        selectedRating = e.target.dataset.value;
-        hiddenInput.value = selectedRating; // อัปเดตค่าของ input ที่ซ่อนอยู่
         highlightStars(selectedRating);
-        submitRating(selectedRating); // ส่งคะแนนไปยังเซิร์ฟเวอร์
-      }
     });
-  </script>
-  
-  <style>
-    .stars {
-      display: flex;
-      gap: 5px;
-    }
-  
-    .star-button {
-      width: 20px;
-      height: 20px;
-      font-size: 30px;
-      color: #444;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-  
-    .star-button.hover {
-      color: #F0BE5F;
-    }
-  
-    .rating-value {
-      margin-top: 10px;
-      display: block;
-      font-size: 14px;
-      color: #999;
-    }
-  </style>
-  
+
+    starContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('star-button')) {
+            selectedRating = e.target.dataset.value;
+            highlightStars(selectedRating);
+            submitRating(selectedRating);
+        }
+    });
+</script>
+
