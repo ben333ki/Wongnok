@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const FollowList = require('../models/followlist');
-const multer = require('multer');
-const path = require('path');
 
 // // Follow user
 // router.post('/main/user/:userID/follow', async (req, res) => {
@@ -29,7 +27,5 @@ const path = require('path');
 //     const favoritePosts = await Post.find({ favorites: req.params.userID });
 //     res.json(favoritePosts);
 // });
-
-
 
 module.exports = router;

@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- Link your CSS file if needed -->
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Main Page</h1>
-
-        <% if (user) { %>
-            <h2>Welcome, <%= user.profileName %>!</h2>
-            <img src="<%= user.profilePicture %>" alt="Profile Picture" width="50" height="50"> <!-- Display profile picture if available -->
-        <% } else { %>
-            <h2>Please <a href="/login">log in</a> to see your details.</h2>
-        <% } %>
-
-        <h2>Test All Routes</h2>
-        
-        <div class="routes">
-            <ul>
-                <li><a href="/register">Go to Register Page</a></li>
-                <li><a href="/login">Go to Login Page</a></li>
-                <li><a href="/main/post/create">Create a Post</a></li>
-                <li><a href="/logout">Logout</a></li>
-                <li><a href="/main/post/:postID">View a Post (Replace :postID with actual ID)</a></li>
-                <li><a href="/main/user/:userID">View User Profile (Replace :userID with actual ID)</a></li>
-                <li><a href="/main/user/:userID/following">View Following (Replace :userID with actual ID)</a></li>
-                <li><a href="/main/user/:userID/favorites">View Favorites (Replace :userID with actual ID)</a></li>
-            </ul>
-        </div>
-    </div>
+    <% if (user) { %>
+        <h2>Welcome, <%= user.profileName %>!</h2>
+        <img src="<%= user.profilePicture %>" alt="Profile Picture" width="50" height="50"> <!-- Display profile picture if available -->
+    <% } else { %>
+        <h2>Please <a href="/login">log in</a> to see your details.</h2>
+    <% } %>
+  <br>
+  <li><a href="/register">register</a></li>
+  <li><a href="/login">login</a></li>
+  <li><a href="/main/user/<%= user.userId %>/following">Following Page</a></li>
+  <li><a href="/main/create">Create a Post</a></li>
+  <li><a href="/main/user">Main page</a></li>
+  <li><a href="/logout">Logout</a></li>
 </body>
 </html>

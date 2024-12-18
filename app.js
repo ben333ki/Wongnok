@@ -41,9 +41,6 @@ app.set('view engine', 'ejs');
 // Routes
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
-const recipeRoutes = require('./routes/recipe');
-const processRoutes = require('./routes/process');
-const ingredientRoutes = require('./routes/ingredient');
 const userRoutes = require('./routes/user');
 const followRoutes = require('./routes/follow');
 const commentRoutes = require('./routes/comment');
@@ -52,9 +49,6 @@ const ratingRoutes = require('./routes/rating');
 // Use routes
 app.use(authRoutes);
 app.use(postRoutes);
-app.use(recipeRoutes);
-app.use(processRoutes);
-app.use(ingredientRoutes);
 app.use(userRoutes);
 app.use(followRoutes);
 app.use(commentRoutes);
@@ -79,3 +73,39 @@ app.listen(PORT, () => {
     following users and post    : /main/user/:userID/favorites
     user profile                : /main/user/:userID
 */
+
+// **Authentication Routes**
+// 1. GET /register - Render registration page DDDDDDDD
+// 2. POST /register - Handle user registration DDDDDDDDD
+// 3. GET /login - Render login page DDDDDDDDDD
+// 4. POST /login - Handle user login DDDDDDDDDDD
+
+// **Main Page Routes**
+// 5. GET /main - Display the main page with a list of posts DDDDDDDDDDD
+
+// **Post Management Routes (Recipe, Process, Ingredient)**
+// 6. GET /main/post/:postID - View details of a post (recipe, process, ingredients, comments, ratings) DDDDDDDDDDDDDDDD
+// 7. GET /main/post/create - Render the page to create a new post DDDDDDDDDDDDDDDDDDDDDDDDD
+// 8. POST /main/post/create - Handle the creation of a new post DDDDDDDDDDDDDDDDDDDDDDD
+// 9. GET /main/post/:postID/edit - Render edit page for a post  DDDDDDDDDDDDDDDDDDDDDDD
+// 10. POST /main/post/:postID/edit - Handle editing of post details (recipe, process, ingredients) DDDDDDDDDDDDDDDDDD
+// 11. POST /main/post/:postID/delete - Handle deletion of a post DDDDDDDDDDDDDDDDDDDDDDDD
+
+// **User Comment Routes**
+// 12. POST /main/post/:postID/comment - Add a comment to a post
+// 13. POST /main/post/:postID/comment/:commentID/edit - Edit a user's comment
+// 14. POST /main/post/:postID/comment/:commentID/delete - Delete a user's comment
+
+// **User Rating Routes**
+// 15. POST /main/post/:postID/rate - Add or update a rating for a post
+
+// **User Favorites and Following Routes**
+// 16. GET /main/user/:userID/favorites - View a user's favorite posts
+// 17. POST /main/post/:postID/favorite - Add a post to a user's favorites
+// 18. POST /main/post/:postID/unfavorite - Remove a post from favorites
+// 19. GET /main/user/:userID/following - View users and posts a user is following
+// 20. POST /main/user/:userID/follow - Follow a user
+// 21. POST /main/user/:userID/unfollow - Unfollow a user
+
+// **User Profile Routes**
+// 22. GET /main/user/:userID - View a user's profile

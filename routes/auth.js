@@ -40,18 +40,13 @@ router.post('/register', upload.single('profile_picture'), async (req, res) => {
         });
 
         await newUser.save();
-        res.redirect('/register/success');
+        res.redirect('/login');
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while saving the user.');
     }
 });
 
-
-// Success Page
-router.get('/register/success', (req, res) => {
-    res.send('User registered successfully!');
-});
 
 // Display login form
 router.get('/login', (req, res) => {
@@ -86,7 +81,7 @@ router.post('/login', async (req, res) => {
         };
 
         // Redirect to the main page
-        res.redirect('/main');
+        res.redirect('/main/user');
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while logging in.');

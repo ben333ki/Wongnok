@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Link your CSS file if needed -->
+</head>
+<body>
+    <div class="container">
+
+        <% if (user) { %>
+            <h2>Welcome to following page, <%= user.profileName %>!</h2>
+            <img src="<%= user.profilePicture %>" alt="Profile Picture" width="50" height="50"> <!-- Display profile picture if available -->
+        <% } else { %>
+            <h2>Please <a href="/login">log in</a> to see your details.</h2>
+        <% } %>
+
+        <h2>Test All Routes</h2>
+        
+        <div class="routes">
+            <ul>
+                <li><a href="/register">Go to Register Page</a></li>
+                <li><a href="/login">Go to Login Page</a></li>
+                <li><a href="/main/post/create">Create a Post</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
