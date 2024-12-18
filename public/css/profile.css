@@ -253,3 +253,7 @@
   .stars {
     color: #E9B249;
   } 
+
+  #logout {
+    background-color: red;
+  }
