@@ -12,19 +12,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #B97A57;
-    /* สีพื้นหลังของ Header */
+    background-color: #996447; /* สีพื้นหลังของ Header */
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 8em;
-}
-
-.header-left input {
-    outline: none;
-    border: none;
+    gap:  8em;
 }
 
 .header-right {
@@ -53,7 +47,7 @@
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 15px;
-    margin-right: 10px;
+    margin-right: 10px; /* ระยะห่างจากปุ่มสร้างโพส */
 }
 
 .create-post {
@@ -63,7 +57,7 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 10px; /* ระยะห่างจากรูปโปรไฟล์ */
 }
 
 .profile-pic {
@@ -72,6 +66,8 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+
 
 body {
     background-color: #E9CD91;
@@ -88,44 +84,10 @@ main {
     border-radius: 5px;
 }
 
-.recipe-card a,
-.header a {
-    text-decoration: none;
-}
-
-.recipe h1,
-.recipe p {
+.recipe h1, .recipe p {
     margin-bottom: 10px;
 }
 
-.edit-post {
-    margin-left: 150px;
-    background-color: #ED975C;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-post:hover {
-    background: #d18451;
-    transform: scale(1.01);
-}
-
-.delete-post {
-    background-color: #ED975C;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.delete-post:hover {
-    background: #d18451;
-    transform: scale(1.01);
-}
 
 .post-header {
     display: flex;
@@ -179,7 +141,7 @@ main {
 }
 
 .rating-stars {
-    color: #6d6d6d;
+    color: #6d6d6d; 
 }
 
 .rating-value {
@@ -193,17 +155,26 @@ main {
     text-align: left;
 }
 
+.post-video-preview {
+    display: flex;
+    justify-content: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
+    align-items: center; /* (ถ้าต้องการให้จัดตรงกลางแนวตั้งด้วย) */
+    height: 100%; /* ปรับตามความสูงที่ต้องการ */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.youtube-preview {
+    text-align: center; /* จัดเนื้อหาใน youtube-preview ให้อยู่ตรงกลาง */
+}
 
-.ingredients,
-.video-section,
-.steps,
-.comments {
+
+.ingredients, .video-section, .steps, .comments {
     margin-bottom: 20px;
 }
 
 .ingredients-section {
     width: 100%;
-    background-color: #F4EFDC;
+    background-color: #F4EFDC; 
     border-radius: 5px;
     padding: 10px;
     font-family: Arial, sans-serif;
@@ -214,8 +185,8 @@ main {
     justify-content: space-between;
     padding: 8px 0;
     font-weight: bold;
-    color: #8C4D2B;
-    border-bottom: 1px solid #ddd;
+    color: #8C4D2B; 
+    border-bottom: 1px solid #ddd; 
 }
 
 .ingredient-item {
@@ -226,13 +197,11 @@ main {
 }
 
 .ingredient-item:nth-child(even) {
-    background-color: #eaeaea;
-    /* สีพื้นหลังของบรรทัดคู่ */
+    background-color: #eaeaea; /* สีพื้นหลังของบรรทัดคู่ */
 }
 
 .ingredient-item:nth-child(odd) {
-    background-color: #ffffff;
-    /* สีพื้นหลังของบรรทัดคู่ */
+    background-color: #ffffff; /* สีพื้นหลังของบรรทัดคู่ */
 }
 
 .ingredient {
@@ -258,8 +227,7 @@ main {
 .steps-section {
     color: #8C4D2B;
     width: 100%;
-    background-color: #F4EFDC;
-    /* สีพื้นหลัง */
+    background-color: #F4EFDC; /* สีพื้นหลัง */
     border-radius: 5px;
     padding: 10px;
     font-family: Arial, sans-serif;
@@ -275,13 +243,11 @@ main {
 }
 
 .step-item:nth-child(even) {
-    background-color: #e8e8e8;
-    /* สีพื้นหลังสำหรับแถวคู่ */
+    background-color: #eaeaea; /* สีพื้นหลังสำหรับแถวคู่ */
 }
 
 .step-item:nth-child(odd) {
-    background-color: #ffffff;
-    /* สีพื้นหลังสำหรับแถวคู่ */
+    background-color: #ffffff; /* สีพื้นหลังสำหรับแถวคู่ */
 }
 
 .step-image {
@@ -326,22 +292,17 @@ main {
     text-align: left;
 }
 
-
-
 .comments .comment:last-child {
     border-bottom: none;
 }
-
 
 footer {
     background-color: #9b6144;
 }
 
 .comment-section {
-    max-width: 800px;
-    /* กำหนดความกว้างสูงสุด */
-    margin: 40px auto 0;
-    /* จัดให้อยู่ตรงกลางด้วย margin: auto */
+    max-width: 800px; /* กำหนดความกว้างสูงสุด */
+    margin: 40px auto 0; /* จัดให้อยู่ตรงกลางด้วย margin: auto */
     padding: 20px;
     background-color: #9b6144;
 }
@@ -405,8 +366,7 @@ footer {
 
 .comment {
     display: flex;
-    align-items: flex-start;
-    /* จัดให้อยู่ด้านบนสุดของความสูง */
+    align-items: flex-start; /* จัดให้อยู่ด้านบนสุดของความสูง */
     justify-content: space-between;
     margin-top: 20px;
     padding-bottom: 20px;
@@ -447,9 +407,9 @@ footer {
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.8rem;
-    margin-left: 10px;
-    margin-top: 5px;
-    height: fit-content;
+    margin-left: 10px; 
+    margin-top: 5px;   
+    height: fit-content; 
 }
 
 .comment-input input::placeholder {
@@ -495,11 +455,3 @@ footer {
     border-radius: 5px;
 }
 
-header button:hover {
-    background: #d18451;
-    transform: scale(1.01);
-}
-
-.header-left a {
-    text-decoration: none;
-}

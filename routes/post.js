@@ -5,6 +5,9 @@ const Post = require('../models/post');
 // const FollowList = require('../models/followlist'); // Replace with your Follow schema if applicable
 const multer = require('multer');
 const { isAuthenticated } = require('../middleware/index')
+const methodOverride = require('method-override');
+
+router.use(methodOverride('_method'));  // This tells Express to look for the "_method" field in the request
 
 
 router.get('/test', isAuthenticated, (req, res) => {
@@ -45,7 +48,7 @@ router.get('/main/user', isAuthenticated, async (req, res) => {
 router.get('/main/user/post/:id', isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.id;
-
+    const user = req.session.user;
     // Populate only the `createdBy` field since `recipe` is no longer used
     const post = await Post.findById(postId).populate('createdBy');
 
@@ -53,12 +56,14 @@ router.get('/main/user/post/:id', isAuthenticated, async (req, res) => {
       return res.status(404).send('Post not found');
     }
 
-    res.render('postDetail', { post, user: req.session.user });
+    // Ensure the correct user object is passed
+    res.render('postDetail', { post, user });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving post');
   }
 });
+
 
 
 router.get('/main/create', isAuthenticated, (req, res) => {
@@ -128,5 +133,24 @@ router.post(
 );
 
 
+// Route to delete a post
+router.post('/post/:id/delete', isAuthenticated, async (req, res) => {
+  try {
+      const post = await Post.findById(req.params.id);
+      if (!post || post.createdBy.toString() !== req.session.user.userId) {
+          return res.status(403).send('You are not authorized to delete this post');
+      }
+
+      await Post.findByIdAndDelete(req.params.id);
+      res.redirect('/main/user'); // Redirect to the posts list after deleting
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error deleting the post');
+  }
+});
+
+
 module.exports = router;
+
+
 

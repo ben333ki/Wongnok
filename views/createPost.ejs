@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create Post</title>
     <link rel="stylesheet" href="/css/create.css">
 </head>
 
@@ -78,10 +78,8 @@
                             </label>
                             <input id="upload-step-image-{{Date.now()}}" type="file" accept="image/*" style="display: none;" name="processes[0][process_picture]">
                             
-                            <!-- กล่องข้อความ -->
                             <textarea class="step-describe" placeholder="Enter step" name="processes[0][process_describe]" required></textarea>
                     
-                            <!-- ปุ่ม Remove -->
                             <button class="remove-step" type="button">Remove</button>
                         </div>
                     </div>
@@ -89,7 +87,7 @@
                 </div>
                 
                 <div class="submit-section">
-                    <a href="/main/user"></a><button class="cancel-button" type="button">Cancel</button>
+                    <a href="/main/user"><button class="cancel-button" type="button">Cancel</button></a>
                     <button class="submit-button" type="submit">Submit</button>
                 </div>
             </section>
@@ -282,6 +280,4 @@
         inputSection.style.display = "flex"; // แสดง Input กลับมา
     }
     </script>
-
-
 </html>
