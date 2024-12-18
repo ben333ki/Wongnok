@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+</head>
+<body>
+    <h1>Create a New Post</h1>
+    <form action="/main/create" method="POST" enctype="multipart/form-data">
+        <label for="post_topic">Post Topic:</label>
+        <input type="text" name="post_topic" required><br>
+        <label for="post_describe">Description of the Post:</label>
+        <textarea id="post_describe" name="post_describe" required></textarea>
+        <label for="post_picture">Post Picture:</label>
+        <input type="file" name="post_picture" required><br>
+        
+        <h3>Ingredients:</h3>
+        <div id="ingredients">
+            <label for="ingredient_name_1">Ingredient Name:</label>
+            <input type="text" name="ingredients[0][ingredient_name]" required><br>
+            <label for="ingredient_amount_1">Ingredient Amount:</label>
+            <input type="text" name="ingredients[0][ingredient_amount]" required><br>
+        </div>
+
+        <button type="button" onclick="addIngredient()">Add More Ingredient</button><br><br>
+
+        <h3>Processes:</h3>
+        <div id="processes">
+            <label for="process_describe_0">Process Description:</label>
+            <input type="text" name="processes[0][process_describe]" required><br>
+            <label for="process_picture_0">Process Picture:</label>
+            <input type="file" name="processes[0][process_picture]"><br>
+        </div>
+        <button type="button" onclick="addProcess()">Add More Process</button>
+        
+
+        <button type="submit">Create Post</button>
+    </form>
+
+    <script>
+        // Function to dynamically add more ingredients
+        function addIngredient() {
+            const ingredientsDiv = document.getElementById("ingredients");
+            const index = ingredientsDiv.children.length / 2; // Find the next ingredient index
+            const newIngredient = `
+                <label for="ingredient_name_${index}">Ingredient Name:</label>
+                <input type="text" name="ingredients[${index}][ingredient_name]" required><br>
+                <label for="ingredient_amount_${index}">Ingredient Amount:</label>
+                <input type="text" name="ingredients[${index}][ingredient_amount]" required><br>
+            `;
+            ingredientsDiv.insertAdjacentHTML('beforeend', newIngredient);
+        }
+
+        // Function to dynamically add more process steps
+        function addProcess() {
+            const processesDiv = document.getElementById('processes');
+            const index = processesDiv.children.length / 3; // Adjust based on the number of elements per step
+            const newProcess = `
+                <label for="process_describe_${index}">Process Description:</label>
+                <input type="text" name="processes[${index}][process_describe]" required><br>
+                <label for="process_picture_${index}">Process Picture:</label>
+                <input type="file" name="processes[${index}][process_picture]"><br>
+            `;
+            processesDiv.insertAdjacentHTML('beforeend', newProcess);
+        }
+    </script>
+</body>
+</html>
