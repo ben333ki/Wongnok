@@ -54,7 +54,6 @@
     border: 1px solid #ccc;
     border-radius: 15px;
     margin-right: 10px;
-    /* ระยะห่างจากปุ่มสร้างโพส */
 }
 
 .create-post {
@@ -65,7 +64,6 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
-    /* ระยะห่างจากรูปโปรไฟล์ */
 }
 
 .profile-pic {
@@ -100,6 +98,34 @@ main {
     margin-bottom: 10px;
 }
 
+.edit-post {
+    margin-left: 150px;
+    background-color: #ED975C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-post:hover {
+    background: #d18451;
+    transform: scale(1.01);
+}
+
+.delete-post {
+    background-color: #ED975C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-post:hover {
+    background: #d18451;
+    transform: scale(1.01);
+}
 
 .post-header {
     display: flex;

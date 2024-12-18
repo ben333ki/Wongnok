@@ -26,26 +26,13 @@
                             <img src="/images/default-profile.png" alt="Default Profile" class="author-image">
                         <% } %>
                         <span class="author-name"><%= post.createdBy.profile_name %></span>
+                        <button class="edit-post">แก้ไข</button>
+                        <button class="delete-post">ลบ</button>
                     </div>
+                    
                     <h2 class="post-title"><%= post.post_topic %></h2>
 
                     <%- include('./partials/rating.ejs') %>
-                    <!-- <div class="post-rating">
-                        <form action="/main/post/<%= post._id %>/rate" method="POST">
-                            <label for="rating">Rate this Post:</label>
-                            <p><strong>Average Score:</strong> <%= post.avg_score.toFixed(2) %> (Out of 5)</p>
-                            <select name="rating" id="rating">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <button type="submit">Submit Rating</button>
-                        </form>
-                        <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
-                    </div> -->
-
                     <p class="post-description"><%= post.post_describe %></p>
                     
                 </div>
