@@ -3,12 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <div class="container">
-
-        <h1>Favorite</h1>
+    <%- include('./partials/header.ejs') %>
+    <div class="body">
+        <%- include('./partials/bodyimg.ejs') %>
+        <%- include('./partials/menu-favpage.ejs') %>
+        <%- include('./partials/containpost.ejs') %>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setupCarousel(
+                ".containtypefoodmenu-wrapper",
+                ".containtypefoodmenu",
+                ".left-arrowtypefood",
+                ".right-arrowtypefood"
+            );
+
+            setupCarousel(
+                ".containtypefollowmenu-wrapper",
+                ".containfollowmenu",
+                ".left-arrowfollow",
+                ".right-arrowfollow"
+            );
+
+            function setupCarousel(wrapperSelector, containerSelector, leftArrowSelector, rightArrowSelector) {
+                const containerWrapper = document.querySelector(wrapperSelector);
+                const container = document.querySelector(containerSelector);
+                const leftArrow = document.querySelector(leftArrowSelector);
+                const rightArrow = document.querySelector(rightArrowSelector);
+
+                const itemWidth = container.querySelector("div").offsetWidth + 35; // ความกว้างของไอเท็ม + ช่วงห่าง
+                let scrollPosition = 0;
+
+                rightArrow.addEventListener("click", () => {
+                    const maxScroll = container.scrollWidth - containerWrapper.clientWidth;
+                    if (scrollPosition < maxScroll) {
+                        scrollPosition = Math.min(scrollPosition + itemWidth, maxScroll);
+                        container.style.transform = `translateX(-${scrollPosition}px)`;
+                    }
+                });
+
+                leftArrow.addEventListener("click", () => {
+                    if (scrollPosition > 0) {
+                        scrollPosition = Math.max(scrollPosition - itemWidth, 0);
+                        container.style.transform = `translateX(-${scrollPosition}px)`;
+                    }
+                });
+            }
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const favoriteButtons = document.querySelectorAll(".favorite-button");
+            favoriteButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    button.classList.toggle("favorite-active");
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <div class="containpost">
   <% posts.forEach(post => { %>
     <div class="recipe-card">
-      <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" />
+      <a href="/main/user/post/<%= post._id %>"><img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" /></a>
       <div class="recipe-details">
         <p class="chef-name"><%= post.createdBy.profile_name %></p>
-        <h3 class="recipe-title"><%= post.post_topic %></h3>
+        <a href="/main/user/post/<%= post._id %>"><h3 class="recipe-title"><%= post.post_topic %></h3></a>
         <div class="recipe-rating">
           <% for (let i = 0; i < Math.floor(post.avg_score); i++) { %>
             <span class="star">★</span>

@@ -53,7 +53,7 @@ router.get('/main/user/post/:id', isAuthenticated, async (req, res) => {
       return res.status(404).send('Post not found');
     }
 
-    res.render('postDetail', { post });
+    res.render('postDetail', { post, user: req.session.user });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving post');
@@ -129,3 +129,4 @@ router.post(
 
 
 module.exports = router;
+
