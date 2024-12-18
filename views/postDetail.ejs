@@ -1,103 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= post.post_topic %> - Post Details</title>
+    <title>
+        <%= post.post_topic %> - Post Details
+    </title>
     <link rel="stylesheet" href="/css/post.css">
 </head>
+
 <body>
     <%- include('./partials/header.ejs') %>
-    <main>
-        <section class="recipe">
-            <div class="post-header">
-                <% if (post.post_picture) { %>
-                    <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="post-image">
-                <% } %>
-                <div class="post-info">
-                    <div class="author-info">
-                        <% if (post.createdBy.profile_picture) { %>
-                            <img src="/uploads/<%= post.createdBy.profile_picture.split('\\').pop() %>" alt="Profile" class="author-image">
-                        <% } else { %>
-                            <img src="/images/default-profile.png" alt="Default Profile" class="author-image">
+        <main>
+            <section class="recipe">
+                <div class="post-header">
+                    <% if (post.post_picture) { %>
+                        <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>"
+                            class="post-image">
                         <% } %>
-                        <span class="author-name"><%= post.createdBy.profile_name %></span>
-                    </div>
-                    <h2 class="post-title"><%= post.post_topic %></h2>
-                    <div class="post-rating">
-                        <span class="rating-stars">⭐⭐⭐⭐✩</span> <!-- Update based on actual rating -->
-                        <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
-                    </div>
-                    <p class="post-description"><%= post.description %></p>
-                </div>
-            </div>
-
-            <div class="ingredients-section">
-                <div class="ingredients-header">
-                    <span class="ingredient-title">Ingredients</span>
-                    <span class="amount-title">Amount</span>
-                </div>
-                <% if (post.ingredients && post.ingredients.length > 0) { %>
-                    <% post.ingredients.forEach(ingredient => { %>
-                        <div class="ingredient-item">
-                            <span class="ingredient"><%= ingredient.ingredient_name %></span>
-                            <span class="amount"><%= ingredient.ingredient_amount %></span>
-                        </div>
-                    <% }) %>
-                <% } else { %>
-                    <p>No ingredients listed for this post.</p>
-                <% } %>
-            </div>
-
-            <% if (post.video_url) { %>
-                <div class="video-section">
-                    <h2>Video</h2>
-                    <iframe width="100%" height="315" src="<%= post.video_url %>" frameborder="0" allowfullscreen></iframe>
-                </div>
-            <% } %>
-
-            <div class="steps-section">
-                <h2>Steps</h2>
-                <% if (post.processes && post.processes.length > 0) { %>
-                    <% post.processes.forEach(process => { %>
-                        <div class="step-item">
-                            <% if (process.process_picture) { %>
-                                <img src="/uploads/<%= process.process_picture.split('\\').pop() %>" alt="Step <%= process.no_step %>" class="step-image">
-                            <% } %>
-                            <div class="step-content">
-                                <strong>Step <%= process.no_step %></strong><br>
-                                <%= process.process_describe %>
+                            <div class="post-info">
+                                <div class="author-info">
+                                    <% if (post.createdBy.profile_picture) { %>
+                                        <img src="/uploads/<%= post.createdBy.profile_picture.split('\\').pop() %>"
+                                            alt="Profile" class="author-image">
+                                        <% } else { %>
+                                            <img src="/images/default-profile.png" alt="Default Profile"
+                                                class="author-image">
+                                            <% } %>
+                                                <span class="author-name">
+                                                    <%= post.createdBy.profile_name %>
+                                                </span>
+                                </div>
+                                <h2 class="post-title">
+                                    <%= post.post_topic %>
+                                </h2>
+                                <div class="post-rating">
+                                    <span class="rating-stars">⭐⭐⭐⭐✩</span> <!-- Update based on actual rating -->
+                                    <span class="rating-value">
+                                        <%= post.avg_score %> (<%= post.rating_count %> ratings)
+                                    </span>
+                                </div>
+                                <p class="post-description">
+                                    <%= post.description %>
+                                </p>
                             </div>
-                        </div>
-                    <% }) %>
-                <% } else { %>
-                    <p>No steps listed for this post.</p>
-                <% } %>
-            </div>
-        </section>
+                </div>
 
-        <section class="comments">
-            <h2>Comments</h2>
-            <% if (post.comments && post.comments.length > 0) { %>
-                <% post.comments.forEach(comment => { %>
-                    <div class="comment-item">
-                        <% if (comment.user.profile_picture) { %>
-                            <img src="/uploads/<%= comment.user.profile_picture.split('\\').pop() %>" alt="<%= comment.user.name %>" class="comment-image">
-                        <% } else { %>
-                            <img src="/images/default-profile.png" alt="Default Profile" class="comment-image">
-                        <% } %>
-                        <div class="comment-content">
-                            <strong><%= comment.user.name %></strong><br>
-                            <%= comment.text %>
-                        </div>
+                <div class="ingredients-section">
+                    <div class="ingredients-header">
+                        <span class="ingredient-title">Ingredients</span>
+                        <span class="amount-title">Amount</span>
                     </div>
-                <% }) %>
-            <% } else { %>
-                <p>No comments yet. Be the first to comment!</p>
-            <% } %>
-        </section>
-    </main>
+                    <% if (post.ingredients && post.ingredients.length> 0) { %>
+                        <% post.ingredients.forEach(ingredient=> { %>
+                            <div class="ingredient-item">
+                                <span class="ingredient">
+                                    <%= ingredient.ingredient_name %>
+                                </span>
+                                <span class="amount">
+                                    <%= ingredient.ingredient_amount %>
+                                </span>
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <p>No ingredients listed for this post.</p>
+                                    <% } %>
+                </div>
 
-    <a href="/main/user">Go back to your profile</a>
+                <div class="post-video-preview">
+                    <% if (post.youtube_url) { %>
+                        <div class="youtube-preview">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/<%= post.youtube_url.split('v=')[1] %>"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <% } %>
+                </div>
+
+                <div class="steps-section">
+                    <h2>Steps</h2>
+                    <% if (post.processes && post.processes.length> 0) { %>
+                        <% post.processes.forEach(process=> { %>
+                            <div class="step-item">
+                                <% if (process.process_picture) { %>
+                                    <img src="/uploads/<%= process.process_picture.split('\\').pop() %>"
+                                        alt="Step <%= process.no_step %>" class="step-image">
+                                    <% } %>
+                                        <div class="step-content">
+                                            <strong>Step <%= process.no_step %></strong><br>
+                                            <%= process.process_describe %>
+                                        </div>
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <p>No steps listed for this post.</p>
+                                    <% } %>
+                </div>
+            </section>
+
+            <section class="comments">
+                <h2>Comments</h2>
+                <% if (post.comments && post.comments.length> 0) { %>
+                    <% post.comments.forEach(comment=> { %>
+                        <div class="comment-item">
+                            <% if (comment.user.profile_picture) { %>
+                                <img src="/uploads/<%= comment.user.profile_picture.split('\\').pop() %>"
+                                    alt="<%= comment.user.name %>" class="comment-image">
+                                <% } else { %>
+                                    <img src="/images/default-profile.png" alt="Default Profile" class="comment-image">
+                                    <% } %>
+                                        <div class="comment-content">
+                                            <strong>
+                                                <%= comment.user.name %>
+                                            </strong><br>
+                                            <%= comment.text %>
+                                        </div>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <p>No comments yet. Be the first to comment!</p>
+                                <% } %>
+            </section>
+        </main>
+
+        <a href="/main/user">Go back to your profile</a>
+        <%- include('./partials/comment-section.ejs') %>
+
+        <script>
+            document.getElementById('sendBtn').addEventListener('click', function () {
+                const commentInput = document.getElementById('commentInput'); // รับค่าจาก input
+                const commentText = commentInput.value.trim(); // ตัดช่องว่างซ้ายขวา
+                if (commentText) { // เช็คว่ามีข้อความหรือไม่
+                    const commentContainer = document.getElementById('commentsContainer');
+                    // สร้าง DOM ของคอมเมนต์ใหม่
+                    const newComment = document.createElement('div');
+                    newComment.classList.add('comment');
+                    newComment.innerHTML = `
+                <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                <div class="comment-details">
+                    <p class="username">@คุณ</p>
+                    <p class="comment-text">${commentText}</p>
+                </div>
+                <div class="menu-container">
+                    <img src="/images/ellipsis-vertical.png" class="menu-btn" onclick="toggleMenu(this)">
+                    <div class="menu-options">
+                        <button onclick="deleteComment(this)">ลบ</button>
+                    </div>
+                </div>
+            `;
+                    commentContainer.appendChild(newComment);
+                    commentInput.value = '';
+                } else {
+                    alert('กรุณาใส่ข้อความก่อนส่งความคิดเห็น');
+                }
+            });
+            // ฟังก์ชันสำหรับเคลียร์ input
+            function toggleMenu(button) {
+                const menuOptions = button.nextElementSibling;
+                menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
+            }
+            function clearComment() {
+                const commentInput = document.getElementById('commentInput'); // เลือก input
+                commentInput.value = ''; // เคลียร์ค่าใน input
+            }
+            // ฟังก์ชันสำหรับลบคอมเมนต์
+            function deleteComment(button) {
+                const comment = button.closest('.comment');
+                comment.remove();
+            }
+        </script>
 </body>
+
 </html>
