@@ -1,29 +1,29 @@
 <div class="profile-container">
     <!-- Logo and Name Section -->
     <div class="logo-name">
-      <div class="logo">
-        <img src="/images/LogoSample.png" alt="ACS Logo">
-      </div>
-      <div class="name-edit">
-        <h2>ACS KMUTT</h2>
-        <button>Edit</button>
-      </div>
+        <div class="logo">
+            <img src="<%= user.profile_picture %>" alt="<%= user.profile_name %>">
+        </div>
+        <div class="name-edit">
+            <h2><%= user.profile_name %></h2>
+            <button onclick="window.location.href='/main/user/profile/edit'">Edit</button>
+        </div>
     </div>
-  
+
     <!-- Followers and Posts Section -->
     <div class="stats">
-      <div class="stat">
-        <span>10</span>
-        <p>followers</p>
-      </div>
-      <div class="stat">
-        <span>10</span>
-        <p>posts</p>
-      </div>
+        <div class="stat">
+            <span>10</span>
+            <p>followers</p>
+        </div>
+        <div class="stat">
+            <span>10</span>
+            <p>posts</p>
+        </div>
     </div>
-  
+
     <!-- Description Section -->
     <div class="description">
-      <p>British celebrity chef, restaurateur, television presenter, and writer.</p>
+        <p><%= user.user_bio || 'No bio provided.' %></p>
     </div>
-  </div>
+</div>

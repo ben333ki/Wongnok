@@ -24,11 +24,9 @@ router.get('/register', (req, res) => {
 // Handle Form Submission (Add User with Profile Picture)
 router.post('/register', upload.single('profile_picture'), async (req, res) => {
     try {
-        console.log('Request Body:', req.body); // Check form data
-        console.log('Uploaded File:', req.file); // Check uploaded file
-
+ 
         const { profile_name, username, user_password, user_email, user_bio } = req.body;
-        const profile_picture = req.file ? `/uploads/${req.file.filename}` : null;
+        const defaultProfilePicture = '/images/defaultProfile.png';
 
         const newUser = new User({
             profile_name,
@@ -36,7 +34,7 @@ router.post('/register', upload.single('profile_picture'), async (req, res) => {
             user_password,
             user_email,
             user_bio,
-            profile_picture,
+            profile_picture: defaultProfilePicture,
         });
 
         await newUser.save();
@@ -72,12 +70,12 @@ router.post('/login', async (req, res) => {
             return res.status(400).send('Invalid username or password.');
         }
 
+
         // Store user information in session
         req.session.user = {
             userId: user._id,
             profileName: user.profile_name,
             username: user.username,
-            profilePicture: user.profile_picture,  // Optional, if you want to display a profile picture
         };
 
         // Redirect to the main page
