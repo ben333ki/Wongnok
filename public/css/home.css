@@ -207,14 +207,21 @@ body {
     overflow: hidden;
     position: relative;
     margin-bottom: 30px;
+
+    display: flex; /* ทำให้เป็น Flexbox */
+    flex-direction: column; /* เรียงเนื้อหาเป็นแนวตั้ง */
 }
+
 
 .recipe-image {
-    width: 100%;
-    height: auto;
+    width: 300px; /* กำหนดความกว้างคงที่ */
+    height: 200px; /* กำหนดความสูงคงที่ */
+    object-fit: cover; /* ทำให้รูปภาพถูกครอบตามขนาดที่กำหนด */
 }
 
+
 .recipe-details {
+    margin-top: auto; /* ดันรายละเอียดลงมาด้านล่าง */
     padding: 10px;
     background-color: #F1EBD1;
 }
