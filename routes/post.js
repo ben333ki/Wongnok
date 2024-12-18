@@ -9,6 +9,12 @@ const FollowList = require('../models/followlist'); // Replace with your Follow 
 const multer = require('multer');
 const { isAuthenticated } = require('../middleware/index')
 
+
+router.get('/test', isAuthenticated, (req, res) => {
+  console.log(req.session.user); // Debug: Log the user session object
+  res.render('test', { user: req.session.user });
+});
+
 // Configure multer for file uploads (e.g., images)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

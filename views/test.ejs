@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/css/create.css">
+
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <main>
+        <section class="recipe">
+            <div class="post-header">
+                <label for="file-upload" class="custom-file-upload">
+                    <div class="svg-container">
+                        <svg class="svg-upload-image" width="400" height="275" viewBox="0 0 545 372" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0H545V372H0V0Z" fill="#D9D9D9"/>
+                            <rect x="217.978" y="140.963" width="62.9471" height="76.5802" fill="white"/>
+                            <path d="M249.45 103L314.792 152.09H184.108L249.45 103Z" fill="white"/>
+                        </svg>
+                    </div>
+                </label>
+                <input id="file-upload" type="file" accept="image/*" name="post_picture" />
+                <div id="image-preview" class="image-preview"></div>
+                <div class="post-info">
+                    <div class="author-info">
+                        <img src="images/ACS.jpg" alt="Profile" class="author-image">
+                        <span class="author-name">ACS KMUTT</span>
+                    </div>
+                    <input type="text" name="post_topic" class="form-input" placeholder="Enter post topic" required>
+                    <textarea name="post_describe" class="form-textarea" placeholder="Enter description" required></textarea>
+                </div>
+            </div>
+
+            <div class="ingredients-section">
+                <div class="ingredients-header">
+                    <span class="ingredient-title">ส่วนผสม</span>
+                    <span class="amount-title">ปริมาณ</span>
+                </div>
+                <div id="ingredient-list" class="ingredient-list">
+                    <div class="ingredient-item">
+                        <input type="text" name="ingredients[0][ingredient_name]" class="ingredient" placeholder="Enter ingredient" required>
+                        <input type="text" name="ingredients[0][ingredient_amount]" class="amount" placeholder="Enter amount" required>
+                        <button class="remove-ingredient" type="button">Remove</button>
+                    </div>
+                </div>
+                <button id="add-ingredient" class="ingredient-item-add" type="button">Add Ingredient</button>
+            </div>
+
+            <div class="video-section" id="video-section">
+                <div class="youtube-preview" id="video-preview" style="display: none;">
+                    <iframe id="youtube-video" src="" allowfullscreen></iframe>
+                    <button class="remove-video-btn" onclick="removeVideo()">×</button>
+                </div>
+                <div id="video-input-section">
+                    <input type="text" name="youtube_link" id="youtube-link" placeholder="Enter YouTube link" />
+                    <button type="button" onclick="addVideo()">Add Video</button>
+                </div>
+            </div>
+
+            <div class="steps-section">
+                <h2>วิธีทำ</h2>
+                <div id="step-list" class="step-list">
+                    <div class="step-item">
+                        <label for="upload-step-image-{{Date.now()}}" class="custom-upload-box">
+                            <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                                <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </label>
+                        <input id="upload-step-image-{{Date.now()}}" type="file" accept="image/*" name="processes[0][process_picture]" style="display: none;">
+                        <textarea name="processes[0][process_describe]" class="step-describe" placeholder="Enter step" required></textarea>
+                        <button class="remove-step" type="button">Remove</button>
+                    </div>
+                </div>
+                <button id="add-step" class="add-step-button" type="button">Add Step</button>
+            </div>
+
+            <div class="submit-section">
+                <button class="cancel-button" type="button">Cancel</button>
+                <button class="submit-button" type="submit">Submit</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Dynamically add more ingredients
+        document.getElementById('add-ingredient').addEventListener('click', function() {
+            const ingredientList = document.getElementById('ingredient-list');
+            const newItem = document.createElement('div');
+            newItem.classList.add('ingredient-item');
+            newItem.innerHTML = `
+                <input type="text" name="ingredients[${ingredientList.children.length}][ingredient_name]" class="ingredient" placeholder="Enter ingredient" required>
+                <input type="text" name="ingredients[${ingredientList.children.length}][ingredient_amount]" class="amount" placeholder="Enter amount" required>
+                <button class="remove-ingredient" type="button">Remove</button>
+            `;
+            newItem.querySelector('.remove-ingredient').addEventListener('click', function() {
+                newItem.remove();
+            });
+            ingredientList.appendChild(newItem);
+        });
+
+        // Handle main image upload (for the recipe image)
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('uploaded-image-container');
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imageContainer.appendChild(img);
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.classList.add('remove-image-btn');
+                    removeBtn.textContent = 'Delete';
+                    removeBtn.addEventListener('click', function() {
+                        imageContainer.replaceWith(uploadLabel);
+                        document.getElementById('file-upload').value = '';
+                    });
+                    imageContainer.appendChild(removeBtn);
+
+                    const fileUploadLabel = document.querySelector('.custom-file-upload');
+                    uploadLabel = fileUploadLabel;
+                    fileUploadLabel.replaceWith(imageContainer);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Dynamically add more process steps
+        document.getElementById('add-step').addEventListener('click', function() {
+            const stepList = document.getElementById('step-list');
+            const newStep = document.createElement('div');
+            newStep.classList.add('step-item');
+            newStep.innerHTML = `
+                <label for="upload-step-image-${Date.now()}" class="custom-upload-box">
+                    <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                        <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </label>
+                <input id="upload-step-image-${Date.now()}" type="file" accept="image/*" name="processes[${stepList.children.length}][process_picture]" style="display: none;">
+                <textarea name="processes[${stepList.children.length}][process_describe]" class="step-describe" placeholder="Enter step" required></textarea>
+                <button class="remove-step" type="button">Remove</button>
+            `;
+            newStep.querySelector('.remove-step').addEventListener('click', function() {
+                newStep.remove();
+            });
+            stepList.appendChild(newStep);
+        });
+
+        // Handle YouTube video preview
+        function addVideo() {
+            const linkInput = document.getElementById('youtube-link');
+            const videoPreview = document.getElementById('video-preview');
+            const videoIframe = document.getElementById('youtube-video');
+            const inputSection = document.getElementById('video-input-section');
+
+            if (linkInput.value.trim()) {
+                const youtubeLink = linkInput.value.replace("watch?v=", "embed/");
+                videoIframe.src = youtubeLink;
+                videoPreview.style.display = "flex";
+                inputSection.style.display = "none";
+            } else {
+                alert("Please enter a valid YouTube link.");
+            }
+        }
+
+        function removeVideo() {
+            const videoPreview = document.getElementById('video-preview');
+            const videoIframe = document.getElementById('youtube-video');
+            const inputSection = document.getElementById('video-input-section');
+
+            videoIframe.src = "";
+            videoPreview.style.display = "none";
+            inputSection.style.display = "flex";
+        }
+    </script>
+</body>
+</html>
