@@ -1,79 +1,21 @@
 <div class="containpost">
+  <% posts.forEach(post => { %>
     <div class="recipe-card">
-        <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-        <div class="recipe-details">
-            <p class="chef-name">gordon ramsay</p>
-            <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-            <div class="recipe-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">1,000 rating</span>
-            </div>
+      <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" />
+      <div class="recipe-details">
+        <p class="chef-name"><%= post.createdBy.profile_name %></p>
+        <h3 class="recipe-title"><%= post.post_topic %></h3>
+        <div class="recipe-rating">
+          <% for (let i = 0; i < Math.floor(post.avg_score); i++) { %>
+            <span class="star">★</span>
+          <% } %>
+          <% for (let i = 0; i < 5 - Math.floor(post.avg_score); i++) { %>
+            <span class="star">☆</span>
+          <% } %>
+          <span class="rating-count"> (<%= post.rating_count || 0 %> ratings)</span>
         </div>
-        <button class="favorite-button">♥</button>
+      </div>
+      <button class="favorite-button">♥</button>
     </div>
-
-    <div class="recipe-card">
-        <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-        <div class="recipe-details">
-            <p class="chef-name">gordon ramsay</p>
-            <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-            <div class="recipe-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">1,000 rating</span>
-            </div>
-        </div>
-        <button class="favorite-button">♥</button>
-    </div>
-
-    <div class="recipe-card">
-        <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-        <div class="recipe-details">
-            <p class="chef-name">gordon ramsay</p>
-            <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-            <div class="recipe-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">1,000 rating</span>
-            </div>
-        </div>
-        <button class="favorite-button">♥</button>
-    </div>
-
-    <div class="recipe-card">
-        <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-        <div class="recipe-details">
-            <p class="chef-name">gordon ramsay</p>
-            <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-            <div class="recipe-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">1,000 rating</span>
-            </div>
-        </div>
-        <button class="favorite-button">♥</button>
-    </div>
-
-    <div class="recipe-card">
-        <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-        <div class="recipe-details">
-            <p class="chef-name">gordon ramsay</p>
-            <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-            <div class="recipe-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">1,000 rating</span>
-            </div>
-        </div>
-        <button class="favorite-button">♥</button>
-    </div>
-
-    <div class="recipe-card">
-        <img src="/images/foodimg.png" alt="Seafood Rice" class="recipe-image" />
-        <div class="recipe-details">
-            <p class="chef-name">gordon ramsay</p>
-            <h3 class="recipe-title">ข้าวต้มทะเล สูตรแม่ประนอม</h3>
-            <div class="recipe-rating">
-                <span class="stars">★★★★★</span>
-                <span class="rating-count">1,000 rating</span>
-            </div>
-        </div>
-        <button class="favorite-button">♥</button>
-    </div>
+  <% }) %>
 </div>

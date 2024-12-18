@@ -69,11 +69,27 @@ router.get('/main/post/:id', isAuthenticated, async (req, res) => {
   }
 });
 
+// View all post
+router.get('/main/posts', isAuthenticated, async (req, res) => {
+  try {
+    // Fetch all posts, populate the `createdBy` field (user who created the post)
+    const posts = await Post.find().populate('createdBy');
+
+    if (!posts.length) {
+      return res.status(404).send('No posts found');
+    }
+
+    res.render('main', { posts }); // Render all posts on the `allPosts` view
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving posts');
+  }
+});
 
 
 
 router.get('/main/create', (req, res) => {
-  res.render('createPost');
+  res.render('test');
 })
 
 router.post(

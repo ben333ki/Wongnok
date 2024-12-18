@@ -7,13 +7,16 @@
             <a href="/main/user/following">
                 <span class="menu">กำลังติดตาม</span>
             </a>
-
-            <span class="menu">ชื่นชอบ</span>
+            <a href="/main/user/favorite">
+                <span class="menu">ชื่นชอบ</span>
+            </a>
             <input type="text" class="search-bar" placeholder="ค้นหาจาก...">
         </div>
         <div class="header-right">
             <button class="create-post" onclick="window.location.href='/main/create'">+ สร้างโพส</button>
-            <img src="/images/LogoSample.png" alt="Profile" class="profile-pic">
+            <a href="/main/user/:userID">
+                <img src="/images/LogoSample.png" alt="Profile" class="profile-pic">
+            </a>
         </div>
     </div>
 </header>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Posts</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .containpost {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .recipe-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .recipe-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .recipe-details {
+      margin-top: 10px;
+    }
+    .chef-name {
+      font-size: 1rem;
+      color: #555;
+    }
+    .recipe-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .recipe-rating {
+      font-size: 0.9rem;
+      color: #f39c12;
+    }
+    .rating-count {
+      font-size: 0.8rem;
+      color: #888;
+    }
+    .favorite-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #e74c3c;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">All Posts</h1>
+    <div class="containpost">
+      <% posts.forEach(post => { %>
+        <div class="recipe-card">
+          <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" />
+          <div class="recipe-details">
+            <p class="chef-name"><%= post.createdBy.profile_name %></p>
+            <h3 class="recipe-title"><%= post.post_topic %></h3>
+            <div class="recipe-rating">
+              <span class="stars">★★★★★</span> <!-- You can dynamically adjust stars based on avg_score -->
+              <span class="rating-count"><%= post.avg_score %> rating</span>
+            </div>
+          </div>
+          <button class="favorite-button">♥</button>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>
