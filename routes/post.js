@@ -88,7 +88,7 @@ router.post(
     try {
       console.log('Session User ID:', req.session.user.userId);
 
-      const { post_topic, ingredients, processes } = req.body;
+      const { post_topic, post_describe, ingredients, processes } = req.body; // Include post_describe here
       const post_picture = req.files['post_picture']
         ? req.files['post_picture'][0].path
         : '';
@@ -108,6 +108,7 @@ router.post(
 
       const newPost = new Post({
         post_topic,
+        post_describe, // Save the description of the post
         post_picture,
         createdBy: req.session.user.userId,
         ingredients: parsedIngredients,
@@ -122,6 +123,7 @@ router.post(
     }
   }
 );
+
 
 
 // router.get('/main/post/:id', async (req, res) => {

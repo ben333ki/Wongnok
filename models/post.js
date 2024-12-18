@@ -20,8 +20,10 @@ const postSchema = new mongoose.Schema({
     avg_score: { type: Number, default: 0 }, // Average score for the post (optional)
     post_time: { type: Date, default: Date.now }, // Timestamp for when the post was created
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // User who created the post
+    post_describe: { type: String, required: true }, // Description of the post
     processes: [processSchema], // Array of processes (each post can have multiple steps)
     ingredients: [ingredientSchema], // Array of ingredients (each post can have multiple ingredients)
 });
+
 
 module.exports = mongoose.model('Post', postSchema);
