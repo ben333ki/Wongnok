@@ -30,6 +30,29 @@
         <p>No ingredients listed for this post.</p>
     <% } %>
 
+    <div class="post-detail">
+        <h1><%= post.post_topic %></h1>
+        <p><%= post.post_describe %></p>
+        <% if (post.post_picture) { %>
+            <img src="/<%= post.post_picture %>" alt="Post Picture" />
+        <% } %>
+    
+        <% if (post.youtube_url) { %>
+            <div class="youtube-preview">
+                <h3>Watch Video:</h3>
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/<%= post.youtube_url.split('v=')[1] %>" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        <% } %>
+    </div>    
+
     <!-- Display Processes -->
     <h2>Steps</h2>
     <% if (post.processes && post.processes.length > 0) { %>

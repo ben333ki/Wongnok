@@ -117,7 +117,7 @@ router.post(
     try {
       console.log('Session User ID:', req.session.user.userId);
 
-      const { post_topic, post_describe, ingredients, processes } = req.body; // Include post_describe here
+      const { post_topic, post_describe, ingredients, processes, youtube_url } = req.body; // Include youtube_url
       const post_picture = req.files['post_picture']
         ? req.files['post_picture'][0].path
         : '';
@@ -137,8 +137,9 @@ router.post(
 
       const newPost = new Post({
         post_topic,
-        post_describe, // Save the description of the post
+        post_describe,
         post_picture,
+        youtube_url, // Save the YouTube URL
         createdBy: req.session.user.userId,
         ingredients: parsedIngredients,
         processes: parsedProcesses,
