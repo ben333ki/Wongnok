@@ -3,7 +3,7 @@
     <div class="recipe-card">
       <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" />
       <div class="recipe-details">
-        <p class="chef-name"><%= post.createdBy.profile_name %></p>
+        <p><strong>Created by:</strong> <%= post.createdBy ? post.createdBy.profile_name : 'Unknown' %></p>
         <h3 class="recipe-title"><%= post.post_topic %></h3>
         <div class="recipe-rating">
           <% for (let i = 0; i < Math.floor(post.avg_score); i++) { %>
@@ -12,7 +12,7 @@
           <% for (let i = 0; i < 5 - Math.floor(post.avg_score); i++) { %>
             <span class="star">☆</span>
           <% } %>
-          <span class="rating-count"> (<%= post.rating_count || 0 %> ratings)</span>
+          <p><strong>Average Score:</strong> <%= post.avg_score.toFixed(2) %> (Out of 5)</p>
         </div>
       </div>
       <button class="favorite-button">♥</button>

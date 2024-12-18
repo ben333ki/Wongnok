@@ -15,16 +15,18 @@ const ingredientSchema = new mongoose.Schema({
 
 // Main Post schema
 const postSchema = new mongoose.Schema({
-    post_topic: { type: String, required: true }, // Topic of the post
-    post_picture: { type: String }, // Picture for the post (optional)
-    avg_score: { type: Number, default: 0 }, // Average score for the post (optional)
-    post_time: { type: Date, default: Date.now }, // Timestamp for when the post was created
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // User who created the post
-    post_describe: { type: String, required: true }, // Description of the post
-    youtube_url: { type: String }, // YouTube video link (optional)
-    processes: [processSchema], // Array of processes (each post can have multiple steps)
-    ingredients: [ingredientSchema], // Array of ingredients (each post can have multiple ingredients)
+    post_topic: { type: String, required: true },
+    post_picture: { type: String },
+    avg_score: { type: Number, default: 0 },
+    post_time: { type: Date, default: Date.now },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    post_describe: { type: String, required: true },
+    youtube_url: { type: String },
+    processes: [processSchema],
+    ingredients: [ingredientSchema],
+    ratings: [{ user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, rating: Number }] // เพิ่มฟิลด์ ratings
 });
+
 
 
 

@@ -16,7 +16,21 @@
     <!-- Display Creator Information -->
     <p><strong>Created by:</strong> <%= post.createdBy.profile_name %></p>
     <p><strong>Created on:</strong> <%= new Date(post.post_time).toLocaleString() %></p>
-    <p><strong>Average Score:</strong> <%= post.avg_score %></p>
+    
+
+    <form action="/main/post/<%= post._id %>/rate" method="POST">
+        <label for="rating">Rate this Post:</label>
+        <p><strong>Average Score:</strong> <%= post.avg_score.toFixed(2) %> (Out of 5)</p>
+        <select name="rating" id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button type="submit">Submit Rating</button>
+    </form>
+    
 
     <!-- Display Ingredients -->
     <h2>Ingredients</h2>
@@ -30,13 +44,7 @@
         <p>No ingredients listed for this post.</p>
     <% } %>
 
-    <div class="post-detail">
-        <h1><%= post.post_topic %></h1>
-        <p><%= post.post_describe %></p>
-        <% if (post.post_picture) { %>
-            <img src="/<%= post.post_picture %>" alt="Post Picture" />
-        <% } %>
-    
+    <div class="post-video-preview">
         <% if (post.youtube_url) { %>
             <div class="youtube-preview">
                 <h3>Watch Video:</h3>
@@ -73,4 +81,8 @@
     <!-- Back Link -->
     <a href="/main/user">Go back to your profile</a>
 </body>
+<script>
+
+
+</script>
 </html>
