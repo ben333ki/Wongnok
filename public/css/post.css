@@ -285,3 +285,163 @@ main {
 .comments .comment:last-child {
     border-bottom: none;
 }
+
+
+footer {
+    background-color: #9b6144;
+}
+
+.comment-section {
+    max-width: 800px; /* กำหนดความกว้างสูงสุด */
+    margin: 40px auto 0; /* จัดให้อยู่ตรงกลางด้วย margin: auto */
+    padding: 20px;
+    background-color: #9b6144;
+}
+
+
+.comment-title {
+    font-size: 1.6rem;
+    color: #f3daa5;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.comment-input {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.user-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-input input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #fff;
+    padding: 8px 10px;
+    background-color: #ffffff00;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.cancel-btn,
+.send-btn {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #f3daa5;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.cancel-btn {
+    background-color: #ffffff00;
+}
+
+.send-btn {
+    background-color: #ffffff00;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start; /* จัดให้อยู่ด้านบนสุดของความสูง */
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.comment-details {
+    flex-grow: 1;
+}
+
+.username {
+    font-size: 1rem;
+    color: #F3DBA6;
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    font-size: 0.95rem;
+    color: #f0f0f0;
+    line-height: 1.5;
+}
+
+.comment-input input::placeholder {
+    color: #ffffff8c;
+}
+
+.delete-btn {
+    background-color: #ffffff00;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 10px; 
+    margin-top: 5px;   
+    height: fit-content; 
+}
+
+.comment-input input::placeholder {
+    color: #ffffff8c;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-btn {
+    width: 23px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-options {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #333;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.menu-options button {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-options button:hover {
+    background-color: #555;
+    border-radius: 5px;
+}

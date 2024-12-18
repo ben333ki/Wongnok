@@ -1,142 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/test3.css">
+    <title><%= post.post_topic %> - Post Details</title>
+    <link rel="stylesheet" href="/css/post.css">
 </head>
-
 <body>
-    <header>
-        <div class="header">
-            <div class="header-left">
-                <img src="/images/LogoSample.png" alt="Logo" class="logo">
-                <span class="menu">กำลังติดตาม</span>
-                <span class="menu">ชื่นชอบ</span>
-                <input type="text" class="search-bar" placeholder="ค้นหาจาก...">
-            </div>
-            <div class="header-right">
-                <button class="create-post">+ สร้างโพส</button>
-                <img src="/images/LogoSample.png" alt="Profile" class="profile-pic">
-            </div>
-        </div>
-    </header>
-    <div class="containermenu">
-        <div class="typefoodmenu">
-            <p class="menutext">ประเภทอาหาร</p>
-            <div class="containtypefoodmenu-wrapper">
-                <button class="arrowtypefood left-arrowtypefood">❮</button>
-                <div class="containtypefoodmenu">
-                    <div class="typefood">
-                        <img src="/images/boiled.png" alt="">
-                        <p>ต้ม</p>
+    <%- include('../partials/header.ejs') %>
+    <main>
+        <section class="recipe">
+            <div class="post-header">
+                <% if (post.post_picture) { %>
+                    <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="post-image">
+                <% } %>
+                <div class="post-info">
+                    <div class="author-info">
+                        <% if (post.createdBy.profile_picture) { %>
+                            <img src="/uploads/<%= post.createdBy.profile_picture.split('\\').pop() %>" alt="Profile" class="author-image">
+                        <% } else { %>
+                            <img src="/images/default-profile.png" alt="Default Profile" class="author-image">
+                        <% } %>
+                        <span class="author-name"><%= post.createdBy.profile_name %></span>
                     </div>
-                    <div class="typefood">
-                        <img src="/images/puff.png" alt="">
-                        <p>ผัด</p>
+                    <h2 class="post-title"><%= post.post_topic %></h2>
+                    <div class="post-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐✩</span> <!-- Update based on actual rating -->
+                        <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
                     </div>
-                    <div class="typefood">
-                        <img src="/images/curry.png" alt="">
-                        <p>แกง</p>
-                    </div>
-                    <div class="typefood">
-                        <img src="/images/fry.png" alt="">
-                        <p>ทอด</p>
-                    </div>
-                    <div class="typefood">
-                        <img src="/images/salad.png" alt="">
-                        <p>ยำ</p>
-                    </div>
-                    <div class="typefood">
-                        <img src="/images/dessert.png" alt="">
-                        <p>ของหวาน</p>
-                    </div>
+                    <p class="post-description"><%= post.description %></p>
                 </div>
-                <button class="arrowtypefood right-arrowtypefood">❯</button>
             </div>
-        </div>
 
-        <div class="followmenu">
-            <p class="menutext">ผู้ติดตาม</p>
-            <div class="containtypefollowmenu-wrapper">
-                <button class="arrowfollow left-arrowfollow">❮</button>
-                <div class="containfollowmenu">
-                    <div class="profilefollow">
-                        <img src="/images/chef2.png" alt="">
-                        <p>เชฟเอียน</p>
-                    </div>
-                    <div class="profilefollow">
-                        <img src="/images/chef3.png" alt="">
-                        <p>Gordon</p>
-                    </div>
-                    <div class="profilefollow">
-                        <img src="/images/chef1.png" alt="">
-                        <p>VIPS</p>
-                    </div>
-                    <div class="profilefollow">
-                        <img src="/images/chef2.png" alt="">
-                        <p>เชฟเอียน</p>
-                    </div>
-                    <div class="profilefollow">
-                        <img src="/images/chef3.png" alt="">
-                        <p>Gordon</p>
-                    </div>
-                    <div class="profilefollow">
-                        <img src="/images/chef1.png" alt="">
-                        <p>VIPS</p>
-                    </div>
+            <div class="ingredients-section">
+                <div class="ingredients-header">
+                    <span class="ingredient-title">Ingredients</span>
+                    <span class="amount-title">Amount</span>
                 </div>
-                <button class="arrowfollow right-arrowfollow">❯</button>
+                <% if (post.ingredients && post.ingredients.length > 0) { %>
+                    <% post.ingredients.forEach(ingredient => { %>
+                        <div class="ingredient-item">
+                            <span class="ingredient"><%= ingredient.ingredient_name %></span>
+                            <span class="amount"><%= ingredient.ingredient_amount %></span>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No ingredients listed for this post.</p>
+                <% } %>
             </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // เมนูประเภทอาหาร
-            setupCarousel(
-                ".containtypefoodmenu-wrapper",
-                ".containtypefoodmenu",
-                ".left-arrowtypefood",
-                ".right-arrowtypefood"
-            );
 
-            // เมนูผู้ติดตาม
-            setupCarousel(
-                ".containtypefollowmenu-wrapper",
-                ".containfollowmenu",
-                ".left-arrowfollow",
-                ".right-arrowfollow"
-            );
+            <% if (post.video_url) { %>
+                <div class="video-section">
+                    <h2>Video</h2>
+                    <iframe width="100%" height="315" src="<%= post.video_url %>" frameborder="0" allowfullscreen></iframe>
+                </div>
+            <% } %>
 
-            function setupCarousel(wrapperSelector, containerSelector, leftArrowSelector, rightArrowSelector) {
-                const containerWrapper = document.querySelector(wrapperSelector);
-                const container = document.querySelector(containerSelector);
-                const leftArrow = document.querySelector(leftArrowSelector);
-                const rightArrow = document.querySelector(rightArrowSelector);
+            <div class="steps-section">
+                <h2>Steps</h2>
+                <% if (post.processes && post.processes.length > 0) { %>
+                    <% post.processes.forEach(process => { %>
+                        <div class="step-item">
+                            <% if (process.process_picture) { %>
+                                <img src="/uploads/<%= process.process_picture.split('\\').pop() %>" alt="Step <%= process.no_step %>" class="step-image">
+                            <% } %>
+                            <div class="step-content">
+                                <strong>Step <%= process.no_step %></strong><br>
+                                <%= process.process_describe %>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No steps listed for this post.</p>
+                <% } %>
+            </div>
+        </section>
 
-                const itemWidth = container.querySelector("div").offsetWidth + 35; // ความกว้างของไอเท็ม + ช่วงห่าง
-                let scrollPosition = 0;
+        <section class="comments">
+            <h2>Comments</h2>
+            <% if (post.comments && post.comments.length > 0) { %>
+                <% post.comments.forEach(comment => { %>
+                    <div class="comment-item">
+                        <% if (comment.user.profile_picture) { %>
+                            <img src="/uploads/<%= comment.user.profile_picture.split('\\').pop() %>" alt="<%= comment.user.name %>" class="comment-image">
+                        <% } else { %>
+                            <img src="/images/default-profile.png" alt="Default Profile" class="comment-image">
+                        <% } %>
+                        <div class="comment-content">
+                            <strong><%= comment.user.name %></strong><br>
+                            <%= comment.text %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No comments yet. Be the first to comment!</p>
+            <% } %>
+        </section>
+    </main>
 
-                rightArrow.addEventListener("click", () => {
-                    const maxScroll = container.scrollWidth - containerWrapper.clientWidth;
-                    if (scrollPosition < maxScroll) {
-                        scrollPosition = Math.min(scrollPosition + itemWidth, maxScroll);
-                        container.style.transform = `translateX(-${scrollPosition}px)`;
-                    }
-                });
-
-                leftArrow.addEventListener("click", () => {
-                    if (scrollPosition > 0) {
-                        scrollPosition = Math.max(scrollPosition - itemWidth, 0);
-                        container.style.transform = `translateX(-${scrollPosition}px)`;
-                    }
-                });
-            }
-        });
-
-    </script>
+    <a href="/main/user">Go back to your profile</a>
 </body>
-
 </html>

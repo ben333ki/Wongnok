@@ -115,6 +115,54 @@
             </div>
         </section>
     </main>
+    <%- include('../partials/comment-section.ejs') %>
+    <script>
+        document.getElementById('sendBtn').addEventListener('click', function () {
+            const commentInput = document.getElementById('commentInput'); // รับค่าจาก input
+            const commentText = commentInput.value.trim(); // ตัดช่องว่างซ้ายขวา
 
+            if (commentText) { // เช็คว่ามีข้อความหรือไม่
+                const commentContainer = document.getElementById('commentsContainer');
+
+                // สร้าง DOM ของคอมเมนต์ใหม่
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `
+                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
+                    <div class="comment-details">
+                        <p class="username">@คุณ</p>
+                        <p class="comment-text">${commentText}</p>
+                    </div>
+                    <div class="menu-container">
+                        <img src="/images/ellipsis-vertical.png" class="menu-btn" onclick="toggleMenu(this)">
+                        <div class="menu-options">
+                            <button onclick="deleteComment(this)">ลบ</button>
+                        </div>
+                    </div>
+                `;
+                commentContainer.appendChild(newComment);
+
+                commentInput.value = '';
+            } else {
+                alert('กรุณาใส่ข้อความก่อนส่งความคิดเห็น');
+            }
+        });
+
+        // ฟังก์ชันสำหรับเคลียร์ input
+        function toggleMenu(button) {
+            const menuOptions = button.nextElementSibling;
+            menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
+        }
+        function clearComment() {
+            const commentInput = document.getElementById('commentInput'); // เลือก input
+            commentInput.value = ''; // เคลียร์ค่าใน input
+        }
+
+        // ฟังก์ชันสำหรับลบคอมเมนต์
+        function deleteComment(button) {
+            const comment = button.closest('.comment');
+            comment.remove();
+        }
+    </script>
 </body>
 </html>

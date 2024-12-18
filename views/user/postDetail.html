@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.post_topic %> - Post Details</title>
+</head>
+<body>
+    <h1><%= post.post_topic %></h1>
+    
+    <!-- Display Post Picture -->
+    <% if (post.post_picture) { %>
+        <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>">
+    <% } %>
+
+    <!-- Display Creator Information -->
+    <p><strong>Created by:</strong> <%= post.createdBy.profile_name %></p>
+    <p><strong>Created on:</strong> <%= new Date(post.post_time).toLocaleString() %></p>
+    <p><strong>Average Score:</strong> <%= post.avg_score %></p>
+
+    <!-- Display Ingredients -->
+    <h2>Ingredients</h2>
+    <% if (post.ingredients && post.ingredients.length > 0) { %>
+        <ul>
+            <% post.ingredients.forEach(ingredient => { %>
+                <li><%= ingredient.ingredient_name %>: <%= ingredient.ingredient_amount %></li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No ingredients listed for this post.</p>
+    <% } %>
+
+    <!-- Display Processes -->
+    <h2>Steps</h2>
+    <% if (post.processes && post.processes.length > 0) { %>
+        <ol>
+            <% post.processes.forEach(process => { %>
+                <li>
+                    <p><strong>Step <%= process.no_step %>:</strong> <%= process.process_describe %></p>
+                    <% if (process.process_picture) { %>
+                        <img src="/uploads/<%= process.process_picture.split('\\').pop() %>" alt="Step <%= process.no_step %>">
+                    <% } %>
+                </li>
+            <% }) %>
+        </ol>
+    <% } else { %>
+        <p>No steps listed for this post.</p>
+    <% } %>
+
+    <!-- Back Link -->
+    <a href="/main/user">Go back to your profile</a>
+</body>
+</html>
