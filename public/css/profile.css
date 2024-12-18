@@ -280,3 +280,9 @@ header button:hover {
 .header-left a{
   text-decoration: none;
 }
+
+footer {
+  background-color: #9b6144;
+  margin-top: 40px;
+  padding: 50px;
+}

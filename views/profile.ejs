@@ -10,5 +10,16 @@
     <%- include('./partials/header.ejs') %>
     <%- include('./partials/profile-container.ejs') %>
     <%- include('./partials/containpost.ejs') %>
+    <footer></footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const favoriteButtons = document.querySelectorAll(".favorite-button");
+            favoriteButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    button.classList.toggle("favorite-active");
+                });
+            });
+        });
+    </script>
 </body>
 </html>

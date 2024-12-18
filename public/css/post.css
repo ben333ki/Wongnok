@@ -326,15 +326,8 @@ main {
     text-align: left;
 }
 
-
-
 .comments .comment:last-child {
     border-bottom: none;
-}
-
-
-footer {
-    background-color: #9b6144;
 }
 
 .comment-section {
@@ -502,4 +495,8 @@ header button:hover {
 
 .header-left a {
     text-decoration: none;
+}
+
+footer {
+    background-color: #9b6144;
 }

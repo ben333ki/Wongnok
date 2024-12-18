@@ -58,10 +58,9 @@
             const password = document.querySelector('input[name="user_password"]').value;
             const confirmPassword = document.querySelector('input[name="user_password_confirm"]').value;
 
-            // Check if the passwords match
             if (password !== confirmPassword) {
                 alert("Passwords do not match!");
-                event.preventDefault();  // Prevent form submission
+                event.preventDefault();  
             }
         });
     </script>

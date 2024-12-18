@@ -19,14 +19,15 @@
 .header-left {
     display: flex;
     align-items: center;
-    gap:  8em;
+    gap: 8em;
 }
 
-.recipe-card a {
+.recipe-card a,
+.header a {
     text-decoration: none;
 }
 
-.header-left input{
+.header-left input {
     outline: none;
     border: none;
 }
@@ -57,7 +58,8 @@
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 15px;
-    margin-right: 10px; /* ระยะห่างจากปุ่มสร้างโพส */
+    margin-right: 10px;
+    /* ระยะห่างจากปุ่มสร้างโพส */
 }
 
 .create-post {
@@ -67,7 +69,8 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px; /* ระยะห่างจากรูปโปรไฟล์ */
+    margin-right: 10px;
+    /* ระยะห่างจากรูปโปรไฟล์ */
 }
 
 .profile-pic {
@@ -91,7 +94,8 @@ main {
     border-radius: 10px;
 }
 
-.recipe h1, .recipe p {
+.recipe h1,
+.recipe p {
     margin-bottom: 10px;
 }
 
@@ -148,7 +152,7 @@ main {
 }
 
 .rating-stars {
-    color: #6d6d6d; 
+    color: #6d6d6d;
 }
 
 .rating-value {
@@ -159,19 +163,19 @@ main {
     font-size: 14px;
     color: #555;
     margin-top: 5px;
-    text-align: left; 
+    text-align: left;
 }
 
 .ingredients-section {
     width: 100%;
-    background-color: #F4EFDC; 
+    background-color: #F4EFDC;
     padding: 10px;
     font-family: Arial, sans-serif;
 }
 
 
 /* สไตล์สำหรับ input ที่มี class "amount" */
-.ingredient-item .amount{
+.ingredient-item .amount {
     appearance: none;
     border: none;
     outline: none;
@@ -179,7 +183,8 @@ main {
     padding: 8px;
     margin-right: 8px;
 }
-.ingredient-item .ingredient{
+
+.ingredient-item .ingredient {
     appearance: none;
     border: none;
     outline: none;
@@ -190,7 +195,7 @@ main {
 
 
 /* สไตล์สำหรับทุกปุ่มใน HTML */
-button {
+main button {
     background: #ED975C;
     color: #fff;
     border: none;
@@ -198,7 +203,8 @@ button {
     padding: 10px 16px;
     cursor: pointer;
     font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    ;
 }
 
 /* สไตล์เมื่อ hover ปุ่ม */
@@ -208,10 +214,14 @@ button:hover {
 }
 
 #add-ingredient {
-    display: block; /* แสดงปุ่มเป็น block เพื่อให้ตั้งค่าความกว้างได้ */
-    margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
-    width: 50%; /* ความกว้าง 50% ของหน้าจอ */
-    max-width: 300px; /* กำหนดความกว้างสูงสุดเพื่อให้ไม่ใหญ่เกินไป */
+    display: block;
+    /* แสดงปุ่มเป็น block เพื่อให้ตั้งค่าความกว้างได้ */
+    margin: 0 auto;
+    /* จัดให้อยู่ตรงกลาง */
+    width: 50%;
+    /* ความกว้าง 50% ของหน้าจอ */
+    max-width: 300px;
+    /* กำหนดความกว้างสูงสุดเพื่อให้ไม่ใหญ่เกินไป */
     padding: 10px 16px;
     margin-top: 10px;
 
@@ -222,8 +232,8 @@ button:hover {
     justify-content: space-between;
     padding: 8px 0;
     font-weight: bold;
-    color: #000000; 
-    border-bottom: 1px solid #ddd; 
+    color: #000000;
+    border-bottom: 1px solid #ddd;
 }
 
 .ingredient-item {
@@ -234,7 +244,7 @@ button:hover {
 }
 
 .ingredient-item:nth-child(even) {
-    background-color: #ece7d4; 
+    background-color: #ece7d4;
 }
 
 .ingredient {
@@ -252,23 +262,33 @@ button:hover {
     gap: 10px;
     flex-direction: column;
     justify-content: center;
-    background-color: #F4ECC7; /* จัดให้อยู่กึ่งกลางแนวนอน */
-    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
-    width: 100%; /* ใช้พื้นที่เต็มหน้าจอ */
-    padding: 50px; /* เพิ่ม Padding เล็กน้อย */
-    box-sizing: border-box; /* ควบคุมขนาดรวม Padding */
+    background-color: #F4ECC7;
+    /* จัดให้อยู่กึ่งกลางแนวนอน */
+    align-items: center;
+    /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    width: 100%;
+    /* ใช้พื้นที่เต็มหน้าจอ */
+    padding: 50px;
+    /* เพิ่ม Padding เล็กน้อย */
+    box-sizing: border-box;
+    /* ควบคุมขนาดรวม Padding */
 }
 
 .youtube-preview {
     position: relative;
-    width: 100%; /* ขยายให้เต็มพื้นที่ */
-    aspect-ratio: 16 / 9; /* รักษาสัดส่วนวิดีโอ */
-    border-radius: 8px; /* เพิ่มความโค้งมน */
-    background-color: inherit; /* ใช้สีพื้นหลัง Video Section */
+    width: 100%;
+    /* ขยายให้เต็มพื้นที่ */
+    aspect-ratio: 16 / 9;
+    /* รักษาสัดส่วนวิดีโอ */
+    border-radius: 8px;
+    /* เพิ่มความโค้งมน */
+    background-color: inherit;
+    /* ใช้สีพื้นหลัง Video Section */
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* ซ่อนส่วนเกิน */
+    overflow: hidden;
+    /* ซ่อนส่วนเกิน */
 }
 
 .youtube-preview iframe {
@@ -279,8 +299,10 @@ button:hover {
 
 .remove-video-btn {
     position: absolute;
-    top: 10px; /* ตำแหน่งขอบบน */
-    right: 10px; /* ตำแหน่งขอบขวา */
+    top: 10px;
+    /* ตำแหน่งขอบบน */
+    right: 10px;
+    /* ตำแหน่งขอบขวา */
     background-color: red;
     color: white;
     border: none;
@@ -293,48 +315,71 @@ button:hover {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     font-size: 16px;
-    z-index: 1; /* เพื่อให้ปุ่มลบอยู่ด้านบนสุด */
+    z-index: 1;
+    /* เพื่อให้ปุ่มลบอยู่ด้านบนสุด */
 }
 
 #youtube-link {
-    appearance: none; /* ลบรูปลักษณ์เริ่มต้น */
-    border: none; /* ไม่มีขอบ */
-    outline: none; /* ไม่มีเส้นขอบเวลาคลิก */
-    border-radius: 4px; /* มุมโค้ง */
-    padding: 8px; /* เพิ่มระยะห่างด้านใน */
-    margin-right: 8px; /* ระยะห่างด้านขวา */
-    width: 70%; /* กำหนดขนาดกล่อง */
-    font-size: 16px; /* ขนาดตัวอักษร */
-    box-sizing: border-box; /* รวม Padding ไว้ในขนาด */
-    background-color: #ffffff; /* สีพื้นหลัง */
+    appearance: none;
+    /* ลบรูปลักษณ์เริ่มต้น */
+    border: none;
+    /* ไม่มีขอบ */
+    outline: none;
+    /* ไม่มีเส้นขอบเวลาคลิก */
+    border-radius: 4px;
+    /* มุมโค้ง */
+    padding: 8px;
+    /* เพิ่มระยะห่างด้านใน */
+    margin-right: 8px;
+    /* ระยะห่างด้านขวา */
+    width: 70%;
+    /* กำหนดขนาดกล่อง */
+    font-size: 16px;
+    /* ขนาดตัวอักษร */
+    box-sizing: border-box;
+    /* รวม Padding ไว้ในขนาด */
+    background-color: #ffffff;
+    /* สีพื้นหลัง */
 }
 
 #video-input-section {
-    display: flex; /* ใช้ flexbox เพื่อจัดตำแหน่ง */
-    justify-content: flex-start; /* จัดเรียงปุ่มและ input ในแนวนอน */
-    align-items: center; /* จัดกึ่งกลางในแนวตั้ง */
+    display: flex;
+    /* ใช้ flexbox เพื่อจัดตำแหน่ง */
+    justify-content: flex-start;
+    /* จัดเรียงปุ่มและ input ในแนวนอน */
+    align-items: center;
+    /* จัดกึ่งกลางในแนวตั้ง */
     justify-content: center;
-    width: 100%; /* ให้พื้นที่เต็ม */
+    width: 100%;
+    /* ให้พื้นที่เต็ม */
 }
 
 
 .custom-file-upload {
-    display: block; /* ใช้ Block เพื่อให้ SVG มีขนาดเต็ม */
-    width: 500px; /* กำหนดความกว้างที่ต้องการ */
-    height: 281px; /* กำหนดความสูงที่ต้องการ */
-    cursor: pointer; /* แสดง Cursor เป็น Pointer */
-    overflow: hidden; /* ป้องกันการเกินพื้นที่ */
+    display: block;
+    /* ใช้ Block เพื่อให้ SVG มีขนาดเต็ม */
+    width: 500px;
+    /* กำหนดความกว้างที่ต้องการ */
+    height: 281px;
+    /* กำหนดความสูงที่ต้องการ */
+    cursor: pointer;
+    /* แสดง Cursor เป็น Pointer */
+    overflow: hidden;
+    /* ป้องกันการเกินพื้นที่ */
     text-align: center;
 }
 
 #video-upload {
-    display: none; /* ซ่อน Input File */
+    display: none;
+    /* ซ่อน Input File */
 }
 
 .svg-upload-video {
     display: block;
-    max-width: 100%; /* จำกัดความกว้างให้ไม่เกินพื้นที่ */
-    height: auto; /* รักษาอัตราส่วน */
+    max-width: 100%;
+    /* จำกัดความกว้างให้ไม่เกินพื้นที่ */
+    height: auto;
+    /* รักษาอัตราส่วน */
 }
 
 
@@ -353,7 +398,8 @@ button:hover {
 .step-item {
     display: flex;
     align-items: center;
-    gap: 10px; /* ระยะห่างระหว่างองค์ประกอบ */
+    gap: 10px;
+    /* ระยะห่างระหว่างองค์ประกอบ */
     width: 100%;
 }
 
@@ -375,20 +421,26 @@ button:hover {
 }
 
 .step-describe {
-    flex-grow: 1; /* กล่องข้อความขยายเต็มพื้นที่ */
+    flex-grow: 1;
+    /* กล่องข้อความขยายเต็มพื้นที่ */
     height: 60px;
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    resize: none; /* ปิดการปรับขนาด */
+    resize: none;
+    /* ปิดการปรับขนาด */
 }
 
 .add-step-button {
-    display: block; /* แสดงปุ่มเป็น block เพื่อให้ตั้งค่าความกว้างได้ */
-    margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
-    width: 50%; /* ความกว้าง 50% ของหน้าจอ */
-    max-width: 300px; /* กำหนดความกว้างสูงสุดเพื่อให้ไม่ใหญ่เกินไป */
+    display: block;
+    /* แสดงปุ่มเป็น block เพื่อให้ตั้งค่าความกว้างได้ */
+    margin: 0 auto;
+    /* จัดให้อยู่ตรงกลาง */
+    width: 50%;
+    /* ความกว้าง 50% ของหน้าจอ */
+    max-width: 300px;
+    /* กำหนดความกว้างสูงสุดเพื่อให้ไม่ใหญ่เกินไป */
     padding: 10px 16px;
     margin-top: 10px;
 }
@@ -399,31 +451,43 @@ button:hover {
     .step-item {
         flex-wrap: wrap;
     }
+
     .custom-upload-box,
     .remove-step {
         flex: 0 0 auto;
     }
+
     .step-describe {
         flex: 1 1 100%;
     }
 }
 
 
-.form-input, .form-textarea, .step-describe {
-    width: 350px; /* Full width of the container */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners for inputs */
-    padding: 10px; /* Inner padding */
-    font-size: 14px; /* Font size for input text */
-    outline: none; /* Remove focus outline */
+.form-input,
+.form-textarea,
+.step-describe {
+    width: 350px;
+    /* Full width of the container */
+    border: none;
+    /* Remove default border */
+    border-radius: 5px;
+    /* Rounded corners for inputs */
+    padding: 10px;
+    /* Inner padding */
+    font-size: 14px;
+    /* Font size for input text */
+    outline: none;
+    /* Remove focus outline */
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 /* Adjust size for the textarea */
 .form-textarea {
-    height: 145px; /* Set specific height for the textarea */
-    resize: none; /* Disable resizing */
+    height: 145px;
+    /* Set specific height for the textarea */
+    resize: none;
+    /* Disable resizing */
 }
 
 
@@ -441,17 +505,19 @@ input[type="file"] {
 }
 
 
-.submit-section{
+.submit-section {
     background-color: #F4ECC7;
     display: flex;
-    justify-content: space-between; /* จัดปุ่มให้อยู่คนละฝั่ง */
+    justify-content: space-between;
+    /* จัดปุ่มให้อยู่คนละฝั่ง */
     align-items: center;
     padding: 20px 0;
 }
 
 
 .cancel-button {
-    background-color: #ef5a50; /* สีแดง */
+    background-color: #ef5a50;
+    /* สีแดง */
     color: white;
     border: none;
     border-radius: 4px;
@@ -462,7 +528,8 @@ input[type="file"] {
 }
 
 .submit-button {
-    background-color: #4BA36E; /* สีเขียว */
+    background-color: #4BA36E;
+    /* สีเขียว */
     color: white;
     border: none;
     border-radius: 4px;
@@ -482,16 +549,22 @@ input[type="file"] {
 
 .uploaded-image-container {
     position: relative;
-    width: 400px;  /* กำหนดความกว้างของกรอบ */
-    height: 275px; /* กำหนดความสูงของกรอบ */
-    background-color: #D9D9D9;  /* สีพื้นหลังกรอบ */
+    width: 400px;
+    /* กำหนดความกว้างของกรอบ */
+    height: 275px;
+    /* กำหนดความสูงของกรอบ */
+    background-color: #D9D9D9;
+    /* สีพื้นหลังกรอบ */
     overflow: hidden;
 }
 
 .uploaded-image-container img {
-    object-fit: cover;  /* ให้ภาพปรับขนาดโดยไม่เบี้ยว */
-    width: 100%; /* ให้ภาพขยายเต็มขนาดกรอบ */
-    height: 100%; /* ให้ภาพขยายเต็มขนาดกรอบ */
+    object-fit: cover;
+    /* ให้ภาพปรับขนาดโดยไม่เบี้ยว */
+    width: 100%;
+    /* ให้ภาพขยายเต็มขนาดกรอบ */
+    height: 100%;
+    /* ให้ภาพขยายเต็มขนาดกรอบ */
 }
 
 .remove-image-btn {
@@ -507,8 +580,10 @@ input[type="file"] {
 
 /* ลดขนาดกล่องอัพโหลดใน Step Section */
 .steps-section .custom-upload-box {
-    width: 80px;  /* ปรับขนาดความกว้าง */
-    height: 80px; /* ปรับขนาดความสูง */
+    width: 80px;
+    /* ปรับขนาดความกว้าง */
+    height: 80px;
+    /* ปรับขนาดความสูง */
     background-color: #D9D9D9;
     display: flex;
     justify-content: center;
@@ -518,14 +593,18 @@ input[type="file"] {
 
 /* เพิ่มขนาดของไอคอนในกล่องอัพโหลดให้พอดี */
 .steps-section .custom-upload-box .svg-upload-icon {
-    width: 40px;   /* ขนาดของไอคอน */
-    height: 40px;  /* ขนาดของไอคอน */
+    width: 40px;
+    /* ขนาดของไอคอน */
+    height: 40px;
+    /* ขนาดของไอคอน */
 }
 
 /* ขนาดของกล่องภาพที่อัพโหลด */
 .steps-section .uploaded-image-container {
-    width: 80px;  /* ปรับขนาดความกว้าง */
-    height: 80px; /* ปรับขนาดความสูง */
+    width: 80px;
+    /* ปรับขนาดความกว้าง */
+    height: 80px;
+    /* ปรับขนาดความสูง */
     background-color: #D9D9D9;
     overflow: hidden;
 }
@@ -537,3 +616,8 @@ input[type="file"] {
     height: 100%;
 }
 
+footer {
+    background-color: #9b6144;
+    margin-top: 40px;
+    padding: 50px;
+}
