@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/create.css">
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    <main>
+        <form action="/main/create" method="POST" enctype="multipart/form-data">
+            <section class="recipe">
+                <div class="post-header">
+                    <label for="file-upload" class="custom-file-upload">
+                        <div class="svg-container">
+                            <svg class="svg-upload-image" width="400" height="275" viewBox="0 0 545 372" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0H545V372H0V0Z" fill="#D9D9D9"/>
+                                <rect x="217.978" y="140.963" width="62.9471" height="76.5802" fill="white"/>
+                                <path d="M249.45 103L314.792 152.09H184.108L249.45 103Z" fill="white"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <input id="file-upload" type="file" name="post_picture" required accept="image/*" />
+                    <div id="image-preview" class="image-preview">
+                        <!-- Image preview will go here after uploading -->
+                    </div>
+                    <div class="post-info">
+                        <div class="author-info">
+                            <img src="images/ACS.jpg" alt="Profile" class="author-image">
+                            <span class="author-name">ACS KMUTT</span>
+                        </div>
+                        <input type="text" id="post-topic" class="form-input" placeholder="Enter post topic" name="post_topic" required>
+                        <textarea id="describe" class="form-textarea" placeholder="Enter description" name="post_describe" required></textarea>
+                    </div>
+                </div>
+    
+                <div class="ingredients-section">
+                    <div class="ingredients-header">
+                        <span class="ingredient-title">ส่วนผสม</span>
+                        <span class="amount-title">ปริมาณ</span>
+                    </div>
+                    <div id="ingredient-list" class="ingredient-list">
+                        <div class="ingredient-item">
+                            <input type="text" class="ingredient" placeholder="Enter ingredient" name="ingredients[0][ingredient_name]" required>
+                            <input type="text" class="amount" placeholder="Enter amount" name="ingredients[0][ingredient_amount]" required>
+                            <button class="remove-ingredient" type="button">Remove</button>
+                        </div>
+                    </div>
+                    <button id="add-ingredient" class="ingredient-item-add" type="button">Add Ingredient</button>
+                </div>
+
+                <div class="video-section" id="video-section">
+                    <div class="youtube-preview" id="video-preview" style="display: none;">
+                        <iframe id="youtube-video" src="" allowfullscreen></iframe>
+                        <button class="remove-video-btn" onclick="removeVideo()" type="button">×</button>
+                    </div>
+                
+                    <div id="video-input-section">
+                        <input type="text" id="youtube-link" placeholder="Enter YouTube link" />
+                        <button onclick="addVideo()" type="button">Add Video</button>
+                    </div>
+                </div>
+                
+    
+                <div class="steps-section">
+                    <h2>วิธีทำ</h2>
+                    <div id="step-list" class="step-list">
+                        <div class="step-item">
+                            <!-- ปุ่มอัพโหลดภาพ -->
+                            <label for="upload-step-image-{{Date.now()}}" class="custom-upload-box">
+                                <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                                    <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </label>
+                            <input id="upload-step-image-{{Date.now()}}" type="file" accept="image/*" style="display: none;" name="processes[0][process_picture]">
+                            
+                            <!-- กล่องข้อความ -->
+                            <textarea class="step-describe" placeholder="Enter step" name="processes[0][process_describe]" required></textarea>
+                    
+                            <!-- ปุ่ม Remove -->
+                            <button class="remove-step" type="button">Remove</button>
+                        </div>
+                    </div>
+                    <button id="add-step" class="add-step-button" type="button">Add Step</button>
+                </div>
+                
+                <div class="submit-section">
+                    <button class="cancel-button" type="button">Cancel</button>
+                    <button class="submit-button" type="button">Submit</button>
+                </div>
+            </section>
+        </form>
+        
+    </main>
+
+    <script>
+        document.getElementById('add-ingredient').addEventListener('click', function() {
+            const ingredientList = document.getElementById('ingredient-list');
+            const newItem = document.createElement('div');
+            newItem.classList.add('ingredient-item');
+            newItem.innerHTML = `
+                <input type="text" class="ingredient" placeholder="Enter ingredient">
+                <input type="text" class="amount" placeholder="Enter amount">
+                <button class="remove-ingredient" type="button">Remove</button>
+            `;
+            newItem.querySelector('.remove-ingredient').addEventListener('click', function() {
+                newItem.remove();
+            });
+            ingredientList.appendChild(newItem);
+        });
+        
+        // Handle main image upload (e.g., for the recipe image)
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // สร้างกรอบสำหรับแสดงภาพที่อัพโหลด
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('uploaded-image-container');
+                    
+                    // สร้างและตั้งค่าภาพที่อัพโหลด
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imageContainer.appendChild(img);
+                    
+                    // สร้างปุ่มลบภาพ
+                    const removeBtn = document.createElement('button');
+                    removeBtn.classList.add('remove-image-btn');
+                    removeBtn.textContent = 'Delete';
+                    removeBtn.addEventListener('click', function() {
+                        imageContainer.replaceWith(uploadLabel); // เปลี่ยนกรอบที่มีภาพเป็นกรอบอัพโหลด
+                        // รีเซ็ตฟอร์มให้กลับสู่สถานะเริ่มต้น
+                        document.getElementById('file-upload').value = '';
+                    });
+                    imageContainer.appendChild(removeBtn);
+                
+                    // แทนที่ป้ายอัพโหลดด้วยภาพที่อัพโหลด
+                    const fileUploadLabel = document.querySelector('.custom-file-upload');
+                    uploadLabel = fileUploadLabel; // เก็บกรอบอัพโหลดเดิม
+                    fileUploadLabel.replaceWith(imageContainer); // แทนที่ด้วยภาพที่อัพโหลด
+                };
+                reader.readAsDataURL(file);  // อ่านไฟล์ภาพ
+            }
+        });
+
+        // Handle step image uploads dynamically (for each step)
+        document.getElementById('add-step').addEventListener('click', function () {
+        const stepList = document.getElementById('step-list');
+        const newStep = document.createElement('div');
+        newStep.classList.add('step-item');
+        newStep.innerHTML = `
+            <!-- ปุ่มอัพโหลดภาพ -->
+            <label for="upload-step-image-${Date.now()}" class="custom-upload-box">
+                <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                    <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </label>
+            <input id="upload-step-image-${Date.now()}" type="file" accept="image/*" style="display: none;">
+            
+            <!-- กล่องข้อความ -->
+            <textarea class="step-describe" placeholder="Enter step"></textarea>
+        
+            <!-- ปุ่ม Remove -->
+            <button class="remove-step" type="button">Remove</button>
+        `;
+        
+        // เพิ่ม Event Listener ให้ปุ่ม Remove
+        newStep.querySelector('.remove-step').addEventListener('click', function () {
+            newStep.remove();
+        });
+
+        // เพิ่ม Event Listener ให้ input อัพโหลดไฟล์
+        const newFileInput = newStep.querySelector('input[type="file"]');
+        handleStepImageUpload(newFileInput);
+
+        stepList.appendChild(newStep);
+    });
+
+    function handleStepImageUpload(inputElement) {
+        inputElement.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // สร้างกรอบสำหรับแสดงภาพที่อัพโหลด
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('uploaded-image-container');
+                    
+                    // สร้างและตั้งค่าภาพที่อัพโหลด
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imageContainer.appendChild(img);
+                    
+                    // สร้างปุ่มลบภาพ
+                    const removeBtn = document.createElement('button');
+                    removeBtn.classList.add('remove-image-btn');
+                    removeBtn.textContent = 'Delete';
+                    removeBtn.addEventListener('click', function() {
+                        imageContainer.replaceWith(uploadLabel); // เปลี่ยนกรอบที่มีภาพเป็นกรอบอัพโหลด
+                        // รีเซ็ตฟอร์มให้กลับสู่สถานะเริ่มต้น
+                        inputElement.value = '';
+                    });
+                    imageContainer.appendChild(removeBtn);
+                    
+                    // แทนที่กรอบที่เป็นจุดอัพโหลดด้วยภาพที่อัพโหลด
+                    const uploadLabel = inputElement.closest('.step-item').querySelector('.custom-upload-box');
+                    uploadLabel.replaceWith(imageContainer);
+                };
+                reader.readAsDataURL(file);  // อ่านไฟล์ภาพ
+            }
+        });
+    }
+
+    // เพิ่ม Event Listener ให้กับ input ที่มีอยู่ตั้งแต่แรก (ก่อน add step)
+    document.querySelectorAll('.steps-section input[type="file"]').forEach(input => {
+        handleStepImageUpload(input);
+    });
+
+
+
+    const linkInput = document.getElementById('youtube-link');
+        const addButton = document.getElementById('add-youtube-video');
+        const videoSection = document.getElementById('video-section');
+        const videoPreview = document.getElementById('video-preview');
+
+        addButton.addEventListener('click', function() {
+            const youtubeURL = linkInput.value.trim();
+
+            // ตรวจสอบลิงก์ YouTube
+            const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=)?([\w\-]{11})$/;
+            const match = youtubeURL.match(youtubeRegex);
+
+            if (match) {
+                const videoId = match[5]; // ดึง video ID จากลิงก์
+
+                // แสดงตัวอย่างวิดีโอใน iframe
+                videoPreview.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <button class="remove-video-btn">X</button>
+                `;
+                videoPreview.style.display = 'block'; // แสดงส่วนตัวอย่างวิดีโอ
+                videoSection.style.display = 'none'; // ซ่อน Input และปุ่มเพิ่มวิดีโอ
+
+                // ฟังก์ชันสำหรับปุ่มลบวิดีโอ
+                const removeButton = videoPreview.querySelector('.remove-video-btn');
+                removeButton.addEventListener('click', function() {
+                    videoPreview.style.display = 'none'; // ซ่อนตัวอย่างวิดีโอ
+                    videoSection.style.display = 'flex'; // แสดง Input และปุ่มเพิ่มวิดีโอ
+                    linkInput.value = ''; // ล้างลิงก์ที่ป้อนใน Input
+                });
+            } else {
+                alert('กรุณาใส่ลิงก์ YouTube ที่ถูกต้อง');
+            }
+        });
+        function addVideo() {
+        const linkInput = document.getElementById("youtube-link");
+        const videoPreview = document.getElementById("video-preview");
+        const videoIframe = document.getElementById("youtube-video");
+        const inputSection = document.getElementById("video-input-section");
+
+        if (linkInput.value.trim()) {
+            const youtubeLink = linkInput.value.replace("watch?v=", "embed/");
+            videoIframe.src = youtubeLink;
+            videoPreview.style.display = "flex"; // แสดงตัวอย่างวิดีโอ
+            inputSection.style.display = "none"; // ซ่อนส่วน Input
+        } else {
+            alert("Please enter a valid YouTube link.");
+        }
+    }
+
+    function removeVideo() {
+        const videoPreview = document.getElementById("video-preview");
+        const videoIframe = document.getElementById("youtube-video");
+        const inputSection = document.getElementById("video-input-section");
+
+        videoIframe.src = ""; // ลบลิงก์วิดีโอ
+        videoPreview.style.display = "none"; // ซ่อนตัวอย่างวิดีโอ
+        inputSection.style.display = "flex"; // แสดง Input กลับมา
+    }
+    </script>
+
+
+</html>
