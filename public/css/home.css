@@ -27,6 +27,11 @@ body {
     gap: 8em;
 }
 
+.header-left input {
+    outline: none;
+    border: none;
+}
+
 .header-right {
     display: flex;
     align-items: center;
@@ -46,6 +51,11 @@ body {
     margin-right: 15px;
     font-size: 16px;
     color: #fff;
+    text-decoration: none;
+}
+
+.recipe-card a,
+.header a {
     text-decoration: none;
 }
 
@@ -89,7 +99,7 @@ body {
 
 .image-container {
     position: relative;
-    width: 100vw; 
+    width: 100vw;
 }
 
 .bodyimg {
@@ -104,7 +114,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
     text-align: center;
 }
 
@@ -118,7 +128,7 @@ body {
     color: #8C4D2B;
 }
 
-.menutext{
+.menutext {
     margin-bottom: 20px;
 }
 
@@ -137,7 +147,8 @@ body {
     position: relative;
     display: flex;
     align-items: center;
-    max-width: 310px; /* ความกว้างที่แสดง 3 เมนู */
+    max-width: 310px;
+    /* ความกว้างที่แสดง 3 เมนู */
     overflow: hidden;
     margin: 0 auto;
 }
@@ -149,20 +160,22 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
-.typefood , .profilefollow{
+.typefood,
+.profilefollow {
     text-align: center;
     flex: 0 0 auto;
     width: 80px
 }
 
-.typefood img , .profilefollow img{
+.typefood img,
+.profilefollow img {
     cursor: pointer;
     width: 80px;
     height: auto;
 }
 
 .arrowtypefood,
-.arrowfollow{
+.arrowfollow {
     position: absolute;
     background-color: rgba(255, 255, 255, 0);
     color: white;
@@ -181,9 +194,9 @@ body {
 }
 
 .right-arrowtypefood,
-.right-arrowfollow  {
+.right-arrowfollow {
     right: 0;
-} 
+}
 
 .containpost {
     display: flex;
@@ -208,20 +221,26 @@ body {
     position: relative;
     margin-bottom: 30px;
 
-    display: flex; /* ทำให้เป็น Flexbox */
-    flex-direction: column; /* เรียงเนื้อหาเป็นแนวตั้ง */
+    display: flex;
+    /* ทำให้เป็น Flexbox */
+    flex-direction: column;
+    /* เรียงเนื้อหาเป็นแนวตั้ง */
 }
 
 
 .recipe-image {
-    width: 300px; /* กำหนดความกว้างคงที่ */
-    height: 200px; /* กำหนดความสูงคงที่ */
-    object-fit: cover; /* ทำให้รูปภาพถูกครอบตามขนาดที่กำหนด */
+    width: 300px;
+    /* กำหนดความกว้างคงที่ */
+    height: 200px;
+    /* กำหนดความสูงคงที่ */
+    object-fit: cover;
+    /* ทำให้รูปภาพถูกครอบตามขนาดที่กำหนด */
 }
 
 
 .recipe-details {
-    margin-top: auto; /* ดันรายละเอียดลงมาด้านล่าง */
+    margin-top: auto;
+    /* ดันรายละเอียดลงมาด้านล่าง */
     padding: 10px;
     background-color: #F1EBD1;
 }
@@ -260,8 +279,10 @@ body {
 }
 
 .favorite-button.favorite-active {
-    background-color: #F25252; /* สีแดง */
-    color: #FFFFFF; /* สีไอคอนขาว */
+    background-color: #F25252;
+    /* สีแดง */
+    color: #FFFFFF;
+    /* สีไอคอนขาว */
 }
 
 .rating-count {
@@ -270,4 +291,9 @@ body {
 
 .stars {
     color: #E9B249;
-} 
+}
+
+header button:hover {
+    background: #d18451;
+    transform: scale(1.01);
+}

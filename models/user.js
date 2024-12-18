@@ -25,10 +25,8 @@ userSchema.pre('save', async function (next) {
     }
 });
 
-// Add a method to compare passwords
 userSchema.methods.isValidPassword = async function (password) {
     return await bcrypt.compare(password, this.user_password);
 };
 
-// Export the model
 module.exports = mongoose.model('User', userSchema);

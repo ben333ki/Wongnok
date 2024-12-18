@@ -12,7 +12,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #B97A57; /* สีพื้นหลังของ Header */
+    background-color: #B97A57;
+    /* สีพื้นหลังของ Header */
 }
 
 .header-left {
@@ -21,10 +22,18 @@
     gap:  8em;
 }
 
+.recipe-card a {
+    text-decoration: none;
+}
+
+.header-left input{
+    outline: none;
+    border: none;
+}
+
 .header-right {
     display: flex;
     align-items: center;
-    
 }
 
 .logo {
@@ -48,15 +57,17 @@
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 15px;
-    margin-right: 10px;
+    margin-right: 10px; /* ระยะห่างจากปุ่มสร้างโพส */
 }
 
 .create-post {
+    background-color: #ED975C;
+    color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px; 
+    margin-right: 10px; /* ระยะห่างจากรูปโปรไฟล์ */
 }
 
 .profile-pic {
@@ -193,7 +204,7 @@ button {
 /* สไตล์เมื่อ hover ปุ่ม */
 button:hover {
     background: #d18451;
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 #add-ingredient {
@@ -431,6 +442,7 @@ input[type="file"] {
 
 
 .submit-section{
+    background-color: #F4ECC7;
     display: flex;
     justify-content: space-between; /* จัดปุ่มให้อยู่คนละฝั่ง */
     align-items: center;
@@ -524,3 +536,4 @@ input[type="file"] {
     width: 100%;
     height: 100%;
 }
+
