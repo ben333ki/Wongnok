@@ -6,16 +6,10 @@
         <p><strong>Created by:</strong> <%= post.createdBy ? post.createdBy.profile_name : 'Unknown' %></p>
         <a href="/main/user/post/<%= post._id %>"><h3 class="recipe-title"><%= post.post_topic %></h3></a>
         <div class="recipe-rating">
-          <% for (let i = 0; i < Math.floor(post.avg_score); i++) { %>
-            <span class="star">★</span>
-          <% } %>
-          <% for (let i = 0; i < 5 - Math.floor(post.avg_score); i++) { %>
-            <span class="star">☆</span>
-          <% } %>
-          <span class="rating-count"> (<%= post.rating_count || 0 %> ratings)</span>
+          <label for="rating"><strong>คะแนนเฉลี่ย:</strong> <%= post.avg_score.toFixed(2) %></label>
+          <span class="rating-value">จาก <%= post.ratings.length %> รีวิว</span>
         </div>
       </div>
-      <button class="favorite-button">♥</button>
     </div>
   <% }) %>
 </div>
