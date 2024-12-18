@@ -10,154 +10,277 @@
 
 <body>
     <%- include('../partials/header.ejs') %>
-        <main>
-            <section class="recipe">
-                <div class="post-header">
-                    <label for="file-upload" class="custom-file-upload">
-                        <div class="svg-container">
-                            <svg class="svg-upload-image" width="400" height="275" viewBox="0 0 545 372" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 0H545V372H0V0Z" fill="#D9D9D9" />
-                                <rect x="217.978" y="140.963" width="62.9471" height="76.5802" fill="white" />
-                                <path d="M249.45 103L314.792 152.09H184.108L249.45 103Z" fill="white" />
-                                <path
-                                    d="M208.776 263.24C207.048 263.24 205.752 262.792 204.888 261.896C204.04 260.984 203.616 259.56 203.616 257.624C203.616 257.304 203.624 256.96 203.64 256.592C203.672 256.208 203.704 255.832 203.736 255.464H208.776V257.144H205.752V257.624C205.752 258.632 205.864 259.424 206.088 260C206.312 260.56 206.64 260.952 207.072 261.176C207.52 261.4 208.072 261.512 208.728 261.512C209.448 261.512 210.072 261.376 210.6 261.104C211.128 260.832 211.536 260.336 211.824 259.616C212.112 258.896 212.256 257.864 212.256 256.52C212.256 255.336 212.128 254.368 211.872 253.616C211.616 252.864 211.192 252.304 210.6 251.936C210.024 251.568 209.24 251.384 208.248 251.384C207.736 251.384 207.24 251.432 206.76 251.528C206.28 251.608 205.816 251.736 205.368 251.912C204.92 252.072 204.48 252.28 204.048 252.536V250.544C204.368 250.368 204.76 250.216 205.224 250.088C205.688 249.944 206.2 249.832 206.76 249.752C207.32 249.656 207.904 249.608 208.512 249.608C209.92 249.608 211.056 249.896 211.92 250.472C212.8 251.032 213.44 251.832 213.84 252.872C214.24 253.896 214.44 255.112 214.44 256.52C214.44 257.928 214.256 259.136 213.888 260.144C213.52 261.152 212.92 261.92 212.088 262.448C211.272 262.976 210.168 263.24 208.776 263.24ZM210.539 247.76C209.867 247.76 209.331 247.664 208.931 247.472C208.531 247.28 208.243 247.032 208.067 246.728C207.875 246.424 207.779 246.104 207.779 245.768C207.779 245.528 207.819 245.272 207.899 245C207.963 244.712 208.051 244.48 208.163 244.304L209.963 244.616C209.931 244.68 209.899 244.792 209.867 244.952C209.835 245.096 209.819 245.232 209.819 245.36C209.819 245.568 209.883 245.752 210.011 245.912C210.139 246.056 210.355 246.128 210.659 246.128H216.731V247.76H210.539ZM219.318 263L216.942 249.848H219.126L220.062 255.56C220.142 256.024 220.222 256.624 220.302 257.36C220.382 258.096 220.478 258.968 220.59 259.976H220.662C220.806 259.288 220.942 258.672 221.07 258.128C221.214 257.584 221.342 257.096 221.454 256.664C221.582 256.216 221.694 255.824 221.79 255.488L223.398 249.848H225.15L226.782 255.488C226.878 255.824 226.982 256.216 227.094 256.664C227.222 257.096 227.35 257.584 227.478 258.128C227.622 258.672 227.766 259.288 227.91 259.976H228.006C228.102 258.968 228.19 258.096 228.27 257.36C228.35 256.624 228.43 256.024 228.51 255.56L229.47 249.848H231.654L229.278 263H227.19L224.982 255.848C224.87 255.448 224.758 255.032 224.646 254.6C224.55 254.168 224.454 253.6 224.358 252.896H224.262C224.198 253.36 224.126 253.768 224.046 254.12C223.966 254.472 223.886 254.784 223.806 255.056C223.726 255.328 223.646 255.592 223.566 255.848L221.406 263H219.318ZM235.285 252.248V247.544C235.285 246.584 235.053 245.896 234.589 245.48C234.141 245.064 233.565 244.856 232.861 244.856V243.944L234.637 243.176H241.045V244.856H236.173L236.149 244.952C236.501 245.192 236.797 245.56 237.037 246.056C237.293 246.536 237.421 247.168 237.421 247.952V252.248H235.285ZM237.901 263.24C237.469 263.24 237.053 263.168 236.653 263.024C236.253 262.88 235.925 262.624 235.669 262.256C235.413 261.888 235.285 261.376 235.285 260.72V249.848H237.421V260.456C237.421 260.824 237.501 261.088 237.661 261.248C237.821 261.408 238.077 261.488 238.429 261.488C238.573 261.488 238.725 261.472 238.885 261.44C239.045 261.408 239.197 261.368 239.341 261.32L239.629 262.88C239.325 263.024 239.029 263.12 238.741 263.168C238.453 263.216 238.173 263.24 237.901 263.24ZM242.164 263V249.848H244.3V255.536H244.372L249.844 249.848H252.34V249.92L244.3 258.056V263H242.164ZM250.324 263V258.368C250.324 257.424 250.036 256.688 249.46 256.16C248.884 255.632 247.932 255.368 246.604 255.368L247.852 253.808C248.86 253.808 249.7 253.992 250.372 254.36C251.06 254.712 251.58 255.224 251.932 255.896C252.284 256.568 252.46 257.376 252.46 258.32V263H250.324ZM263.762 263V254.24C263.762 253.2 263.522 252.464 263.042 252.032C262.578 251.584 261.794 251.36 260.69 251.36C259.89 251.36 259.122 251.472 258.386 251.696C257.666 251.904 256.978 252.2 256.322 252.584V250.592C256.786 250.352 257.41 250.128 258.194 249.92C258.994 249.712 259.89 249.608 260.882 249.608C261.73 249.608 262.466 249.704 263.09 249.896C263.714 250.072 264.226 250.344 264.626 250.712C265.042 251.08 265.354 251.552 265.562 252.128C265.77 252.688 265.874 253.352 265.874 254.12V263H263.762ZM259.634 263.24C258.226 263.24 257.146 262.92 256.394 262.28C255.658 261.624 255.29 260.688 255.29 259.472C255.29 258.144 255.77 257.12 256.73 256.4C257.706 255.68 259.282 255.256 261.458 255.128L264.194 254.96V256.736L261.746 256.904C260.114 257.016 258.986 257.272 258.362 257.672C257.754 258.072 257.45 258.656 257.45 259.424C257.45 260.144 257.674 260.672 258.122 261.008C258.586 261.344 259.226 261.512 260.042 261.512C260.314 261.512 260.562 261.496 260.786 261.464C261.01 261.416 261.226 261.36 261.434 261.296L261.77 262.904C261.466 263.016 261.13 263.096 260.762 263.144C260.41 263.208 260.034 263.24 259.634 263.24ZM274.257 263.24C272.977 263.24 271.969 262.944 271.233 262.352C270.513 261.744 270.001 260.928 269.697 259.904C269.409 258.88 269.265 257.752 269.265 256.52C269.265 255.16 269.401 254.04 269.673 253.16C269.961 252.264 270.361 251.56 270.873 251.048C271.401 250.52 272.025 250.152 272.745 249.944C273.481 249.72 274.289 249.608 275.169 249.608C276.449 249.608 277.489 249.8 278.289 250.184C279.105 250.552 279.705 251.08 280.089 251.768C280.473 252.456 280.665 253.28 280.665 254.24V263H278.553V254.432C278.553 253.44 278.305 252.688 277.809 252.176C277.313 251.648 276.457 251.384 275.241 251.384C274.505 251.384 273.841 251.52 273.249 251.792C272.673 252.064 272.217 252.568 271.881 253.304C271.561 254.04 271.401 255.12 271.401 256.544C271.401 257.472 271.489 258.312 271.665 259.064C271.857 259.8 272.185 260.384 272.649 260.816C273.113 261.248 273.761 261.464 274.593 261.464C274.833 261.464 275.057 261.448 275.265 261.416C275.473 261.384 275.673 261.336 275.865 261.272L276.081 262.928C275.825 263.04 275.529 263.12 275.193 263.168C274.873 263.216 274.561 263.24 274.257 263.24ZM288.254 263.24C287.31 263.24 286.43 263.152 285.614 262.976C284.814 262.784 284.134 262.56 283.574 262.304L284.198 260.576C284.534 260.704 284.918 260.84 285.35 260.984C285.782 261.128 286.246 261.248 286.742 261.344C287.254 261.424 287.774 261.464 288.302 261.464C289.15 261.464 289.854 261.304 290.414 260.984C290.974 260.664 291.254 260.2 291.254 259.592C291.254 259.224 291.15 258.912 290.942 258.656C290.75 258.384 290.446 258.136 290.03 257.912C289.614 257.688 289.078 257.472 288.422 257.264C287.414 256.944 286.558 256.608 285.854 256.256C285.166 255.888 284.638 255.456 284.27 254.96C283.918 254.448 283.742 253.816 283.742 253.064C283.742 252.392 283.918 251.8 284.27 251.288C284.638 250.76 285.198 250.352 285.95 250.064C286.718 249.76 287.694 249.608 288.878 249.608C289.646 249.608 290.366 249.68 291.038 249.824C291.726 249.952 292.262 250.136 292.646 250.376V252.176C292.374 252.048 292.03 251.92 291.614 251.792C291.214 251.664 290.774 251.56 290.294 251.48C289.814 251.4 289.318 251.36 288.806 251.36C287.734 251.36 286.974 251.528 286.526 251.864C286.094 252.184 285.878 252.552 285.878 252.968C285.878 253.32 285.974 253.616 286.166 253.856C286.374 254.096 286.718 254.328 287.198 254.552C287.694 254.776 288.358 255.032 289.19 255.32C289.958 255.576 290.662 255.872 291.302 256.208C291.942 256.544 292.446 256.968 292.814 257.48C293.198 257.976 293.39 258.616 293.39 259.4C293.39 260.072 293.222 260.704 292.886 261.296C292.566 261.872 292.03 262.344 291.278 262.712C290.526 263.064 289.518 263.24 288.254 263.24ZM289.077 269.36C288.053 269.36 287.277 269.152 286.749 268.736C286.205 268.336 285.933 267.76 285.933 267.008V266.6C285.933 266.328 285.869 266.16 285.741 266.096C285.597 266.048 285.405 266.056 285.165 266.12L285.021 264.68C285.245 264.616 285.469 264.576 285.693 264.56C285.901 264.544 286.061 264.536 286.173 264.536C286.749 264.536 287.165 264.664 287.421 264.92C287.661 265.176 287.781 265.536 287.781 266V266.816C287.781 267.12 287.877 267.376 288.069 267.584C288.261 267.792 288.589 267.896 289.053 267.896C289.533 267.896 289.869 267.792 290.061 267.584C290.237 267.376 290.325 267.12 290.325 266.816V264.608H292.197V266.936C292.197 267.72 291.933 268.32 291.405 268.736C290.877 269.152 290.101 269.36 289.077 269.36ZM301.557 263.24C299.669 263.24 298.317 262.808 297.501 261.944C296.685 261.08 296.277 259.848 296.277 258.248V249.848H298.413V258.272C298.413 259.344 298.669 260.144 299.181 260.672C299.693 261.2 300.485 261.464 301.557 261.464C302.645 261.464 303.445 261.2 303.957 260.672C304.485 260.144 304.749 259.344 304.749 258.272V245.12H306.885V258.248C306.885 259.848 306.469 261.08 305.637 261.944C304.821 262.808 303.461 263.24 301.557 263.24Z"
-                                    fill="black" />
-                            </svg>
-                        </div>
-                    </label>
-                    <input id="file-upload" type="file" />
-                    <div class="post-info">
-                        <div class="author-info">
-                            <img src="ACS.jpg" alt="Profile" class="author-image">
-                            <span class="author-name">ACS KMUTT</span>
-                        </div>
-                        <input type="text" id="post-topic" class="form-input" placeholder="Enter post topic">
-                        <div class="post-rating">
-                            <span class="rating-stars">✩✩✩✩✩</span>
-                            <span class="rating-value">0 (0 rating)</span>
-                        </div>
-                        <textarea id="describe" class="form-textarea" placeholder="Enter description"></textarea>
-                    </div>
-                </div>
-                <div class="ingredients-section">
-                    <div class="ingredients-header">
-                        <span class="ingredient-title">ส่วนผสม</span>
-                        <span class="amount-title">ปริมาณ</span>
-                    </div>
-                    <div class="ingredient-list">
-                        <div class="ingredient-item">
-                            <span class="ingredient">ไก่สด</span>
-                            <span class="amount">40 กรัม</span>
-                        </div>
-                        <div class="ingredient-item">
-                            <span class="ingredient">ข้าวคั่ว</span>
-                            <span class="amount">50 กรัม</span>
-                        </div>
-                        <div class="ingredient-item">
-                            <span class="ingredient">ซีอิ๊วขาว</span>
-                            <span class="amount">2 ถ้วย</span>
-                        </div>
-                        <div class="ingredient-item">
-                            <span class="ingredient">รากผักชี</span>
-                            <span class="amount">2 กำ</span>
-                        </div>
-                        <div class="ingredient-item">
-                            <span class="ingredient">แป้งทอดกรอบ</span>
-                            <span class="amount">ตามใจชอบ</span>
-                        </div>
-                    </div>
-                    <div class="ingredient-item-add">
-                        <svg class="add-item-button" width="20" height="20" viewBox="0 0 35 41" fill="none">
-                            <rect y="16.2593" width="35" height="7.99191" rx="3.99595" fill="white" />
-                            <rect x="21" y="0.275391" width="39.9595" height="7" rx="3.5"
-                                transform="rotate(90 21 0.275391)" fill="white" />
+    <main>
+        <section class="recipe">
+            <div class="post-header">
+                <label for="file-upload" class="custom-file-upload">
+                    <div class="svg-container">
+                        <svg class="svg-upload-image" width="400" height="275" viewBox="0 0 545 372" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0H545V372H0V0Z" fill="#D9D9D9"/>
+                            <rect x="217.978" y="140.963" width="62.9471" height="76.5802" fill="white"/>
+                            <path d="M249.45 103L314.792 152.09H184.108L249.45 103Z" fill="white"/>
                         </svg>
                     </div>
+                </label>
+                <input id="file-upload" type="file" accept="image/*" />
+                <div id="image-preview" class="image-preview">
+                    <!-- Image preview will go here after uploading -->
                 </div>
-                <div class="video-section">
-                    <svg class="svg-upload-video" width="995" height="540" viewBox="0 0 995 540" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <rect width="995" height="539.29" rx="8" fill="#D9D9D9" />
-                        <rect x="448.407" y="156.394" width="98.1902" height="168.226" fill="white" />
-                        <path d="M497.5 75L599.426 182.837H395.575L497.5 75Z" fill="white" />
-                        <path
-                            d="M401.859 423.019C398.979 423.019 396.819 422.272 395.379 420.779C393.966 419.259 393.259 416.886 393.259 413.659C393.259 413.126 393.273 412.552 393.299 411.939C393.353 411.299 393.406 410.672 393.459 410.059H401.859V412.859H396.819V413.659C396.819 415.339 397.006 416.659 397.379 417.619C397.753 418.552 398.299 419.206 399.019 419.579C399.766 419.952 400.686 420.139 401.779 420.139C402.979 420.139 404.019 419.912 404.899 419.459C405.779 419.006 406.459 418.179 406.939 416.979C407.419 415.779 407.659 414.059 407.659 411.819C407.659 409.846 407.446 408.232 407.019 406.979C406.593 405.726 405.886 404.792 404.899 404.179C403.939 403.566 402.633 403.259 400.979 403.259C400.126 403.259 399.299 403.339 398.499 403.499C397.699 403.632 396.926 403.846 396.179 404.139C395.433 404.406 394.699 404.752 393.979 405.179V401.859C394.513 401.566 395.166 401.312 395.939 401.099C396.713 400.859 397.566 400.672 398.499 400.539C399.433 400.379 400.406 400.299 401.419 400.299C403.766 400.299 405.659 400.779 407.099 401.739C408.566 402.672 409.633 404.006 410.299 405.739C410.966 407.446 411.299 409.472 411.299 411.819C411.299 414.166 410.993 416.179 410.379 417.859C409.766 419.539 408.766 420.819 407.379 421.699C406.019 422.579 404.179 423.019 401.859 423.019ZM404.797 397.219C403.677 397.219 402.784 397.059 402.117 396.739C401.451 396.419 400.971 396.006 400.677 395.499C400.357 394.992 400.197 394.459 400.197 393.899C400.197 393.499 400.264 393.072 400.397 392.619C400.504 392.139 400.651 391.752 400.837 391.459L403.837 391.979C403.784 392.086 403.731 392.272 403.677 392.539C403.624 392.779 403.597 393.006 403.597 393.219C403.597 393.566 403.704 393.872 403.917 394.139C404.131 394.379 404.491 394.499 404.997 394.499H415.118V397.219H404.797ZM419.428 422.619L415.468 400.699H419.108L420.668 410.219C420.801 410.992 420.935 411.992 421.068 413.219C421.201 414.446 421.361 415.899 421.548 417.579H421.668C421.908 416.432 422.135 415.406 422.348 414.499C422.588 413.592 422.801 412.779 422.988 412.059C423.201 411.312 423.388 410.659 423.548 410.099L426.228 400.699H429.148L431.868 410.099C432.028 410.659 432.201 411.312 432.388 412.059C432.601 412.779 432.815 413.592 433.028 414.499C433.268 415.406 433.508 416.432 433.748 417.579H433.908C434.068 415.899 434.215 414.446 434.348 413.219C434.481 411.992 434.615 410.992 434.748 410.219L436.348 400.699H439.988L436.028 422.619H432.548L428.868 410.699C428.681 410.032 428.495 409.339 428.308 408.619C428.148 407.899 427.988 406.952 427.828 405.779H427.668C427.561 406.552 427.441 407.232 427.308 407.819C427.175 408.406 427.041 408.926 426.908 409.379C426.775 409.832 426.641 410.272 426.508 410.699L422.908 422.619H419.428ZM446.041 404.699V396.859C446.041 395.259 445.654 394.112 444.881 393.419C444.134 392.726 443.174 392.379 442.001 392.379V390.859L444.961 389.579H455.641V392.379H447.521L447.481 392.539C448.067 392.939 448.561 393.552 448.961 394.379C449.387 395.179 449.601 396.232 449.601 397.539V404.699H446.041ZM450.401 423.019C449.681 423.019 448.987 422.899 448.321 422.659C447.654 422.419 447.107 421.992 446.681 421.379C446.254 420.766 446.041 419.912 446.041 418.819V400.699H449.601V418.379C449.601 418.992 449.734 419.432 450.001 419.699C450.267 419.966 450.694 420.099 451.281 420.099C451.521 420.099 451.774 420.072 452.041 420.019C452.307 419.966 452.561 419.899 452.801 419.819L453.281 422.419C452.774 422.659 452.281 422.819 451.801 422.899C451.321 422.979 450.854 423.019 450.401 423.019ZM457.505 422.619V400.699H461.065V410.179H461.185L470.305 400.699H474.465V400.819L461.065 414.379V422.619H457.505ZM471.105 422.619V414.899C471.105 413.326 470.625 412.099 469.665 411.219C468.705 410.339 467.119 409.899 464.905 409.899L466.985 407.299C468.665 407.299 470.065 407.606 471.185 408.219C472.332 408.806 473.199 409.659 473.785 410.779C474.372 411.899 474.665 413.246 474.665 414.819V422.619H471.105ZM493.502 422.619V408.019C493.502 406.286 493.102 405.059 492.302 404.339C491.529 403.592 490.222 403.219 488.382 403.219C487.049 403.219 485.769 403.406 484.542 403.779C483.342 404.126 482.195 404.619 481.102 405.259V401.939C481.875 401.539 482.915 401.166 484.222 400.819C485.555 400.472 487.049 400.299 488.702 400.299C490.115 400.299 491.342 400.459 492.382 400.779C493.422 401.072 494.275 401.526 494.942 402.139C495.635 402.752 496.155 403.539 496.502 404.499C496.849 405.432 497.022 406.539 497.022 407.819V422.619H493.502ZM486.622 423.019C484.275 423.019 482.475 422.486 481.222 421.419C479.995 420.326 479.382 418.766 479.382 416.739C479.382 414.526 480.182 412.819 481.782 411.619C483.409 410.419 486.035 409.712 489.662 409.499L494.222 409.219V412.179L490.142 412.459C487.422 412.646 485.542 413.072 484.502 413.739C483.489 414.406 482.982 415.379 482.982 416.659C482.982 417.859 483.355 418.739 484.102 419.299C484.875 419.859 485.942 420.139 487.302 420.139C487.755 420.139 488.169 420.112 488.542 420.059C488.915 419.979 489.275 419.886 489.622 419.779L490.182 422.459C489.675 422.646 489.115 422.779 488.502 422.859C487.915 422.966 487.289 423.019 486.622 423.019ZM510.993 423.019C508.86 423.019 507.18 422.526 505.953 421.539C504.753 420.526 503.9 419.166 503.393 417.459C502.913 415.752 502.673 413.872 502.673 411.819C502.673 409.552 502.9 407.686 503.353 406.219C503.833 404.726 504.5 403.552 505.353 402.699C506.233 401.819 507.273 401.206 508.473 400.859C509.7 400.486 511.047 400.299 512.513 400.299C514.647 400.299 516.38 400.619 517.713 401.259C519.073 401.872 520.073 402.752 520.713 403.899C521.353 405.046 521.673 406.419 521.673 408.019V422.619H518.153V408.339C518.153 406.686 517.74 405.432 516.913 404.579C516.087 403.699 514.66 403.259 512.633 403.259C511.407 403.259 510.3 403.486 509.313 403.939C508.353 404.392 507.593 405.232 507.033 406.459C506.5 407.686 506.233 409.486 506.233 411.859C506.233 413.406 506.38 414.806 506.673 416.059C506.993 417.286 507.54 418.259 508.313 418.979C509.087 419.699 510.167 420.059 511.553 420.059C511.953 420.059 512.327 420.032 512.673 419.979C513.02 419.926 513.353 419.846 513.673 419.739L514.033 422.499C513.607 422.686 513.113 422.819 512.553 422.899C512.02 422.979 511.5 423.019 510.993 423.019ZM532.562 423.019C531.522 423.019 530.509 422.912 529.522 422.699C528.562 422.486 527.535 422.086 526.442 421.499L527.562 418.779C528.149 419.126 528.815 419.432 529.562 419.699C530.309 419.939 531.175 420.059 532.162 420.059C534.135 420.059 535.669 419.339 536.762 417.899C537.882 416.432 538.442 414.326 538.442 411.579C538.442 408.886 537.869 406.832 536.722 405.419C535.602 403.979 533.869 403.259 531.522 403.259C530.669 403.259 529.802 403.352 528.922 403.539C528.042 403.726 527.269 404.006 526.602 404.379V401.379C527.375 400.979 528.215 400.699 529.122 400.539C530.055 400.379 530.989 400.299 531.922 400.299C534.322 400.299 536.269 400.779 537.762 401.739C539.255 402.672 540.349 403.979 541.042 405.659C541.735 407.339 542.082 409.312 542.082 411.579C542.082 415.099 541.282 417.886 539.682 419.939C538.109 421.992 535.735 423.019 532.562 423.019ZM524.44 397.219V395.659L527.36 394.379H541.44V397.219H524.44ZM555.329 423.019C553.196 423.019 551.516 422.526 550.289 421.539C549.089 420.526 548.236 419.166 547.729 417.459C547.249 415.752 547.009 413.872 547.009 411.819C547.009 409.552 547.236 407.686 547.689 406.219C548.169 404.726 548.836 403.552 549.689 402.699C550.569 401.819 551.609 401.206 552.809 400.859C554.036 400.486 555.383 400.299 556.849 400.299C558.983 400.299 560.716 400.619 562.049 401.259C563.409 401.872 564.409 402.752 565.049 403.899C565.689 405.046 566.009 406.419 566.009 408.019V422.619H562.489V408.339C562.489 406.686 562.076 405.432 561.249 404.579C560.423 403.699 558.996 403.259 556.969 403.259C555.743 403.259 554.636 403.486 553.649 403.939C552.689 404.392 551.929 405.232 551.369 406.459C550.836 407.686 550.569 409.486 550.569 411.859C550.569 413.406 550.716 414.806 551.009 416.059C551.329 417.286 551.876 418.259 552.649 418.979C553.423 419.699 554.503 420.059 555.889 420.059C556.289 420.059 556.663 420.032 557.009 419.979C557.356 419.926 557.689 419.846 558.009 419.739L558.369 422.499C557.943 422.686 557.449 422.819 556.889 422.899C556.356 422.979 555.836 423.019 555.329 423.019ZM548.698 397.219V395.659L551.618 394.379H565.698V397.219H548.698ZM562.378 395.659V391.139H565.738V395.659H562.378ZM573.658 404.699V396.859C573.658 395.259 573.271 394.112 572.498 393.419C571.751 392.726 570.791 392.379 569.618 392.379V390.859L572.578 389.579H583.258V392.379H575.138L575.098 392.539C575.684 392.939 576.178 393.552 576.578 394.379C577.004 395.179 577.218 396.232 577.218 397.539V404.699H573.658ZM578.018 423.019C577.298 423.019 576.604 422.899 575.938 422.659C575.271 422.419 574.724 421.992 574.298 421.379C573.871 420.766 573.658 419.912 573.658 418.819V400.699H577.218V418.379C577.218 418.992 577.351 419.432 577.618 419.699C577.884 419.966 578.311 420.099 578.898 420.099C579.138 420.099 579.391 420.072 579.658 420.019C579.924 419.966 580.178 419.899 580.418 419.819L580.898 422.419C580.391 422.659 579.898 422.819 579.418 422.899C578.938 422.979 578.471 423.019 578.018 423.019ZM592.172 423.019C589.292 423.019 587.132 422.272 585.692 420.779C584.279 419.259 583.572 416.886 583.572 413.659C583.572 413.126 583.585 412.552 583.612 411.939C583.665 411.299 583.719 410.672 583.772 410.059H592.172V412.859H587.132V413.659C587.132 415.339 587.319 416.659 587.692 417.619C588.065 418.552 588.612 419.206 589.332 419.579C590.079 419.952 590.999 420.139 592.092 420.139C593.292 420.139 594.332 419.912 595.212 419.459C596.092 419.006 596.772 418.179 597.252 416.979C597.732 415.779 597.972 414.059 597.972 411.819C597.972 409.846 597.759 408.232 597.332 406.979C596.905 405.726 596.199 404.792 595.212 404.179C594.252 403.566 592.945 403.259 591.292 403.259C590.439 403.259 589.612 403.339 588.812 403.499C588.012 403.632 587.239 403.846 586.492 404.139C585.745 404.406 585.012 404.752 584.292 405.179V401.859C584.825 401.566 585.479 401.312 586.252 401.099C587.025 400.859 587.879 400.672 588.812 400.539C589.745 400.379 590.719 400.299 591.732 400.299C594.079 400.299 595.972 400.779 597.412 401.739C598.879 402.672 599.945 404.006 600.612 405.739C601.279 407.446 601.612 409.472 601.612 411.819C601.612 414.166 601.305 416.179 600.692 417.859C600.079 419.539 599.079 420.819 597.692 421.699C596.332 422.579 594.492 423.019 592.172 423.019Z"
-                            fill="black" />
-                    </svg>
+                <div class="post-info">
+                    <div class="author-info">
+                        <img src="images/ACS.jpg" alt="Profile" class="author-image">
+                        <span class="author-name">ACS KMUTT</span>
+                    </div>
+                    <input type="text" id="post-topic" class="form-input" placeholder="Enter post topic">
+                    <textarea id="describe" class="form-textarea" placeholder="Enter description"></textarea>
                 </div>
-                <div class="steps-section">
-                    <h2>วิธีทำ</h2>
+            </div>
+
+            <div class="ingredients-section">
+                <div class="ingredients-header">
+                    <span class="ingredient-title">ส่วนผสม</span>
+                    <span class="amount-title">ปริมาณ</span>
+                </div>
+                <div id="ingredient-list" class="ingredient-list">
+                    <div class="ingredient-item">
+                        <input type="text" class="ingredient" placeholder="Enter ingredient">
+                        <input type="text" class="amount" placeholder="Enter amount">
+                        <button class="remove-ingredient">Remove</button>
+                    </div>
+                </div>
+                <button id="add-ingredient" class="ingredient-item-add">Add Ingredient</button>
+            </div>
+
+            <div class="video-section" id="video-section">
+                <div class="youtube-preview" id="video-preview" style="display: none;">
+                    <iframe id="youtube-video" src="" allowfullscreen></iframe>
+                    <button class="remove-video-btn" onclick="removeVideo()">×</button>
+                </div>
+            
+                <div id="video-input-section">
+                    <input type="text" id="youtube-link" placeholder="Enter YouTube link" />
+                    <button onclick="addVideo()">Add Video</button>
+                </div>
+            </div>
+            
+
+            <div class="steps-section">
+                <h2>วิธีทำ</h2>
+                <div id="step-list" class="step-list">
                     <div class="step-item">
-                        <div class="step-list">
-                            <svg class="svg-step-add" width="104" height="114" viewBox="0 0 154 144" fill="none">
-                                <rect width="154" height="144" rx="9" fill="#818181" />
-                                <rect x="59" y="68" width="35" height="7" rx="3.5" fill="white" />
-                                <rect x="80" y="54" width="35" height="7" rx="3.5" transform="rotate(90 80 54)"
-                                    fill="white" />
+                        <!-- ปุ่มอัพโหลดภาพ -->
+                        <label for="upload-step-image-{{Date.now()}}" class="custom-upload-box">
+                            <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                                <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <div class="step-content">
-                                <textarea id="describe" class="step-describe" placeholder="Enter step"></textarea>
-                            </div>
-                        </div>
-                        <div class="ingredient-item-add">
-                            <svg class="add-item-button" width="20" height="20" viewBox="0 0 35 41" fill="none">
-                                <rect y="16.2593" width="35" height="7.99191" rx="3.99595" fill="white" />
-                                <rect x="21" y="0.275391" width="39.9595" height="7" rx="3.5"
-                                    transform="rotate(90 21 0.275391)" fill="white" />
-                            </svg>
-                        </div>
+                        </label>
+                        <input id="upload-step-image-{{Date.now()}}" type="file" accept="image/*" style="display: none;">
+                        
+                        <!-- กล่องข้อความ -->
+                        <textarea class="step-describe" placeholder="Enter step"></textarea>
+                
+                        <!-- ปุ่ม Remove -->
+                        <button class="remove-step">Remove</button>
                     </div>
-            </section>
-        </main>
-        <%- include('../partials/comment-section.ejs') %>
-</body>
+                </div>
+                <button id="add-step" class="add-step-button">Add Step</button>
+            </div>
+            
+            <div class="submit-section">
+                <button class="cancel-button">Cancel</button>
+                <button class="submit-button">Submit</button>
+            </div>
+        </section>
+    </main>
 
-<script>
-    document.getElementById('sendBtn').addEventListener('click', function () {
-        const commentInput = document.getElementById('commentInput'); // รับค่าจาก input
-        const commentText = commentInput.value.trim(); // ตัดช่องว่างซ้ายขวา
+    <script>
+        document.getElementById('add-ingredient').addEventListener('click', function() {
+            const ingredientList = document.getElementById('ingredient-list');
+            const newItem = document.createElement('div');
+            newItem.classList.add('ingredient-item');
+            newItem.innerHTML = `
+                <input type="text" class="ingredient" placeholder="Enter ingredient">
+                <input type="text" class="amount" placeholder="Enter amount">
+                <button class="remove-ingredient">Remove</button>
+            `;
+            newItem.querySelector('.remove-ingredient').addEventListener('click', function() {
+                newItem.remove();
+            });
+            ingredientList.appendChild(newItem);
+        });
+        
+        // Handle main image upload (e.g., for the recipe image)
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // สร้างกรอบสำหรับแสดงภาพที่อัพโหลด
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('uploaded-image-container');
+                    
+                    // สร้างและตั้งค่าภาพที่อัพโหลด
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imageContainer.appendChild(img);
+                    
+                    // สร้างปุ่มลบภาพ
+                    const removeBtn = document.createElement('button');
+                    removeBtn.classList.add('remove-image-btn');
+                    removeBtn.textContent = 'Delete';
+                    removeBtn.addEventListener('click', function() {
+                        imageContainer.replaceWith(uploadLabel); // เปลี่ยนกรอบที่มีภาพเป็นกรอบอัพโหลด
+                        // รีเซ็ตฟอร์มให้กลับสู่สถานะเริ่มต้น
+                        document.getElementById('file-upload').value = '';
+                    });
+                    imageContainer.appendChild(removeBtn);
+                
+                    // แทนที่ป้ายอัพโหลดด้วยภาพที่อัพโหลด
+                    const fileUploadLabel = document.querySelector('.custom-file-upload');
+                    uploadLabel = fileUploadLabel; // เก็บกรอบอัพโหลดเดิม
+                    fileUploadLabel.replaceWith(imageContainer); // แทนที่ด้วยภาพที่อัพโหลด
+                };
+                reader.readAsDataURL(file);  // อ่านไฟล์ภาพ
+            }
+        });
 
-        if (commentText) { // เช็คว่ามีข้อความหรือไม่
-            const commentContainer = document.getElementById('commentsContainer');
+        // Handle step image uploads dynamically (for each step)
+        document.getElementById('add-step').addEventListener('click', function () {
+        const stepList = document.getElementById('step-list');
+        const newStep = document.createElement('div');
+        newStep.classList.add('step-item');
+        newStep.innerHTML = `
+            <!-- ปุ่มอัพโหลดภาพ -->
+            <label for="upload-step-image-${Date.now()}" class="custom-upload-box">
+                <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                    <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </label>
+            <input id="upload-step-image-${Date.now()}" type="file" accept="image/*" style="display: none;">
+            
+            <!-- กล่องข้อความ -->
+            <textarea class="step-describe" placeholder="Enter step"></textarea>
+        
+            <!-- ปุ่ม Remove -->
+            <button class="remove-step">Remove</button>
+        `;
+        
+        // เพิ่ม Event Listener ให้ปุ่ม Remove
+        newStep.querySelector('.remove-step').addEventListener('click', function () {
+            newStep.remove();
+        });
 
-            // สร้าง DOM ของคอมเมนต์ใหม่
-            const newComment = document.createElement('div');
-            newComment.classList.add('comment');
-            newComment.innerHTML = `
-                    <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
-                    <div class="comment-details">
-                        <p class="username">@คุณ</p>
-                        <p class="comment-text">${commentText}</p>
-                    </div>
-                    <div class="menu-container">
-                        <img src="/images/ellipsis-vertical.png" class="menu-btn" onclick="toggleMenu(this)">
-                        <div class="menu-options">
-                            <button onclick="deleteComment(this)">ลบ</button>
-                        </div>
-                    </div>
-                `;
-            commentContainer.appendChild(newComment);
+        // เพิ่ม Event Listener ให้ input อัพโหลดไฟล์
+        const newFileInput = newStep.querySelector('input[type="file"]');
+        handleStepImageUpload(newFileInput);
 
-            commentInput.value = '';
-        }
+        stepList.appendChild(newStep);
     });
 
-    // ฟังก์ชันสำหรับเคลียร์ input
-    function toggleMenu(button) {
-        const menuOptions = button.nextElementSibling;
-        menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
-    }
-    function clearComment() {
-        const commentInput = document.getElementById('commentInput'); // เลือก input
-        commentInput.value = ''; // เคลียร์ค่าใน input
+    function handleStepImageUpload(inputElement) {
+        inputElement.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // สร้างกรอบสำหรับแสดงภาพที่อัพโหลด
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('uploaded-image-container');
+                    
+                    // สร้างและตั้งค่าภาพที่อัพโหลด
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imageContainer.appendChild(img);
+                    
+                    // สร้างปุ่มลบภาพ
+                    const removeBtn = document.createElement('button');
+                    removeBtn.classList.add('remove-image-btn');
+                    removeBtn.textContent = 'Delete';
+                    removeBtn.addEventListener('click', function() {
+                        imageContainer.replaceWith(uploadLabel); // เปลี่ยนกรอบที่มีภาพเป็นกรอบอัพโหลด
+                        // รีเซ็ตฟอร์มให้กลับสู่สถานะเริ่มต้น
+                        inputElement.value = '';
+                    });
+                    imageContainer.appendChild(removeBtn);
+                    
+                    // แทนที่กรอบที่เป็นจุดอัพโหลดด้วยภาพที่อัพโหลด
+                    const uploadLabel = inputElement.closest('.step-item').querySelector('.custom-upload-box');
+                    uploadLabel.replaceWith(imageContainer);
+                };
+                reader.readAsDataURL(file);  // อ่านไฟล์ภาพ
+            }
+        });
     }
 
-    // ฟังก์ชันสำหรับลบคอมเมนต์
-    function deleteComment(button) {
-        const comment = button.closest('.comment');
-        comment.remove();
+    // เพิ่ม Event Listener ให้กับ input ที่มีอยู่ตั้งแต่แรก (ก่อน add step)
+    document.querySelectorAll('.steps-section input[type="file"]').forEach(input => {
+        handleStepImageUpload(input);
+    });
+
+
+
+    const linkInput = document.getElementById('youtube-link');
+        const addButton = document.getElementById('add-youtube-video');
+        const videoSection = document.getElementById('video-section');
+        const videoPreview = document.getElementById('video-preview');
+
+        addButton.addEventListener('click', function() {
+            const youtubeURL = linkInput.value.trim();
+
+            // ตรวจสอบลิงก์ YouTube
+            const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=)?([\w\-]{11})$/;
+            const match = youtubeURL.match(youtubeRegex);
+
+            if (match) {
+                const videoId = match[5]; // ดึง video ID จากลิงก์
+
+                // แสดงตัวอย่างวิดีโอใน iframe
+                videoPreview.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <button class="remove-video-btn">X</button>
+                `;
+                videoPreview.style.display = 'block'; // แสดงส่วนตัวอย่างวิดีโอ
+                videoSection.style.display = 'none'; // ซ่อน Input และปุ่มเพิ่มวิดีโอ
+
+                // ฟังก์ชันสำหรับปุ่มลบวิดีโอ
+                const removeButton = videoPreview.querySelector('.remove-video-btn');
+                removeButton.addEventListener('click', function() {
+                    videoPreview.style.display = 'none'; // ซ่อนตัวอย่างวิดีโอ
+                    videoSection.style.display = 'flex'; // แสดง Input และปุ่มเพิ่มวิดีโอ
+                    linkInput.value = ''; // ล้างลิงก์ที่ป้อนใน Input
+                });
+            } else {
+                alert('กรุณาใส่ลิงก์ YouTube ที่ถูกต้อง');
+            }
+        });
+        function addVideo() {
+        const linkInput = document.getElementById("youtube-link");
+        const videoPreview = document.getElementById("video-preview");
+        const videoIframe = document.getElementById("youtube-video");
+        const inputSection = document.getElementById("video-input-section");
+
+        if (linkInput.value.trim()) {
+            const youtubeLink = linkInput.value.replace("watch?v=", "embed/");
+            videoIframe.src = youtubeLink;
+            videoPreview.style.display = "flex"; // แสดงตัวอย่างวิดีโอ
+            inputSection.style.display = "none"; // ซ่อนส่วน Input
+        } else {
+            alert("Please enter a valid YouTube link.");
+        }
     }
-</script>
+
+    function removeVideo() {
+        const videoPreview = document.getElementById("video-preview");
+        const videoIframe = document.getElementById("youtube-video");
+        const inputSection = document.getElementById("video-input-section");
+
+        videoIframe.src = ""; // ลบลิงก์วิดีโอ
+        videoPreview.style.display = "none"; // ซ่อนตัวอย่างวิดีโอ
+        inputSection.style.display = "flex"; // แสดง Input กลับมา
+    }
+    </script>
+
 
 </html>
