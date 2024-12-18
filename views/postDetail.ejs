@@ -10,7 +10,7 @@
     
     <!-- Display Post Picture -->
     <% if (post.post_picture) { %>
-        <img src="<%= post.post_picture %>" alt="<%= post.post_topic %>">
+        <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>">
     <% } %>
 
     <!-- Display Creator Information -->
@@ -38,7 +38,7 @@
                 <li>
                     <p><strong>Step <%= process.no_step %>:</strong> <%= process.process_describe %></p>
                     <% if (process.process_picture) { %>
-                        <img src="<%= process.process_picture %>" alt="Step <%= process.no_step %>">
+                        <img src="/uploads/<%= process.process_picture.split('\\').pop() %>" alt="Step <%= process.no_step %>">
                     <% } %>
                 </li>
             <% }) %>

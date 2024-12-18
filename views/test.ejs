@@ -46,21 +46,21 @@
                         <div class="ingredient-item">
                             <input type="text" class="ingredient" placeholder="Enter ingredient" name="ingredients[0][ingredient_name]" required>
                             <input type="text" class="amount" placeholder="Enter amount" name="ingredients[0][ingredient_amount]" required>
-                            <button class="remove-ingredient">Remove</button>
+                            <button class="remove-ingredient" type="button">Remove</button>
                         </div>
                     </div>
-                    <button id="add-ingredient" class="ingredient-item-add">Add Ingredient</button>
+                    <button id="add-ingredient" class="ingredient-item-add" type="button">Add Ingredient</button>
                 </div>
     
                 <div class="video-section" id="video-section">
                     <div class="youtube-preview" id="video-preview" style="display: none;">
                         <iframe id="youtube-video" src="" allowfullscreen></iframe>
-                        <button class="remove-video-btn" onclick="removeVideo()">×</button>
+                        <button class="remove-video-btn" onclick="removeVideo()" type="button">×</button>
                     </div>
                 
                     <div id="video-input-section">
                         <input type="text" id="youtube-link" placeholder="Enter YouTube link" />
-                        <button onclick="addVideo()">Add Video</button>
+                        <button onclick="addVideo()" type="button">Add Video</button>
                     </div>
                 </div>
                 
@@ -82,15 +82,15 @@
                             <textarea class="step-describe" placeholder="Enter step" name="processes[0][process_describe]" required></textarea>
                     
                             <!-- ปุ่ม Remove -->
-                            <button class="remove-step">Remove</button>
+                            <button class="remove-step" type="button">Remove</button>
                         </div>
                     </div>
-                    <button id="add-step" class="add-step-button" >Add Step</button>
+                    <button id="add-step" class="add-step-button" type="button">Add Step</button>
                 </div>
                 
                 <div class="submit-section">
-                    <button class="cancel-button">Cancel</button>
-                    <button class="submit-button">Submit</button>
+                    <button class="cancel-button" type="button">Cancel</button>
+                    <button class="submit-button" type="submit">Submit</button>
                 </div>
             </section>
         </form>
@@ -98,20 +98,23 @@
     </main>
 
     <script>
+        
         document.getElementById('add-ingredient').addEventListener('click', function() {
             const ingredientList = document.getElementById('ingredient-list');
+            const ingredientCount = ingredientList.children.length; // Current number of ingredients
             const newItem = document.createElement('div');
             newItem.classList.add('ingredient-item');
             newItem.innerHTML = `
-                <input type="text" class="ingredient" placeholder="Enter ingredient">
-                <input type="text" class="amount" placeholder="Enter amount">
-                <button class="remove-ingredient">Remove</button>
+                <input type="text" class="ingredient" placeholder="Enter ingredient" name="ingredients[${ingredientCount}][ingredient_name]" required>
+                <input type="text" class="amount" placeholder="Enter amount" name="ingredients[${ingredientCount}][ingredient_amount]" required>
+                <button class="remove-ingredient" type="button">Remove</button>
             `;
             newItem.querySelector('.remove-ingredient').addEventListener('click', function() {
                 newItem.remove();
             });
             ingredientList.appendChild(newItem);
         });
+
         
         // Handle main image upload (e.g., for the recipe image)
         document.getElementById('file-upload').addEventListener('change', function(event) {
@@ -150,37 +153,31 @@
 
         // Handle step image uploads dynamically (for each step)
         document.getElementById('add-step').addEventListener('click', function () {
-        const stepList = document.getElementById('step-list');
-        const newStep = document.createElement('div');
-        newStep.classList.add('step-item');
-        newStep.innerHTML = `
-            <!-- ปุ่มอัพโหลดภาพ -->
-            <label for="upload-step-image-${Date.now()}" class="custom-upload-box">
-                <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" rx="4" fill="#D9D9D9" />
-                    <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </label>
-            <input id="upload-step-image-${Date.now()}" type="file" accept="image/*" style="display: none;">
-            
-            <!-- กล่องข้อความ -->
-            <textarea class="step-describe" placeholder="Enter step"></textarea>
-        
-            <!-- ปุ่ม Remove -->
-            <button class="remove-step">Remove</button>
-        `;
-        
-        // เพิ่ม Event Listener ให้ปุ่ม Remove
-        newStep.querySelector('.remove-step').addEventListener('click', function () {
-            newStep.remove();
+            const stepList = document.getElementById('step-list');
+            const stepCount = stepList.children.length; // Current number of steps
+            const newStep = document.createElement('div');
+            newStep.classList.add('step-item');
+            newStep.innerHTML = `
+                <label for="upload-step-image-${stepCount}" class="custom-upload-box">
+                    <svg class="svg-upload-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#D9D9D9" />
+                        <path d="M12 8V16M8 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </label>
+                <input id="upload-step-image-${stepCount}" type="file" accept="image/*" name="processes[${stepCount}][process_picture]" style="display: none;" required>
+                <textarea class="step-describe" placeholder="Enter step" name="processes[${stepCount}][process_describe]" required></textarea>
+                <button class="remove-step" type="button">Remove</button>
+            `;
+            newStep.querySelector('.remove-step').addEventListener('click', function () {
+                newStep.remove();
+            });
+            stepList.appendChild(newStep);
+
+            // Attach the image upload handler to the new file input
+            const newFileInput = newStep.querySelector('input[type="file"]');
+            handleStepImageUpload(newFileInput);
         });
 
-        // เพิ่ม Event Listener ให้ input อัพโหลดไฟล์
-        const newFileInput = newStep.querySelector('input[type="file"]');
-        handleStepImageUpload(newFileInput);
-
-        stepList.appendChild(newStep);
-    });
 
     function handleStepImageUpload(inputElement) {
         inputElement.addEventListener('change', function (event) {
@@ -222,6 +219,7 @@
         handleStepImageUpload(input);
     });
 
+    
 
 
     const linkInput = document.getElementById('youtube-link');

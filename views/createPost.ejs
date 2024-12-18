@@ -34,35 +34,40 @@
         </div>
         <button type="button" onclick="addProcess()">Add More Process</button>
         
-
         <button type="submit">Create Post</button>
     </form>
 
     <script>
+        // Counters for ingredients and processes
+        let ingredientIndex = 1;
+        let processIndex = 1;
+
         // Function to dynamically add more ingredients
         function addIngredient() {
             const ingredientsDiv = document.getElementById("ingredients");
-            const index = ingredientsDiv.children.length / 2; // Find the next ingredient index
+
             const newIngredient = `
-                <label for="ingredient_name_${index}">Ingredient Name:</label>
-                <input type="text" name="ingredients[${index}][ingredient_name]" required><br>
-                <label for="ingredient_amount_${index}">Ingredient Amount:</label>
-                <input type="text" name="ingredients[${index}][ingredient_amount]" required><br>
+                <label for="ingredient_name_${ingredientIndex}">Ingredient Name:</label>
+                <input type="text" name="ingredients[${ingredientIndex}][ingredient_name]" required><br>
+                <label for="ingredient_amount_${ingredientIndex}">Ingredient Amount:</label>
+                <input type="text" name="ingredients[${ingredientIndex}][ingredient_amount]" required><br>
             `;
             ingredientsDiv.insertAdjacentHTML('beforeend', newIngredient);
+            ingredientIndex++; // Increment ingredient index
         }
 
         // Function to dynamically add more process steps
         function addProcess() {
             const processesDiv = document.getElementById('processes');
-            const index = processesDiv.children.length / 3; // Adjust based on the number of elements per step
+
             const newProcess = `
-                <label for="process_describe_${index}">Process Description:</label>
-                <input type="text" name="processes[${index}][process_describe]" required><br>
-                <label for="process_picture_${index}">Process Picture:</label>
-                <input type="file" name="processes[${index}][process_picture]"><br>
+                <label for="process_describe_${processIndex}">Process Description:</label>
+                <input type="text" name="processes[${processIndex}][process_describe]" required><br>
+                <label for="process_picture_${processIndex}">Process Picture:</label>
+                <input type="file" name="processes[${processIndex}][process_picture]"><br>
             `;
             processesDiv.insertAdjacentHTML('beforeend', newProcess);
+            processIndex++; // Increment process index
         }
     </script>
 </body>
