@@ -1,0 +1,287 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #996447; /* สีพื้นหลังของ Header */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap:  8em;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.menu {
+    margin-right: 15px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.search-bar {
+    width: 500px;
+    margin-left: 100px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-right: 10px; /* ระยะห่างจากปุ่มสร้างโพส */
+}
+
+.create-post {
+    background-color: #ED975C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* ระยะห่างจากรูปโปรไฟล์ */
+}
+
+.profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+body {
+    background-color: #E9CD91;
+    color: #333;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #F4ECC7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.recipe h1, .recipe p {
+    margin-bottom: 10px;
+}
+
+
+.post-header {
+    display: flex;
+    gap: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.post-image {
+    width: 400px;
+    height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.author-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.post-title {
+    font-size: 20px;
+    margin: 5px 0;
+    color: #8C4D2B;
+}
+
+.post-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.rating-stars {
+    color: #6d6d6d; 
+}
+
+.rating-value {
+    color: #000000;
+}
+
+.post-description {
+    font-size: 14px;
+    color: #000000;
+    margin-top: 5px;
+    text-align: left;
+}
+
+
+.ingredients, .video-section, .steps, .comments {
+    margin-bottom: 20px;
+}
+
+.ingredients-section {
+    width: 100%;
+    background-color: #F4EFDC; 
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.ingredients-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-weight: bold;
+    color: #8C4D2B; 
+    border-bottom: 1px solid #ddd; 
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.ingredient-item:nth-child(even) {
+    background-color: #eaeaea; /* สีพื้นหลังของบรรทัดคู่ */
+}
+
+.ingredient-item:nth-child(odd) {
+    background-color: #ffffff; /* สีพื้นหลังของบรรทัดคู่ */
+}
+
+.ingredient {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.amount {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.video-section {
+    color: #8C4D2B;
+}
+
+.video-section iframe {
+    width: 100%;
+    border-radius: 5px;
+}
+
+
+.steps-section {
+    color: #8C4D2B;
+    width: 100%;
+    background-color: #F4EFDC; /* สีพื้นหลัง */
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+
+.step-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.step-item:nth-child(even) {
+    background-color: #eaeaea; /* สีพื้นหลังสำหรับแถวคู่ */
+}
+
+.step-item:nth-child(odd) {
+    background-color: #ffffff; /* สีพื้นหลังสำหรับแถวคู่ */
+}
+
+.step-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.step-content {
+    padding-left: 1%;
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+
+.comments {
+    color: #8C4D2B;
+}
+
+.comment-item {
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.comment-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.comment-content {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+
+
+
+.comments .comment:last-child {
+    border-bottom: none;
+}

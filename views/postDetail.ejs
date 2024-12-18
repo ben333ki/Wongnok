@@ -4,50 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= post.post_topic %> - Post Details</title>
+    <link rel="stylesheet" href="/css/post.css">
 </head>
 <body>
-    <h1><%= post.post_topic %></h1>
-    
-    <!-- Display Post Picture -->
-    <% if (post.post_picture) { %>
-        <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>">
-    <% } %>
+    <%- include('./partials/header.ejs') %>
+    <main>
+        <section class="recipe">
+            <div class="post-header">
+                <% if (post.post_picture) { %>
+                    <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="post-image">
+                <% } %>
+                <div class="post-info">
+                    <div class="author-info">
+                        <% if (post.createdBy.profile_picture) { %>
+                            <img src="/uploads/<%= post.createdBy.profile_picture.split('\\').pop() %>" alt="Profile" class="author-image">
+                        <% } else { %>
+                            <img src="/images/default-profile.png" alt="Default Profile" class="author-image">
+                        <% } %>
+                        <span class="author-name"><%= post.createdBy.profile_name %></span>
+                    </div>
+                    <h2 class="post-title"><%= post.post_topic %></h2>
+                    <div class="post-rating">
+                        <span class="rating-stars">⭐⭐⭐⭐✩</span> <!-- Update based on actual rating -->
+                        <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
+                    </div>
+                    <p class="post-description"><%= post.description %></p>
+                </div>
+            </div>
 
-    <!-- Display Creator Information -->
-    <p><strong>Created by:</strong> <%= post.createdBy.profile_name %></p>
-    <p><strong>Created on:</strong> <%= new Date(post.post_time).toLocaleString() %></p>
-    <p><strong>Average Score:</strong> <%= post.avg_score %></p>
+            <div class="ingredients-section">
+                <div class="ingredients-header">
+                    <span class="ingredient-title">Ingredients</span>
+                    <span class="amount-title">Amount</span>
+                </div>
+                <% if (post.ingredients && post.ingredients.length > 0) { %>
+                    <% post.ingredients.forEach(ingredient => { %>
+                        <div class="ingredient-item">
+                            <span class="ingredient"><%= ingredient.ingredient_name %></span>
+                            <span class="amount"><%= ingredient.ingredient_amount %></span>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No ingredients listed for this post.</p>
+                <% } %>
+            </div>
 
-    <!-- Display Ingredients -->
-    <h2>Ingredients</h2>
-    <% if (post.ingredients && post.ingredients.length > 0) { %>
-        <ul>
-            <% post.ingredients.forEach(ingredient => { %>
-                <li><%= ingredient.ingredient_name %>: <%= ingredient.ingredient_amount %></li>
-            <% }) %>
-        </ul>
-    <% } else { %>
-        <p>No ingredients listed for this post.</p>
-    <% } %>
+            <% if (post.video_url) { %>
+                <div class="video-section">
+                    <h2>Video</h2>
+                    <iframe width="100%" height="315" src="<%= post.video_url %>" frameborder="0" allowfullscreen></iframe>
+                </div>
+            <% } %>
 
-    <!-- Display Processes -->
-    <h2>Steps</h2>
-    <% if (post.processes && post.processes.length > 0) { %>
-        <ol>
-            <% post.processes.forEach(process => { %>
-                <li>
-                    <p><strong>Step <%= process.no_step %>:</strong> <%= process.process_describe %></p>
-                    <% if (process.process_picture) { %>
-                        <img src="/uploads/<%= process.process_picture.split('\\').pop() %>" alt="Step <%= process.no_step %>">
-                    <% } %>
-                </li>
-            <% }) %>
-        </ol>
-    <% } else { %>
-        <p>No steps listed for this post.</p>
-    <% } %>
+            <div class="steps-section">
+                <h2>Steps</h2>
+                <% if (post.processes && post.processes.length > 0) { %>
+                    <% post.processes.forEach(process => { %>
+                        <div class="step-item">
+                            <% if (process.process_picture) { %>
+                                <img src="/uploads/<%= process.process_picture.split('\\').pop() %>" alt="Step <%= process.no_step %>" class="step-image">
+                            <% } %>
+                            <div class="step-content">
+                                <strong>Step <%= process.no_step %></strong><br>
+                                <%= process.process_describe %>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No steps listed for this post.</p>
+                <% } %>
+            </div>
+        </section>
 
-    <!-- Back Link -->
+        <section class="comments">
+            <h2>Comments</h2>
+            <% if (post.comments && post.comments.length > 0) { %>
+                <% post.comments.forEach(comment => { %>
+                    <div class="comment-item">
+                        <% if (comment.user.profile_picture) { %>
+                            <img src="/uploads/<%= comment.user.profile_picture.split('\\').pop() %>" alt="<%= comment.user.name %>" class="comment-image">
+                        <% } else { %>
+                            <img src="/images/default-profile.png" alt="Default Profile" class="comment-image">
+                        <% } %>
+                        <div class="comment-content">
+                            <strong><%= comment.user.name %></strong><br>
+                            <%= comment.text %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No comments yet. Be the first to comment!</p>
+            <% } %>
+        </section>
+    </main>
+
     <a href="/main/user">Go back to your profile</a>
 </body>
 </html>
