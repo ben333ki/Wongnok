@@ -29,11 +29,21 @@
                     </div>
                     <h2 class="post-title"><%= post.post_topic %></h2>
                     <div class="post-rating">
-                        <span class="rating-stars">⭐⭐⭐⭐✩</span> <!-- Update based on actual rating -->
+                        <form action="/main/post/<%= post._id %>/rate" method="POST">
+                            <label for="rating">Rate this Post:</label>
+                            <p><strong>Average Score:</strong> <%= post.avg_score.toFixed(2) %> (Out of 5)</p>
+                            <select name="rating" id="rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button type="submit">Submit Rating</button>
+                        </form>
                         <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
                     </div>
-                    <p class="post-description"><%= post.description %></p>
-
+                    <p class="post-description"><%= post.post_describe %></p>
                     
                 </div>
             </div>
@@ -117,8 +127,6 @@
                                 <% } %>
             </section>
         </main>
-
-        <a href="/main/user">Go back to your profile</a>
         <%- include('./partials/comment-section.ejs') %>
 
         <script>

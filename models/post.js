@@ -24,6 +24,7 @@ const postSchema = new mongoose.Schema({
     youtube_url : { type: String },
     processes: [processSchema], // Array of processes (each post can have multiple steps)
     ingredients: [ingredientSchema], // Array of ingredients (each post can have multiple ingredients)
+    ratings: [{ user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, rating: Number }] // เพิ่มฟิลด์ ratings
 });
 
 
