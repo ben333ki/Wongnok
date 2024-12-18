@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rating with Buttons</title>
+  <style>
+    .rating-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #222;
+    }
+
+    .stars {
+      display: flex;
+      gap: 5px;
+    }
+
+    .star-button {
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
+      color: #444;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .star-button.hover, .star-button.selected {
+      color: #F0BE5F;
+    }
+  </style>
+</head>
+<body>
+  <div class="rating-container">
+    <div class="stars" id="starRating">
+      <button class="star-button" data-value="1">★</button>
+      <button class="star-button" data-value="2">★</button>
+      <button class="star-button" data-value="3">★</button>
+      <button class="star-button" data-value="4">★</button>
+      <button class="star-button" data-value="5">★</button>
+    </div>
+  </div>
+
+  <script>
+    const starContainer = document.getElementById('starRating');
+    let selectedRating = 0;
+
+    function highlightStars(count) {
+      document.querySelectorAll('.star-button').forEach((button, index) => {
+        if (index < count) {
+          button.classList.add('hover');
+        } else {
+          button.classList.remove('hover');
+        }
+      });
+    }
+
+    starContainer.addEventListener('mouseover', (e) => {
+      if (e.target.classList.contains('star-button')) {
+        highlightStars(e.target.dataset.value);
+      }
+    });
+
+    starContainer.addEventListener('mouseout', () => {
+      highlightStars(selectedRating);
+    });
+
+    starContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('star-button')) {
+        selectedRating = e.target.dataset.value;
+        highlightStars(selectedRating);
+      }
+    });
+  </script>
+</body>
+</html>

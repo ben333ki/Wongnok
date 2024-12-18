@@ -28,7 +28,9 @@
                         <span class="author-name"><%= post.createdBy.profile_name %></span>
                     </div>
                     <h2 class="post-title"><%= post.post_topic %></h2>
-                    <div class="post-rating">
+
+                    <%- include('./partials/rating.ejs') %>
+                    <!-- <div class="post-rating">
                         <form action="/main/post/<%= post._id %>/rate" method="POST">
                             <label for="rating">Rate this Post:</label>
                             <p><strong>Average Score:</strong> <%= post.avg_score.toFixed(2) %> (Out of 5)</p>
@@ -42,7 +44,8 @@
                             <button type="submit">Submit Rating</button>
                         </form>
                         <span class="rating-value"><%= post.avg_score %> (<%= post.rating_count %> ratings)</span>
-                    </div>
+                    </div> -->
+
                     <p class="post-description"><%= post.post_describe %></p>
                     
                 </div>
