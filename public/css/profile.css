@@ -303,3 +303,14 @@ body {
   background-color: #cc6b30; /* สีเข้มขึ้นเมื่อคลิก */
 }
 
+.input-name {
+  width: 150px;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 14px;
+    outline: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+

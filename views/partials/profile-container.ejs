@@ -11,7 +11,7 @@
         
                 <!-- Edit Profile Form -->
                 <form id="edit-profile-form" action="/main/user/edit-profile" method="post" style="display: none;">
-                    <input type="text" name="profile_name" placeholder="New Profile Name" value="<%= user.profile_name %>" required>
+                    <input type="text" name="profile_name" placeholder="New Profile Name" value="<%= user.profile_name %>" required class="input-name">
                     <button type="submit">Save</button>
                     <button type="button" id="cancel-edit">Cancel</button>
                 </form>
