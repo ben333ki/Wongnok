@@ -41,43 +41,137 @@ router.get('/main/user/favorite', isAuthenticated, async (req, res) => {
 
 
 router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
-    try {
-        // Get the userId from the URL or use the logged-in user's ID if not provided
-        const userId = req.params.userId || req.session.user.userId;
-        const loginUser = req.session.user;
-        // Fetch the user data by the userId from the URL (or logged-in user if no userId is provided)
-        const user = await User.findById(userId);
+  try {
+      const userId = req.params.userId || req.session.user.userId;
+      const loginUser = await User.findById(req.session.user.userId);
 
-        if (!user) {
-            return res.status(404).send('User not found');
+      if (!loginUser) {
+          return res.status(404).send('Logged in user not found.');
+      }
+
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      const posts = await Post.find({ createdBy: userId }).populate('createdBy');
+
+      // Fetch follow list
+      const followList = await FollowList.find({ follower_ID: req.session.user.userId });
+
+      const isFollowing = followList.some(follow => follow && follow.followed_ID.toString() === user._id.toString());
+
+      res.render('profile', { user, posts, loginUser, isFollowing });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error retrieving user data or posts');
+  }
+});
+
+
+
+// router.get('/main', isAuthenticated, async (req, res) => {
+//     try {
+//         const userId = req.session.user.userId;
+//         const user = await User.findById(userId);
+
+//         if (!user) {
+//             return res.status(404).send('User not found');
+//         }
+
+//         res.render('main', { user });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Error loading main page');
+//     }
+// });
+
+
+const Follow = require('../models/followlist'); // Import Follow model
+
+router.post('/follow/:userId', isAuthenticated, async (req, res) => {
+    try {
+        const userToFollowId = req.params.userId;
+        const loggedInUserId = req.session.user.userId;
+
+        // Check if the user is already following
+        const existingFollow = await Follow.findOne({
+            follower_ID: loggedInUserId,
+            followed_ID: userToFollowId
+        });
+
+        if (existingFollow) {
+            return res.json({ message: 'You are already following this user.' });
         }
 
-        // Fetch posts created by the user (this will be filtered based on the userId)
-        const posts = await Post.find({ createdBy: userId }).populate('createdBy');
+        // Create new follow relationship
+        const newFollow = new Follow({
+            follower_ID: loggedInUserId,
+            followed_ID: userToFollowId
+        });
+        await newFollow.save();
 
-
-        // Render the profile page with the user data and posts
-        res.render('profile', { user, posts, loginUser });
+        res.json({ message: 'You are now following this user.' });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error retrieving user data or posts');
+        res.status(500).json({ message: 'Error following the user.' });
     }
 });
 
-router.get('/main', isAuthenticated, async (req, res) => {
-    try {
-        const userId = req.session.user.userId;
-        const user = await User.findById(userId);
+router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (req, res) => {
+  try {
+      const followerId = req.session.user.userId; // Logged-in user
+      const followedId = req.params.userId; // User being followed/unfollowed
 
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
+      const existingFollow = await FollowList.findOne({
+          follower_ID: followerId,
+          followed_ID: followedId,
+      });
 
-        res.render('main', { user });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error loading main page');
-    }
+      if (existingFollow) {
+          // If already following, unfollow
+          await FollowList.deleteOne({ _id: existingFollow._id });
+          res.json({ success: true, isFollowing: false });
+      } else {
+          // If not following, follow
+          await FollowList.create({
+              follower_ID: followerId,
+              followed_ID: followedId,
+          });
+          res.json({ success: true, isFollowing: true });
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ success: false, message: 'Error toggling follow status.' });
+  }
+});
+
+router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (req, res) => {
+  try {
+      const followerId = req.session.user.userId; // Logged-in user
+      const followedId = req.params.userId; // User being followed/unfollowed
+
+      const existingFollow = await FollowList.findOne({
+          follower_ID: followerId,
+          followed_ID: followedId,
+      });
+
+      if (existingFollow) {
+          // If already following, unfollow
+          await FollowList.deleteOne({ _id: existingFollow._id });
+          return res.json({ success: true, isFollowing: false });
+      } else {
+          // If not following, follow
+          await FollowList.create({
+              follower_ID: followerId,
+              followed_ID: followedId,
+          });
+          return res.json({ success: true, isFollowing: true });
+      }
+  } catch (err) {
+      console.error(err);
+      return res.status(500).json({ success: false, message: 'Error toggling follow status.' });
+  }
 });
 
 

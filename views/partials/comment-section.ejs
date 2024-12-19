@@ -1,48 +1,76 @@
 <footer>
     <div class="comment-section">
         <h2 class="comment-title">ความคิดเห็น</h2>
-        <div class="comment-input">
-            <img src="/images/LogoSample.png" alt="User Logo" class="user-logo">
-            <input type="text" id="commentInput" placeholder="เพิ่มการตอบกลับ" class="input-comment">
-        </div>
-        <div class="button-group">
-            <button class="cancel-btn" onclick="clearComment()">ยกเลิก</button>
-            <button class="send-btn" id="sendBtn">ส่งความคิดเห็น</button>
-        </div>
+        <form id="commentForm" action="/main/post/<%= post._id %>/comment" method="POST">
+            <div class="comment-input">
+                <img src="<%= user.profile_picture %>" alt="User Logo" class="user-logo">
+                <input type="text" id="commentInput" name="comment_describe" placeholder="เพิ่มการตอบกลับ" class="input-comment" required>
+            </div>
+            <div class="button-group">
+                <button type="button" class="cancel-btn" onclick="clearComment()">ยกเลิก</button>
+                <button type="submit" class="send-btn">ส่งความคิดเห็น</button>
+            </div>
+        </form>
+        
 
         <div id="commentsContainer">
-            <div class="comment">
-                <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
-                <div class="comment-details">
-                    <p class="username">@สมชาย</p>
-                    <p class="comment-text">วันนี้ได้มีโอกาสลองชิมข้าวผัดตะเลจากร้าน ต้องบอกว่าไม่ผิดหวังเลย</p>
-                </div>
-            </div>
-            <div class="comment">
-                <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
-                <div class="comment-details">
-                    <p class="username">@สมชาย</p>
-                    <p class="comment-text">วันนี้ได้มีโอกาสลองชิมข้าวผัดตะเลจากร้าน ต้องบอกว่าไม่ผิดหวังเลย</p>
-                </div>
-            </div>
-
-            <div class="comment">
-                <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
-                <div class="comment-details">
-                    <p class="username">@สมชาย</p>
-                    <p class="comment-text">เป็นครั้งแรกที่ได้ลองซูชิจากร้านนี้
-                        รสชาติสดใหม่ของปลาแซลมอนและปลาทูน่าเข้ากับข้าวญี่ปุ่นอย่างลงตัว</p>
-                </div>
-            </div>
-
-            <div class="comment">
-                <img src="/images/LogoSample.png" alt="Profile" class="profile-img">
-                <div class="comment-details">
-                    <p class="username">@สมชาย</p>
-                    <p class="comment-text">สเต๊กเนื้อที่นี่ไม่ธรรมดาจริงๆ! เนื้อย่างมาแบบมีความชุ่มฉ่ำอยู่ภายใน
-                        ขนาดที่พอดีในทุกคำ</p>
-                </div>
-            </div>
+            <% if (post.comments.length > 0) { %>
+                <% post.comments.forEach(function(comment) { %>
+                    <div class="comment">
+                        <img src="<%= comment.author.id.profile_picture %>" alt="Profile" class="profile-img">
+                        <div class="comment-details">
+                            <p class="username">@<%= comment.author.username %></p>
+                            <p class="comment-text"><%= comment.comment_describe %></p>
+                        </div>
+                        
+                        <!-- Delete button container, aligned to the right -->
+                        <% if (comment.author.id.equals(user.userId)) { %>
+                            <form action="/main/post/<%= post._id %>/comment/<%= comment._id %>/delete" method="POST" class="delete-form">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <h2 class="noComment">No comments yet.</h2>
+            <% } %>
         </div>
+        
+        
     </div>
 </footer>
+
+<style>
+.comment {
+    display: flex;
+    align-items: center; /* Aligns profile image and comment text horizontally */
+    margin-bottom: 10px;
+}
+
+.comment-details {
+    flex-grow: 1; /* This ensures the comment text takes up all available space */
+}
+
+.delete-form {
+    margin-left: auto; /* This pushes the form to the right side */
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px; /* Optional: add some space between comment and button */
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+.noComment {
+    margin-top: 20px;
+    text-align: center;
+}
+</style>
+

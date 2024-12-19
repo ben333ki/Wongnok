@@ -16,8 +16,17 @@
                         <button type="submit" class="upload-button">Upload</button>
                         <button id="logout" onclick="window.location.href='/logout'">log out</button>
                     </div>
-                </form>
-                
+                </form> 
+            <% } %>
+            <% if (user.username !== loginUser.username ) { %>
+                <button
+                id="followButton-<%= user._id %>"
+                data-followed="<%= isFollowing %>"
+                onclick="toggleFollow('<%= user._id %>')"
+                >
+                    <%= isFollowing ? 'Unfollow' : 'Follow' %>
+                </button>
+            
             <% } %>
         </div>
     </div>
@@ -64,4 +73,27 @@
         uploadForm.style.display = 'none';
         editButton.style.display = 'inline-block';
     });
+
+    async function toggleFollow(userId) {
+    try {
+        const response = await fetch(`/main/user/profile/${userId}/toggleFollow`, { method: 'POST' });
+        const data = await response.json();
+
+        if (data.success) {
+            // Select the specific button for this user
+            const button = document.getElementById(`followButton-${userId}`);
+            if (button) {
+                button.textContent = data.isFollowing ? 'Unfollow' : 'Follow';
+            } else {
+                console.error('Follow button not found in the DOM');
+            }
+        } else {
+            alert(data.message || 'Failed to toggle follow status.');
+        }
+    } catch (err) {
+        console.error(err);
+        alert('An error occurred. Please try again later.');
+    }
+}
+
 </script>
