@@ -1,260 +1,271 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  body {
-    background-color: #E9CD91;
-  }
-  
-  /* --------------------------------------------------------- */
-  /* header */
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #B97A57;
-    /* สีพื้นหลังของ Header */
-  }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 8em;
-  }
-  
-  .header-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .menu {
-    cursor: pointer;
-    margin-right: 15px;
-    font-size: 16px;
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .search-bar {
-    width: 500px;
-    margin-left: 100px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    margin-right: 10px;
-  }
-  
-  .create-post {
-    background-color: #ED975C;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .profile-pic {
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .profile-container {
-    margin-top: 15px;
-    justify-items: center;
-    border-radius: 10px;
-    padding: 15px;
-  }
-  
-  /* Logo and Name Section */
-  .logo-name {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .logo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .name-edit {
-    flex: 1;
-    margin-left: 75px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .name-edit h2 {
-    font-size: 20px;
-    color: #8C4D2B;
-  }
-  
-  .name-edit button {
-    margin-left: 10px;
-    background-color: #f7935a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .name-edit button:hover {
-    background-color: #e0763b;
-  }
-  
-  /* Followers and Posts Section */
-  .stats {
-    margin-left: 100px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .stat {
-    width: 100px;
-    text-align: center;
-    flex: 1;
-    border-right: 1px solid #e0763b;
-  }
-  
-  .stat:last-child {
-    border-right: none;
-  }
-  
-  .stat span {
-    font-size: 18px;
-    font-weight: bold;
-    color: #e0763b;
-  }
-  
-  .stat p {
-    font-size: 14px;
-    color: #8C4D2B;
-  }
-  
-  /* Description Section */
-  .description p {
-    font-size: 24px;
-    color: #8C4D2B;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-  
-  .containpost {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0px 45px;
-    width: 1340px;
-    margin: 0 auto;
-  }
-  
-  
-  /* --------------------------------------------------------- */
-  /* post */
-  
-  .recipe-card {
-    cursor: pointer;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    background-color: #E9B249;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 30px;
-  
-    display: flex; /* ทำให้เป็น Flexbox */
-    flex-direction: column; /* เรียงเนื้อหาเป็นแนวตั้ง */
-  }
-  
-  
-  .recipe-image {
-    width: 300px; /* กำหนดความกว้างคงที่ */
-    height: 200px; /* กำหนดความสูงคงที่ */
-    object-fit: cover; /* ทำให้รูปภาพถูกครอบตามขนาดที่กำหนด */
-  }
-  
-  
-  .recipe-details {
-    margin-top: auto; /* ดันรายละเอียดลงมาด้านล่าง */
-    padding: 10px;
-    background-color: #F1EBD1;
-  }
-  
-  .chef-name {
-    font-size: 12px;
-    color: #8C4D2B;
-  }
-  
-  .recipe-title {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #8C4D2B;
-  }
-  
-  .recipe-rating {
-    font-size: 12px;
-    color: gray;
-  }
-  
-  .favorite-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #B7B7B7;
-    border: none;
-    font-size: 18px;
-    color: #FDFDFD;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .favorite-button.favorite-active {
-    background-color: #F25252; /* สีแดง */
-    color: #FFFFFF; /* สีไอคอนขาว */
-  }
-  
-  .rating-count {
-    color: #996447;
-  }
-  
-  .stars {
-    color: #E9B249;
-  } 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-  #logout {
-    background-color: red;
-  }
+body {
+  background-color: #E9CD91;
+}
 
+/* --------------------------------------------------------- */
+/* header */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #B97A57;
+  /* สีพื้นหลังของ Header */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.logo {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.menu {
+  cursor: pointer;
+  margin-right: 15px;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.search-bar {
+  width: 500px;
+  margin-left: 100px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin-right: 10px;
+}
+
+.create-post {
+  background-color: #ED975C;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.profile-pic {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-container {
+  margin-top: 15px;
+  justify-items: center;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+/* Logo and Name Section */
+.logo-name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.logo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.name-edit {
+  flex: 1;
+  margin-left: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name-edit h2 {
+  font-size: 20px;
+  color: #8C4D2B;
+}
+
+.name-edit button {
+  margin-left: 10px;
+  background-color: #f7935a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.name-edit button:hover {
+  background-color: #e0763b;
+}
+
+/* Followers and Posts Section */
+.stats {
+  margin-left: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.stat {
+  width: 100px;
+  text-align: center;
+  flex: 1;
+  border-right: 1px solid #e0763b;
+}
+
+.stat:last-child {
+  border-right: none;
+}
+
+.stat span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0763b;
+}
+
+.stat p {
+  font-size: 14px;
+  color: #8C4D2B;
+}
+
+/* Description Section */
+.description p {
+  font-size: 24px;
+  color: #8C4D2B;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.containpost {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0px 45px;
+  width: 1340px;
+  margin: 0 auto;
+}
+
+
+/* --------------------------------------------------------- */
+/* post */
+
+.recipe-card {
+  cursor: pointer;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #E9B249;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 30px;
+
+  display: flex;
+  /* ทำให้เป็น Flexbox */
+  flex-direction: column;
+  /* เรียงเนื้อหาเป็นแนวตั้ง */
+}
+
+
+.recipe-image {
+  width: 300px;
+  /* กำหนดความกว้างคงที่ */
+  height: 200px;
+  /* กำหนดความสูงคงที่ */
+  object-fit: cover;
+  /* ทำให้รูปภาพถูกครอบตามขนาดที่กำหนด */
+}
+
+
+.recipe-details {
+  margin-top: auto;
+  /* ดันรายละเอียดลงมาด้านล่าง */
+  padding: 10px;
+  background-color: #F1EBD1;
+}
+
+.chef-name {
+  font-size: 12px;
+  color: #8C4D2B;
+}
+
+.recipe-title {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #8C4D2B;
+}
+
+.recipe-rating {
+  font-size: 12px;
+  color: gray;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #B7B7B7;
+  border: none;
+  font-size: 18px;
+  color: #FDFDFD;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-button.favorite-active {
+  background-color: #F25252;
+  /* สีแดง */
+  color: #FFFFFF;
+  /* สีไอคอนขาว */
+}
+
+.rating-count {
+  color: #996447;
+}
+
+.stars {
+  color: #E9B249;
+}
+
+#logout {
+  background-color: red;
+}

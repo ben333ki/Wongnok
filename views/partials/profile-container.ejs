@@ -9,14 +9,15 @@
             <% if (user.username === loginUser.username ){ %>
                 <form action="/change-profile-picture" method="post" enctype="multipart/form-data" class="upload-form">
                     <div class="upload-container">
-                        <label for="profile_picture" class="upload-label">
+                        <!-- <label for="profile_picture" class="upload-label">
                             <i class="fas fa-upload"></i> Choose a Profile Picture
-                        </label>
+                        </label> -->
                         <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required class="upload-input">
                         <button type="submit" class="upload-button">Upload</button>
+                        <button id="logout" onclick="window.location.href='/logout'">log out</button>
                     </div>
                 </form>
-                <button id="logout" onclick="window.location.href='/logout'">log out</button>
+                
             <% } %>
         </div>
     </div>

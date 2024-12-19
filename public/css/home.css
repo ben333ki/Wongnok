@@ -76,6 +76,11 @@ body {
     object-fit: cover;
 }
 
+.recipe-card a,
+.header a {
+  text-decoration: none;
+}
+
 
 /* --------------------------------------------------------- */
 /* body */
