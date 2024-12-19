@@ -6,4 +6,10 @@ function isAuthenticated(req, res, next) {
     res.redirect('/login');
 }
 
-module.exports = { isAuthenticated };
+// Middleware สำหรับตั้งค่า global user
+function setUserLocals(req, res, next) {
+    res.locals.user = req.session?.user || null; // กำหนด user ใน res.locals
+    next();
+}
+
+module.exports = { isAuthenticated, setUserLocals };

@@ -2,15 +2,26 @@
     <!-- Logo and Name Section -->
     <div class="logo-name">
         <div class="logo">
-            <img src="<%= user.profile_picture %>" alt="<%= user.profile_name %>">
+            <img id="profile-picture" src="<%= user.profile_picture %>" alt="<%= user.profile_name %>">
         </div>
         <div class="name-edit">
             <h2><%= user.profile_name %></h2>
-            <button onclick="window.location.href='/main/user/profile/edit'">Edit</button>
-            <button id="logout" onclick="window.location.href='/logout'">log out</button>
+            <% if (user.username === loginUser.username ){ %>
+                <button id="edit-button">Edit</button>
+                <button id="logout" onclick="window.location.href='/logout'">log out</button>
+            <% } %>
         </div>
     </div>
 
+    <!-- File Upload Form -->
+    <!--<div id="upload-form" style="display: none;">
+    <!    <form id="image-upload-form" action="/main/user/profile/upload" method="POST" enctype="multipart/form-data">
+        <label for="profile-picture-upload">Upload new profile picture:</label>
+        <input type="file" id="profile-picture-upload" name="profile_picture" accept="image/*" required>
+        <button type="submit">Upload</button>
+        <button type="button" id="cancel-upload">Cancel</button>
+    </form>
+    </div>-->
     <!-- Followers and Posts Section -->
     <div class="stats">
         <div class="stat">
@@ -28,3 +39,20 @@
         <p><%= user.user_bio || 'No bio provided.' %></p>
     </div>
 </div>
+
+<script>
+    // JavaScript for showing and hiding the upload form
+    const editButton = document.getElementById('edit-button');
+    const uploadForm = document.getElementById('upload-form');
+    const cancelUpload = document.getElementById('cancel-upload');
+
+    editButton.addEventListener('click', () => {
+        uploadForm.style.display = 'block';
+        editButton.style.display = 'none';
+    });
+
+    cancelUpload.addEventListener('click', () => {
+        uploadForm.style.display = 'none';
+        editButton.style.display = 'inline-block';
+    });
+</script>

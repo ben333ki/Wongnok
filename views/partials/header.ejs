@@ -4,10 +4,10 @@
             <a href="/main/user">
                 <img src="/images/homeIcon.png" alt="Logo" class="logo">
             </a>
-            <a href="/main/user/:userID/following">
+            <a href="/main/user/following">
                 <span class="menu">กำลังติดตาม</span>
             </a>
-            <a href="/main/user/:userID/favorite">
+            <a href="/main/user/favorite">
                 <span class="menu">ชื่นชอบ</span>
             </a>
             <input type="text" class="search-bar" placeholder="ค้นหาจาก...">
@@ -15,7 +15,7 @@
         <div class="header-right">
             <button class="create-post" onclick="window.location.href='/main/create'">+ สร้างโพส</button>
             <a href="/main/user/profile">
-                <img src="/images/defaultProfile.png" alt="Profile" class="profile-pic">
+                <img class="profile-pic" src="<%= user?.profile_picture || '/images/defaultProfile.png' %>" alt="<%= user?.profile_name || 'Anonymous' %>">
             </a>
         </div>
     </div>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
-// const User = require('../models/user');
+const User = require('../models/user');
 // const FollowList = require('../models/followlist'); // Replace with your Follow schema if applicable
 const multer = require('multer');
 const { isAuthenticated } = require('../middleware/index')
@@ -32,12 +32,14 @@ router.get('/main/user', isAuthenticated, async (req, res) => {
     try {
       // Fetch all posts, populate the `createdBy` field (user who created the post)
       const posts = await Post.find().populate('createdBy');
+      const user = req.session.user;
+      console.log(user)
   
       if (!posts.length) {
         return res.status(404).send('No posts found');
       }
   
-      res.render('main', { posts }); // Render all posts on the `allPosts` view
+      res.render('main', { posts, user }); // Render all posts on the `allPosts` view
     } catch (error) {
       console.error(error);
       res.status(500).send('Error retrieving posts');
@@ -148,6 +150,35 @@ router.post('/post/:id/delete', isAuthenticated, async (req, res) => {
       res.status(500).send('Error deleting the post');
   }
 });
+
+
+const path = require('path');
+
+const uploads = multer({
+    dest: 'uploads/', // โฟลเดอร์สำหรับเก็บไฟล์ชั่วคราว
+    limits: { fileSize: 2 * 1024 * 1024 }, // จำกัดขนาดไฟล์ (2MB)
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('image/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only image files are allowed!'));
+        }
+    }
+});
+router.post('/main/user/profile/upload', uploads.single('profile_picture'), (req, res) => {
+  const file = req.file;
+  if (!file) {
+      return res.status(400).send('Please upload a valid image file.');
+  }
+
+  // ตัวอย่างการอัปเดตโปรไฟล์ผู้ใช้
+  const userId = req.session.userId; // ใช้ session หรือ token
+  const newFilePath = `/uploads/${file.filename}`;
+  updateUserProfilePicture(userId, newFilePath);
+
+  res.redirect('/main/user/profile');
+});
+
 
 
 module.exports = router;

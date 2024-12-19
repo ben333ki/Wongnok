@@ -11,6 +11,9 @@ app.use(express.static('public'));
 app.use('/uploads', express.static('public/uploads'));
 
 
+const { isAuthenticated, setUserLocals } = require('./middleware/index'); // สมมติว่าชื่อไฟล์คือ index.js ในโฟลเดอร์ middleware
+app.use(setUserLocals);
+
 app.use(
     session({
         secret: 'yourSecretKey', // Replace with a strong secret
@@ -53,6 +56,7 @@ app.use(userRoutes);
 app.use(followRoutes);
 app.use(commentRoutes);
 app.use(ratingRoutes);
+
 
 
 // Start the server
