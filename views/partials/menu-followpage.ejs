@@ -1,32 +1,91 @@
+<style>
+    .containtypefollowmenu-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.containfollowmenu {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    gap: 15px;
+}
+
+.follow-card {
+    width: 100px;
+    text-align: center;
+}
+
+.follow-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
+
+.follow-name {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.left-arrowfollow,
+.right-arrowfollow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #886552;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.left-arrowtypefood,
+.right-arrowtypefood {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #886552;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+</style>
+
+
 <div class="containermenu">
     <div class="typefoodmenu">
         <p class="menutext">ประเภทอาหาร</p>
         <div class="containtypefoodmenu-wrapper">
             <button class="arrowtypefood left-arrowtypefood">❮</button>
             <div class="containtypefoodmenu">
-                <div class="typefood">
+                <div class="typefood" data-type="ต้ม">
                     <img src="/images/boiled.png" alt="">
                     <p>ต้ม</p>
                 </div>
-                <div class="typefood">
+                <div class="typefood" data-type="ผัด">
                     <img src="/images/puff.png" alt="">
                     <p>ผัด</p>
                 </div>
-                <div class="typefood">
+                <div class="typefood" data-type="แกง">
                     <img src="/images/curry.png" alt="">
                     <p>แกง</p>
                 </div>
-                <div class="typefood">
+                <div class="typefood" data-type="ทอด">
                     <img src="/images/fry.png" alt="">
                     <p>ทอด</p>
                 </div>
-                <div class="typefood">
+                <div class="typefood" data-type="ยำ">
                     <img src="/images/salad.png" alt="">
                     <p>ยำ</p>
                 </div>
-                <div class="typefood">
-                    <img src="/images/dessert.png" alt="">
-                    <p>ของหวาน</p>
+                <div class="typefood" data-type="ไข่">
+                    <img src="/images/egg.png" alt="">
+                    <p>ไข่</p>
                 </div>
             </div>
             <button class="arrowtypefood right-arrowtypefood">❯</button>
@@ -36,34 +95,62 @@
     <div class="followmenu">
         <p class="menutext">ผู้ติดตาม</p>
         <div class="containtypefollowmenu-wrapper">
-            <button class="arrowfollow left-arrowfollow">❮</button>
+            <button class="arrowtypefood left-arrowfollow">❮</button>
             <div class="containfollowmenu">
-                <div class="profilefollow">
-                    <img src="/images/chef2.png" alt="">
-                    <p>เชฟเอียน</p>
-                </div>
-                <div class="profilefollow">
-                    <img src="/images/chef3.png" alt="">
-                    <p>Gordon</p>
-                </div>
-                <div class="profilefollow">
-                    <img src="/images/chef1.png" alt="">
-                    <p>VIPS</p>
-                </div>
-                <div class="profilefollow">
-                    <img src="/images/chef2.png" alt="">
-                    <p>เชฟเอียน</p>
-                </div>
-                <div class="profilefollow">
-                    <img src="/images/chef3.png" alt="">
-                    <p>Gordon</p>
-                </div>
-                <div class="profilefollow">
-                    <img src="/images/chef1.png" alt="">
-                    <p>VIPS</p>
-                </div>
+                <% followProfiles.forEach(user => { %>
+                    <div class="follow-card">
+                        <a href="/main/user/profile/<%= user._id %>">
+                            <img src="<%= user.profile_picture %>" alt="<%= user.profile_name %>" class="follow-image"/>
+                            <p class="follow-name"><%= user.profile_name %></p>
+                        </a>
+                    </div>
+                <% }) %>
             </div>
-            <button class="arrowfollow right-arrowfollow">❯</button>
+            <button class="arrowtypefood right-arrowfollow">❯</button>
         </div>
     </div>       
 </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+            setupCarousel(
+                ".containtypefoodmenu-wrapper",
+                ".containtypefoodmenu",
+                ".left-arrowtypefood",
+                ".right-arrowtypefood"
+            );
+
+            setupCarousel(
+                ".containtypefollowmenu-wrapper",
+                ".containfollowmenu",
+                ".left-arrowfollow",
+                ".right-arrowfollow"
+            );
+
+            function setupCarousel(wrapperSelector, containerSelector, leftArrowSelector, rightArrowSelector) {
+                const containerWrapper = document.querySelector(wrapperSelector);
+                const container = document.querySelector(containerSelector);
+                const leftArrow = document.querySelector(leftArrowSelector);
+                const rightArrow = document.querySelector(rightArrowSelector);
+
+                const itemWidth = container.querySelector("div").offsetWidth + 35; // ความกว้างของไอเท็ม + ช่วงห่าง
+                let scrollPosition = 0;
+
+                rightArrow.addEventListener("click", () => {
+                    const maxScroll = container.scrollWidth - containerWrapper.clientWidth;
+                    if (scrollPosition < maxScroll) {
+                        scrollPosition = Math.min(scrollPosition + itemWidth, maxScroll);
+                        container.style.transform = `translateX(-${scrollPosition}px)`;
+                    }
+                });
+
+                leftArrow.addEventListener("click", () => {
+                    if (scrollPosition > 0) {
+                        scrollPosition = Math.max(scrollPosition - itemWidth, 0);
+                        container.style.transform = `translateX(-${scrollPosition}px)`;
+                    }
+                });
+            }
+        });
+</script>

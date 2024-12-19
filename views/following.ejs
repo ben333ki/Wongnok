@@ -11,7 +11,14 @@
     <div class="body">
         <%- include('./partials/bodyimg.ejs') %>
         <%- include('./partials/menu-followpage.ejs') %>
-        <%- include('./partials/containpost.ejs') %>
+        <div id="posts-container">
+            <% if (posts && posts.length) { %>
+                <%- include('./partials/containpost.ejs') %>
+            <% } else { %>
+                <p>No posts from users you follow.</p>
+            <% } %>
+        </div>
+        
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {

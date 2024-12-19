@@ -9,30 +9,41 @@ const { isAuthenticated } = require('../middleware/index')
 
 router.get('/main/user/following', isAuthenticated, async (req, res) => {
     try {
-        // Fetch all posts, populate the `createdBy` field (user who created the post)
-      const posts = await Post.find().populate('createdBy');
-  
-      if (!posts.length) {
-        return res.status(404).send('No posts found');
-      }
-  
-      res.render('following', { posts }); // Render all posts on the `allPosts` view
+        const userId = req.session.user.userId; // ID ของผู้ใช้ที่เข้าสู่ระบบ
+        const followList = await FollowList.find({ follower_ID: userId }).populate('followed_ID'); // ดึงข้อมูลผู้ใช้ที่ติดตาม
+        const user = req.session.user;
+        
+        if (!followList.length) {
+            return res.render('following', { posts: [], followProfiles: [] }); // หากไม่มีข้อมูล
+        }
+
+        // ดึงโพสต์ของผู้ใช้ที่ติดตาม
+        const followedUserIds = followList.map(follow => follow.followed_ID._id);
+        const posts = await Post.find({ createdBy: { $in: followedUserIds } }).populate('createdBy');
+
+        res.render('following', { 
+            posts, user,
+            followProfiles: followList.map(follow => follow.followed_ID) // โปรไฟล์ของผู้ใช้ที่ติดตาม
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).send('Error retrieving posts');
+        console.error(error);
+        res.status(500).send('Error retrieving following users or posts.');
     }
 });
+
+
 
 router.get('/main/user/favorite', isAuthenticated, async (req, res) => {
     try {
       // Fetch all posts, populate the `createdBy` field (user who created the post)
       const posts = await Post.find().populate('createdBy');
+      const user = req.session.user;
   
       if (!posts.length) {
         return res.status(404).send('No posts found');
       }
   
-      res.render('favorite', { posts }); // Render all posts on the `allPosts` view
+      res.render('favorite', { posts,user }); // Render all posts on the `allPosts` view
     } catch (error) {
       console.error(error);
       res.status(500).send('Error retrieving posts');
@@ -88,6 +99,7 @@ router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
 
 
 const Follow = require('../models/followlist'); // Import Follow model
+const user = require('../models/user');
 
 router.post('/follow/:userId', isAuthenticated, async (req, res) => {
     try {
