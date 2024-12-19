@@ -52,32 +52,37 @@ router.get('/main/user/favorite', isAuthenticated, async (req, res) => {
 
 
 router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
-  try {
-      const userId = req.params.userId || req.session.user.userId;
-      const loginUser = await User.findById(req.session.user.userId);
+    try {
+        const userId = req.params.userId || req.session.user.userId;
+        const loginUser = await User.findById(req.session.user.userId);
 
-      if (!loginUser) {
-          return res.status(404).send('Logged in user not found.');
-      }
+        if (!loginUser) {
+            return res.status(404).send('Logged in user not found.');
+        }
 
-      const user = await User.findById(userId);
-      if (!user) {
-          return res.status(404).send('User not found');
-      }
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
 
-      const posts = await Post.find({ createdBy: userId }).populate('createdBy');
+        const posts = await Post.find({ createdBy: userId }).populate('createdBy');
+        const postCount = posts.length;  // Count the number of posts
 
-      // Fetch follow list
-      const followList = await FollowList.find({ follower_ID: req.session.user.userId });
+        // Count followers
+        const followerCount = await FollowList.countDocuments({ followed_ID: userId });
 
-      const isFollowing = followList.some(follow => follow && follow.followed_ID.toString() === user._id.toString());
+        // Fetch follow list
+        const followList = await FollowList.find({ follower_ID: req.session.user.userId });
 
-      res.render('profile', { user, posts, loginUser, isFollowing });
-  } catch (err) {
-      console.error(err);
-      res.status(500).send('Error retrieving user data or posts');
-  }
+        const isFollowing = followList.some(follow => follow && follow.followed_ID.toString() === user._id.toString());
+
+        res.render('profile', { user, posts, loginUser, isFollowing, postCount, followerCount });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error retrieving user data or posts');
+    }
 });
+
 
 
 
