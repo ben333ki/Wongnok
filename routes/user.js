@@ -80,6 +80,22 @@ router.get('/main', isAuthenticated, async (req, res) => {
     }
 });
 
+router.post('/main/user/edit-profile', isAuthenticated, async (req, res) => {
+  try {
+      const { profile_name } = req.body;
+      const userId = req.session.user.userId;
+
+      // อัปเดตชื่อโปรไฟล์ในฐานข้อมูล
+      await User.findByIdAndUpdate(userId, { profile_name });
+
+      // รีไดเรกต์กลับไปยังหน้าดูโปรไฟล์
+      res.redirect(`/main/user/profile/${userId}`);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Error updating profile name');
+  }
+});
+
 
 
 module.exports = router;

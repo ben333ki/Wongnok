@@ -6,20 +6,27 @@
         </div>
         <div class="name-edit">
             <h2><%= user.profile_name %></h2>
-            <% if (user.username === loginUser.username ){ %>
+            <% if (user.username === loginUser.username) { %>
+                <button id="edit-profile-button">Edit Profile</button>
+        
+                <!-- Edit Profile Form -->
+                <form id="edit-profile-form" action="/main/user/edit-profile" method="post" style="display: none;">
+                    <input type="text" name="profile_name" placeholder="New Profile Name" value="<%= user.profile_name %>" required>
+                    <button type="submit">Save</button>
+                    <button type="button" id="cancel-edit">Cancel</button>
+                </form>
+        
+                <!-- File Upload Form -->
                 <form action="/change-profile-picture" method="post" enctype="multipart/form-data" class="upload-form">
                     <div class="upload-container">
-                        <!-- <label for="profile_picture" class="upload-label">
-                            <i class="fas fa-upload"></i> Choose a Profile Picture
-                        </label> -->
                         <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required class="upload-input">
                         <button type="submit" class="upload-button">Upload</button>
-                        <button id="logout" onclick="window.location.href='/logout'">log out</button>
+                        <button id="logout" onclick="window.location.href='/logout'">Log Out</button>
                     </div>
                 </form>
-                
             <% } %>
         </div>
+        
     </div>
 
     <!-- File Upload Form -->
@@ -50,18 +57,18 @@
 </div>
 
 <script>
-    // JavaScript for showing and hiding the upload form
-    const editButton = document.getElementById('edit-button');
-    const uploadForm = document.getElementById('upload-form');
-    const cancelUpload = document.getElementById('cancel-upload');
+    const editButton = document.getElementById('edit-profile-button');
+    const editForm = document.getElementById('edit-profile-form');
+    const cancelEdit = document.getElementById('cancel-edit');
 
     editButton.addEventListener('click', () => {
-        uploadForm.style.display = 'block';
+        editForm.style.display = 'block';
         editButton.style.display = 'none';
     });
 
-    cancelUpload.addEventListener('click', () => {
-        uploadForm.style.display = 'none';
+    cancelEdit.addEventListener('click', () => {
+        editForm.style.display = 'none';
         editButton.style.display = 'inline-block';
     });
 </script>
+
