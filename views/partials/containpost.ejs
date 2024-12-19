@@ -11,7 +11,46 @@
           <span class="rating-value">จาก <%= post.ratings.length %> รีวิว</span>
         </div>
       </div>
+      <!-- Assuming you are in the post view -->
+      <button class="favorite-button"
+          id="favoriteButton"
+          data-post-id="<%= post._id %>"
+          class="<%= loginUser.favorites.includes(post._id) ? 'favorite-active' : '' %>">
+          ♥
+      </button>
     </div>
   <% }) %>
 </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      const favoriteButtons = document.querySelectorAll(".favorite-button");
+
+      favoriteButtons.forEach(button => {
+          button.addEventListener("click", async () => {
+              const postId = button.getAttribute("data-post-id");
+              const isFavorite = button.classList.contains("favorite-active");
+
+              // Send a POST request to add or remove from favorites
+              const response = await fetch(`/main/post/${postId}/favorite`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+              });
+
+              const result = await response.json();
+
+              if (result.success) {
+                  // Toggle the button class based on the response
+                  button.classList.toggle("favorite-active", result.isFavorite);
+              }
+          });
+      });
+  });
+</script>
+
+
+
+

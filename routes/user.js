@@ -9,6 +9,8 @@ const { isAuthenticated } = require('../middleware/index')
 
 router.get('/main/user/following', isAuthenticated, async (req, res) => {
     try {
+      const loginUser = req.session.user; // Get the logged-in user from the session
+
         // Fetch all posts, populate the `createdBy` field (user who created the post)
       const posts = await Post.find().populate('createdBy');
   
@@ -16,7 +18,7 @@ router.get('/main/user/following', isAuthenticated, async (req, res) => {
         return res.status(404).send('No posts found');
       }
   
-      res.render('following', { posts }); // Render all posts on the `allPosts` view
+      res.render('following', { posts, loginUser }); // Render all posts on the `allPosts` view
     } catch (error) {
       console.error(error);
       res.status(500).send('Error retrieving posts');
@@ -24,20 +26,28 @@ router.get('/main/user/following', isAuthenticated, async (req, res) => {
 });
 
 router.get('/main/user/favorite', isAuthenticated, async (req, res) => {
-    try {
-      // Fetch all posts, populate the `createdBy` field (user who created the post)
-      const posts = await Post.find().populate('createdBy');
-  
+  try {
+      // Fetch the logged-in user's ID from the session
+      const userId = req.session.user.userId;
+
+      // Fetch the posts that are in the user's favorites
+      const posts = await Post.find({
+          '_id': { $in: req.session.user.favorites }
+      }).populate('createdBy');  // Populate the creator of the post
+
       if (!posts.length) {
-        return res.status(404).send('No posts found');
+        res.render('favorite', { posts, loginUser: req.session.user });
       }
-  
-      res.render('favorite', { posts }); // Render all posts on the `allPosts` view
-    } catch (error) {
+
+      // Render the favorite page with the posts
+      res.render('favorite', { posts, loginUser: req.session.user });
+  } catch (error) {
       console.error(error);
       res.status(500).send('Error retrieving posts');
-    }
+  }
 });
+
+
 
 
 router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
@@ -146,33 +156,33 @@ router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (r
   }
 });
 
-router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (req, res) => {
-  try {
-      const followerId = req.session.user.userId; // Logged-in user
-      const followedId = req.params.userId; // User being followed/unfollowed
+// router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (req, res) => {
+//   try {
+//       const followerId = req.session.user.userId; // Logged-in user
+//       const followedId = req.params.userId; // User being followed/unfollowed
 
-      const existingFollow = await FollowList.findOne({
-          follower_ID: followerId,
-          followed_ID: followedId,
-      });
+//       const existingFollow = await FollowList.findOne({
+//           follower_ID: followerId,
+//           followed_ID: followedId,
+//       });
 
-      if (existingFollow) {
-          // If already following, unfollow
-          await FollowList.deleteOne({ _id: existingFollow._id });
-          return res.json({ success: true, isFollowing: false });
-      } else {
-          // If not following, follow
-          await FollowList.create({
-              follower_ID: followerId,
-              followed_ID: followedId,
-          });
-          return res.json({ success: true, isFollowing: true });
-      }
-  } catch (err) {
-      console.error(err);
-      return res.status(500).json({ success: false, message: 'Error toggling follow status.' });
-  }
-});
+//       if (existingFollow) {
+//           // If already following, unfollow
+//           await FollowList.deleteOne({ _id: existingFollow._id });
+//           return res.json({ success: true, isFollowing: false });
+//       } else {
+//           // If not following, follow
+//           await FollowList.create({
+//               follower_ID: followerId,
+//               followed_ID: followedId,
+//           });
+//           return res.json({ success: true, isFollowing: true });
+//       }
+//   } catch (err) {
+//       console.error(err);
+//       return res.status(500).json({ success: false, message: 'Error toggling follow status.' });
+//   }
+// });
 
 router.post('/main/user/edit-profile', isAuthenticated, async (req, res) => {
   try {
