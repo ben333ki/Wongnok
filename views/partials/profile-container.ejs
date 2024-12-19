@@ -7,7 +7,7 @@
         <div class="name-edit">
             <h2><%= user.profile_name %></h2>
             <% if (user.username === loginUser.username) { %>
-                <button id="edit-profile-button">Edit Profile</button>
+                <button id="edit-profile-button">Edit</button>
         
                 <!-- Edit Profile Form -->
                 <form id="edit-profile-form" action="/main/user/edit-profile" method="post" style="display: none;">
@@ -19,7 +19,10 @@
                 <!-- File Upload Form -->
                 <form action="/change-profile-picture" method="post" enctype="multipart/form-data" class="upload-form">
                     <div class="upload-container">
-                        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required class="upload-input">
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required class="upload-input">
+                            <label for="profile_picture" class="upload-button">Upload Profile Picture</label>
+                          </div>
                         <button type="submit" class="upload-button">Upload</button>
                         <button id="logout" onclick="window.location.href='/logout'">Log Out</button>
                     </div>

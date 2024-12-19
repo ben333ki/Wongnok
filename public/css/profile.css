@@ -18,7 +18,6 @@ body {
   align-items: center;
   padding: 10px 20px;
   background-color: #B97A57;
-  /* สีพื้นหลังของ Header */
 }
 
 .header-left {
@@ -269,3 +268,38 @@ body {
 #logout {
   background-color: red;
 }
+
+/* ซ่อน input file */
+.upload-input {
+  display: none;
+}
+
+/* ซ่อน input file */
+.upload-input {
+  display: none;
+}
+
+/* สไตล์ของปุ่มให้เหมือนกับ .name-edit button */
+.upload-button {
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: #f7935a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* เพิ่มเอฟเฟกต์ hover และ active */
+.upload-button:hover {
+  background-color: #e67e3d; /* สีเข้มขึ้นเมื่อ hover */
+}
+
+.upload-button:active {
+  background-color: #cc6b30; /* สีเข้มขึ้นเมื่อคลิก */
+}
+
