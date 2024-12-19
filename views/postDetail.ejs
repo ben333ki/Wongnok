@@ -102,6 +102,39 @@
         <%- include('./partials/comment-section.ejs') %>
 
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+        const userRating = document.getElementById('rating').value;
+        if (userRating) {
+            // ตั้งค่าดาวให้ตรงกับคะแนนที่มีในระบบ
+            document.querySelectorAll('.star').forEach(star => {
+                if (parseInt(star.getAttribute('data-value')) <= parseInt(userRating)) {
+                    star.style.color = 'gold'; // ทำให้ดาวที่เลือกมีสีทอง
+                } else {
+                    star.style.color = 'gray'; // ดาวที่ไม่ได้เลือกเป็นสีเทา
+                }
+            });
+        }
+    });
+
+    // JavaScript สำหรับจัดการการคลิกดาวและอัพเดตค่า
+    document.querySelectorAll('.star').forEach(star => {
+        star.addEventListener('click', function() {
+            const ratingValue = this.getAttribute('data-value');
+            document.getElementById('rating').value = ratingValue;
+            
+            // เปลี่ยนการแสดงดาว
+            document.querySelectorAll('.star').forEach(star => {
+                if (star.getAttribute('data-value') <= ratingValue) {
+                    star.style.color = 'gold'; // ทำให้ดาวที่เลือกมีสีทอง
+                } else {
+                    star.style.color = 'gray'; // ดาวที่ไม่ได้เลือกเป็นสีเทา
+                }
+            });
+
+            // ส่งข้อมูลแบบอัตโนมัติเมื่อเลือกคะแนน
+            document.querySelector('.rating-form').submit();
+        });
+    });
             document.getElementById('sendBtn').addEventListener('click', function () {
                 const commentInput = document.getElementById('commentInput'); // รับค่าจาก input
                 const commentText = commentInput.value.trim(); // ตัดช่องว่างซ้ายขวา

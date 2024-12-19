@@ -455,3 +455,15 @@ footer {
     border-radius: 5px;
 }
 
+
+.star {
+    font-size: 2em;
+    cursor: pointer;
+    color: gray;
+}
+.rating-stars {
+    margin-bottom: 10px;
+}
+.submit-button {
+    display: none; /* ซ่อนปุ่ม Submit, เราจะใช้การคลิกดาวแทน */
+}
