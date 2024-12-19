@@ -76,6 +76,7 @@ router.post('/login', async (req, res) => {
             userId: user._id,
             profileName: user.profile_name,
             username: user.username,
+            profile_picture: user.profile_picture,
         };
 
         // Redirect to the main page
@@ -96,6 +97,46 @@ router.get('/logout', (req, res) => {
         res.redirect('/login'); // Redirect to the login page after logout
     });
 });
+
+// Change Profile Picture
+router.post('/change-profile-picture', upload.single('profile_picture'), async (req, res) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).send('Unauthorized: Please log in first.');
+        }
+
+        const userId = req.session.user.userId;
+        const file = req.file;
+
+        if (!file) {
+            return res.status(400).send('Please upload a valid image file.');
+        }
+
+        // Path to the new profile picture
+        const newProfilePicturePath = `/uploads/${file.filename}`;
+
+        // Update the user's profile picture in the database
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { profile_picture: newProfilePicturePath },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedUser) {
+            return res.status(404).send('User not found.');
+        }
+
+        // Update the session with the new profile picture path
+        req.session.user.profile_picture = updatedUser.profile_picture;
+
+        // Redirect back to the user's profile page
+        res.redirect('/main/user/profile');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('An error occurred while updating the profile picture.');
+    }
+});
+
 
 
 module.exports = router;

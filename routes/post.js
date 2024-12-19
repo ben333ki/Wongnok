@@ -152,32 +152,8 @@ router.post('/post/:id/delete', isAuthenticated, async (req, res) => {
 });
 
 
-const path = require('path');
 
-const uploads = multer({
-    dest: 'uploads/', // โฟลเดอร์สำหรับเก็บไฟล์ชั่วคราว
-    limits: { fileSize: 2 * 1024 * 1024 }, // จำกัดขนาดไฟล์ (2MB)
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only image files are allowed!'));
-        }
-    }
-});
-router.post('/main/user/profile/upload', uploads.single('profile_picture'), (req, res) => {
-  const file = req.file;
-  if (!file) {
-      return res.status(400).send('Please upload a valid image file.');
-  }
 
-  // ตัวอย่างการอัปเดตโปรไฟล์ผู้ใช้
-  const userId = req.session.userId; // ใช้ session หรือ token
-  const newFilePath = `/uploads/${file.filename}`;
-  updateUserProfilePicture(userId, newFilePath);
-
-  res.redirect('/main/user/profile');
-});
 
 
 
