@@ -242,6 +242,25 @@ router.get('/all-posts', async (req, res) => {
 });
 
 
+// Route สำหรับค้นหาตามประเภทอาหาร
+router.get('/search-by-type', async (req, res) => {
+  try {
+    const { type } = req.query;  // ดึงประเภทจาก query parameter
+
+    // ค้นหาจากประเภทอาหาร
+    const posts = await Post.find({ post_topic: { $regex: type, $options: 'i' } }).populate('createdBy');
+
+    if (!posts.length) {
+      return res.status(404).json({ error: 'No posts found for this type' });
+    }
+
+    // ส่งข้อมูลโพสต์ที่ตรงกับประเภทไปยัง frontend
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error retrieving posts by type' });
+  }
+});
 
 
 

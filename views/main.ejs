@@ -153,6 +153,65 @@
 
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    const typeFoodItems = document.querySelectorAll('.typefood');  // เลือกทุก ๆ ประเภทอาหาร
+
+    typeFoodItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const type = item.getAttribute('data-type');  // ดึงประเภทอาหารที่ผู้ใช้เลือก
+            searchPostsByType(type);  // เรียกใช้ฟังก์ชันค้นหาโพสต์ตามประเภท
+        });
+    });
+
+    // ฟังก์ชันค้นหาโพสต์จากประเภทอาหาร
+    function searchPostsByType(type) {
+        fetch(`/search-by-type?type=${encodeURIComponent(type)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("Error during search:", data.error);
+                } else {
+                    displaySearchResults(data); // แสดงผลลัพธ์การค้นหา
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+
+    // ฟังก์ชันแสดงผลการค้นหาบนหน้าเว็บ
+    function displaySearchResults(results) {
+        const searchResultsContainer = document.getElementById('search-results');  // ตำแหน่งที่จะแสดงผลลัพธ์
+        if (results.length === 0) {
+            searchResultsContainer.innerHTML = '<p>No results found.</p>';
+        } else {
+            let html = '<div id="posts-container"><div class="containpost">';
+            results.forEach(post => {
+                html += `
+                    <div class="recipe-card">
+                        <a href="/main/user/post/${post._id}">
+                            <img src="/uploads/${post.post_picture.split('\\').pop()}" alt="${post.post_topic}" class="recipe-image" />
+                        </a>
+                        <div class="recipe-details">
+                            <p><strong>Created by:</strong> ${post.createdBy ? post.createdBy.profile_name : 'Unknown'}</p>
+                            <a href="/main/user/post/${post._id}">
+                                <h3 class="recipe-title">${post.post_topic}</h3>
+                            </a>
+                            <div class="recipe-rating">
+                                <label for="rating"><strong>คะแนนเฉลี่ย:</strong> ${post.avg_score.toFixed(2)}</label>
+                                <span class="rating-value">จาก ${post.ratings.length} รีวิว</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div></div>';
+            searchResultsContainer.innerHTML = html;
+        }
+    }
+});
+
+
 
     </script>
 </body>
