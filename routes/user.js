@@ -55,6 +55,7 @@ router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
     try {
         const userId = req.params.userId || req.session.user.userId;
         const loginUser = await User.findById(req.session.user.userId);
+        const currentUser = req.session.user;
 
         if (!loginUser) {
             return res.status(404).send('Logged in user not found.');
@@ -76,7 +77,7 @@ router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
 
         const isFollowing = followList.some(follow => follow && follow.followed_ID.toString() === user._id.toString());
 
-        res.render('profile', { user, posts, loginUser, isFollowing, postCount, followerCount });
+        res.render('profile', { currentUser, user, posts, loginUser, isFollowing, postCount, followerCount });
     } catch (err) {
         console.error(err);
         res.status(500).send('Error retrieving user data or posts');

@@ -1,0 +1,24 @@
+<header>
+    <div class="header">
+        <div class="header-left">
+            <a href="/main/user">
+                <img src="/images/homeIcon.png" alt="Logo" class="logo">
+            </a>
+            <a href="/main/user/following">
+                <span class="menu">กำลังติดตาม</span>
+            </a>
+            <a href="/main/user/favorite">
+                <span class="menu">ชื่นชอบ</span>
+            </a>
+            <div id="search-container">
+                    <input type="text" class="search-bar" name="query" placeholder="ค้นหาจากโพสต์หรือวัตถุดิบ...">
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="create-post" onclick="window.location.href='/main/create'">+ สร้างโพส</button>
+            <a href="/main/user/profile">
+                <img class="profile-pic" src="<%= currentUser?.profile_picture || '/images/defaultProfile.png' %>" alt="<%= user?.profile_name || 'Anonymous' %>">
+            </a>
+        </div>
+    </div>
+</header>
