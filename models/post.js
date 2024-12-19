@@ -13,6 +13,17 @@ const ingredientSchema = new mongoose.Schema({
     ingredient_amount: { type: String, required: true }, // Amount of the ingredient (e.g., 1 cup, 2 tbsp)
 });
 
+const commentSchema = new mongoose.Schema({
+    author:{
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        username: String
+        },
+        comment_describe: String
+});
+
 // Main Post schema
 const postSchema = new mongoose.Schema({
     post_topic: { type: String, required: true }, // Topic of the post
@@ -24,7 +35,8 @@ const postSchema = new mongoose.Schema({
     youtube_url : { type: String },
     processes: [processSchema], // Array of processes (each post can have multiple steps)
     ingredients: [ingredientSchema], // Array of ingredients (each post can have multiple ingredients)
-    ratings: [{ user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, rating: Number }] // เพิ่มฟิลด์ ratings
+    ratings: [{ user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, rating: Number }], // เพิ่มฟิลด์ ratings
+    comments: [commentSchema]
 });
 
 

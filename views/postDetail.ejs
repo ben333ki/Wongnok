@@ -110,29 +110,7 @@
                 </div>
             </section>
 
-            <!--<section class="comments">
-                <h2>Comments</h2>
-                <% if (post.comments && post.comments.length> 0) { %>
-                    <% post.comments.forEach(comment=> { %>
-                        <div class="comment-item">
-                            <% if (comment.user.profile_picture) { %>
-                                <img src="/uploads/<%= comment.user.profile_picture.split('\\').pop() %>"
-                                    alt="<%= comment.user.name %>" class="comment-image">
-                                <% } else { %>
-                                    <img src="/images/default-profile.png" alt="Default Profile" class="comment-image">
-                                    <% } %>
-                                        <div class="comment-content">
-                                            <strong>
-                                                <%= comment.user.name %>
-                                            </strong><br>
-                                            <%= comment.text %>
-                                        </div>
-                        </div>
-                        <% }) %>
-                            <% } else { %>
-                                <p>No comments yet. Be the first to comment!</p>
-                                <% } %>
-            </section> -->
+
         </main>
         <%- include('./partials/comment-section.ejs') %>
 

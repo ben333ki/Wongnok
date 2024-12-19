@@ -52,7 +52,7 @@ router.get('/main/user/post/:id', isAuthenticated, async (req, res) => {
     const postId = req.params.id;
     const user = req.session.user;
     // Populate only the `createdBy` field since `recipe` is no longer used
-    const post = await Post.findById(postId).populate('createdBy');
+    const post = await Post.findById(postId).populate('createdBy').populate('comments.author.id'); ;
 
     if (!post) {
       return res.status(404).send('Post not found');
@@ -262,9 +262,114 @@ router.get('/search-by-type', async (req, res) => {
   }
 });
 
+router.post('/main/post/:id/comment', isAuthenticated, async (req, res) => {
+  try {
 
+      const commentDescribe = req.body.comment_describe;
+      const postId  = req.params.id;
+      const userId = req.session.user.userId; // Assuming session contains user info
+      
+      // Ensure the user ID is a valid ObjectId
+      const username = req.session.user.username;
+
+      const post = await Post.findById(postId)
+      if (!post) {
+          return res.status(404).send('Post not found.');
+      }
+
+      const newComment = {
+          author: {
+              id: userId,
+              username,
+          },
+          comment_describe: commentDescribe,
+      };
+
+      // Add the comment to the post's comments array
+      post.comments.push(newComment);
+      await post.save();
+
+      res.redirect(`/main/user/post/${postId}`);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Error adding comment.');
+  }
+});
+
+// Update a comment on a post
+// router.put('/posts/:postId/comments/:commentId', isAuthenticated, async (req, res) => {
+//   try {
+//       const { postId, commentId } = req.params;
+//       const { comment_describe } = req.body;
+//       const userId = req.session.user.userId;
+
+//       if (!comment_describe || comment_describe.trim() === '') {
+//           return res.status(400).send('Comment description cannot be empty.');
+//       }
+
+//       const post = await Post.findById(postId);
+//       if (!post) {
+//           return res.status(404).send('Post not found.');
+//       }
+
+//       const comment = post.comments.id(commentId);
+//       if (!comment) {
+//           return res.status(404).send('Comment not found.');
+//       }
+
+//       if (comment.author.id.toString() !== userId.toString()) {
+//           return res.status(403).send('You are not authorized to edit this comment.');
+//       }
+
+//       // Update the comment description
+//       comment.comment_describe = comment_describe;
+//       await post.save();
+
+//       res.status(200).send('Comment updated successfully.');
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).send('Error updating comment.');
+//   }
+// });
+
+router.post('/main/post/:postId/comment/:commentId/delete', isAuthenticated, async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const userId = req.session.user.userId; // Get the logged-in user ID
+
+    // Find the post by ID
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+
+    // Find the comment by ID within the post
+    const comment = post.comments.id(commentId);
+    if (!comment) {
+      return res.status(404).send('Comment not found');
+    }
+
+    // Check if the logged-in user is the author of the comment
+    if (!comment.author.id.equals(userId)) {
+      return res.status(403).send('You can only delete your own comments');
+    }
+
+    // Remove the comment from the post
+    post.comments.pull(commentId);
+    await post.save();
+
+    // Redirect back to the post's detail page
+    res.redirect(`/main/user/post/${postId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error deleting comment');
+  }
+});
 
 module.exports = router;
+
+
+
 
 
 
