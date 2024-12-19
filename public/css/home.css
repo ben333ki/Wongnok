@@ -207,7 +207,7 @@ body {
     overflow: hidden;
     position: relative;
     margin-bottom: 30px;
-
+    transition: transform 0.3s ease;
     display: flex; /* ทำให้เป็น Flexbox */
     flex-direction: column; /* เรียงเนื้อหาเป็นแนวตั้ง */
 }
@@ -232,6 +232,7 @@ body {
 }
 
 .recipe-title {
+    transition: color 0.3s ease;
     font-size: 16px;
     margin: 5px 0;
     color: #8C4D2B;
@@ -271,3 +272,13 @@ body {
 .stars {
     color: #E9B249;
 } 
+
+
+/* Hover effect for recipe-card */
+.recipe-card:hover {
+    transform: translateY(-5px);
+  }
+
+.recipe-title:hover {
+    color: #007BFF;
+}
