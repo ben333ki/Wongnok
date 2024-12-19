@@ -152,6 +152,94 @@ router.post('/post/:id/delete', isAuthenticated, async (req, res) => {
 });
 
 
+// Search posts by topic
+router.get('/main/user/search', isAuthenticated, async (req, res) => {
+  try {
+    const searchQuery = req.query.q; // Get the search query from the request
+    const user = req.session.user;
+
+    // Perform a case-insensitive search for `post_topic` containing the query
+    const posts = await Post.find({
+      post_topic: { $regex: searchQuery, $options: 'i' }
+    }).populate('createdBy');
+
+    res.render('main', { posts, user }); // Render the same page with filtered posts
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error during search');
+  }
+});
+
+// Route to handle search functionality
+router.get('/main/user/search', isAuthenticated, async (req, res) => {
+  try {
+      const searchQuery = req.query.query || ""; // Get the search query from the URL parameter
+      const user = req.session.user;
+
+      // Find posts where post_topic contains the search query (case-insensitive)
+      const posts = await Post.find({
+          post_topic: { $regex: searchQuery, $options: 'i' } // Regex search for case-insensitive match
+      }).populate('createdBy');
+
+      // If no posts match the search query
+      if (posts.length === 0) {
+          return res.render('main', { posts: [], user, message: "No posts found for the given search." });
+      }
+
+      res.render('main', { posts, user });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Error performing search');
+  }
+});
+
+
+
+// Search posts based on query
+// Search posts based on query, including ingredients_name
+router.get('/search', isAuthenticated, async (req, res) => {
+  try {
+      const query = req.query.query;  // ดึงคำค้นจาก query parameter
+      if (!query) {
+          return res.status(400).json({ error: 'Query parameter is required.' });
+      }
+
+      const posts = await Post.find({
+          $or: [
+              { post_topic: { $regex: query, $options: 'i' } }, // ค้นหาจากหัวข้อโพสต์
+              { ingredients_name: { $regex: query, $options: 'i' } } // ค้นหาจากชื่อส่วนผสม
+          ]
+      }).populate('createdBy');
+
+      if (posts.length === 0) {
+          return res.status(404).json({ message: 'No posts found.' });
+      }
+
+      res.json(posts);  // ส่งผลลัพธ์กลับไปที่ฝั่ง frontend
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error during search' });
+  }
+});
+
+
+// Route for fetching all posts (without search filter)
+router.get('/all-posts', async (req, res) => {
+  try {
+    // Fetch all posts, populate the `createdBy` field (user who created the post)
+    const posts = await Post.find().populate('createdBy');
+
+    if (!posts.length) {
+      return res.status(404).json({ error: 'No posts found' });
+    }
+
+    // ส่งข้อมูลโพสต์ทั้งหมดไปยัง frontend
+    res.json(posts); // ส่งข้อมูลในรูปแบบ JSON
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error retrieving posts' });
+  }
+});
 
 
 

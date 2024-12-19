@@ -11,7 +11,7 @@
     <div class="body">
         <%- include('./partials/bodyimg.ejs') %>
         <%- include('./partials/menu-favpage.ejs') %>
-        <%- include('./partials/containpost.ejs') %>
+        <div id="search-results"><%- include('./partials/containpost.ejs') %></div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -62,6 +62,98 @@
                 });
             });
         });
+
+
+    // ฟังก์ชันค้นหาข้อมูล (สามารถปรับใช้ตามความเหมาะสม)
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.querySelector('.search-bar');
+    const searchForm = document.querySelector('#search-form');
+    const searchResultsContainer = document.getElementById('search-results');
+
+    // เมื่อมีการพิมพ์ใน search bar
+    searchInput.addEventListener('input', function(event) {
+        const query = searchInput.value.trim();
+
+        if (query.length >= 3) {  // ถ้า query ยาวพอให้ทำการค้นหา
+            searchPosts(query);  // ค้นหาจาก query
+        } else {
+            // หากไม่มีการพิมพ์ใน search bar ให้ดึงโพสต์ทั้งหมด
+            fetchAllPosts();
+        }
+    });
+
+    // ฟังก์ชันที่ใช้ดึงโพสต์ทั้งหมดจากเซิร์ฟเวอร์
+    function fetchAllPosts() {
+        fetch('/main/user')  // เปลี่ยนให้ตรงกับ endpoint ที่ดึงโพสต์ทั้งหมด
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("Error during fetch all posts:", data.error);
+                } else {
+                    displaySearchResults(data); // แสดงโพสต์ทั้งหมด
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+
+    // ฟังก์ชันค้นหาโพสต์
+    function searchPosts(query) {
+        fetch(`/search?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("Error during search:", data.error);
+                } else {
+                    displaySearchResults(data); // แสดงผลลัพธ์การค้นหา
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+
+    // ฟังก์ชันแสดงผลการค้นหาบนหน้าเว็บ
+    function displaySearchResults(results) {
+        if (results.length === 0) {
+            searchResultsContainer.innerHTML = '<p>No results found.</p>';
+        } else {
+            let html = '<div id="posts-container"><div class="containpost">';
+            results.forEach(post => {
+                html += `
+                    <div class="recipe-card">
+                        <a href="/main/user/post/${post._id}">
+                            <img src="/uploads/${post.post_picture.split('\\').pop()}" alt="${post.post_topic}" class="recipe-image" />
+                        </a>
+                        <div class="recipe-details">
+                            <p><strong>Created by:</strong> ${post.createdBy ? post.createdBy.profile_name : 'Unknown'}</p>
+                            <a href="/main/user/post/${post._id}">
+                                <h3 class="recipe-title">${post.post_topic}</h3>
+                            </a>
+                            <div class="recipe-rating">
+                                <label for="rating"><strong>คะแนนเฉลี่ย:</strong> ${post.avg_score.toFixed(2)}</label>
+                                <span class="rating-value">จาก ${post.ratings.length} รีวิว</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div></div>';
+            searchResultsContainer.innerHTML = html;
+        }
+    }
+
+    // เรียกใช้ fetchAllPosts เมื่อโหลดหน้าแรกเพื่อดึงโพสต์ทั้งหมด
+    fetchAllPosts();  // นี้จะช่วยให้แสดงโพสต์ทั้งหมดเมื่อหน้าเว็บโหลด
+});
+
+
+
+
     </script>
 </body>
 </html>
