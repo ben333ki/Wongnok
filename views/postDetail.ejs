@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%= post.post_topic %>
+        <%= post.post_topic %> - Post Details
     </title>
     <link rel="stylesheet" href="/css/post.css">
 </head>
@@ -20,23 +20,31 @@
                 <% } %>
                 <div class="post-info">
                     <div class="author-info">
-                        <a href="/main/user/profile/<%= post.createdBy._id %>">
-                        <img src="<%= post.createdBy.profile_picture %>" alt="Profile" class="author-image">
-                        <span class="author-name"><%= post.createdBy.profile_name %></span>
-                        </a>
-                        <% if (post.createdBy.username === user.username ){ %>
-                        <div class="edit-del-btn">                            
-                            <button class="edit-post">แก้ไข</button>
-                            <form action="/post/<%= post._id %>/delete" method="POST" style="display: inline-block;">
-                                <button class="delete-post" type="submit">ลบ</button>
-                            </form> 
-                        </div>   
+                        <% if (post.createdBy.profile_picture) { %>
+                            <img src="/uploads/<%= post.createdBy.profile_picture.split('\\').pop() %>" alt="Profile" class="author-image">
+                        <% } else { %>
+                            <img src="/images/default-profile.png" alt="Default Profile" class="author-image">
                         <% } %>
+                        <span class="author-name"><%= post.createdBy.profile_name %></span>
+                    </div>
+                    <h2 class="post-title"><%= post.post_topic %></h2>
+                    <div class="post-rating">
+                        <form action="/main/post/<%= post._id %>/rate" method="POST" class="rating-form">
+                            <label for="rating"><strong>คะแนนเฉลี่ย:</strong> <%= post.avg_score.toFixed(2) %></label>
+                            <div class="rating-stars">
+                                <!-- ดาว 1 ถึง 5 สำหรับให้ผู้ใช้คลิกเลือกคะแนน -->
+                                <span data-value="1" class="star">&#9733;</span>
+                                <span data-value="2" class="star">&#9733;</span>
+                                <span data-value="3" class="star">&#9733;</span>
+                                <span data-value="4" class="star">&#9733;</span>
+                                <span data-value="5" class="star">&#9733;</span>
+                            </div>
+                            <input type="hidden" name="rating" id="rating" value="<%= post.user_rating || 0 %>">
+                            <button type="submit" class="submit-button" style="display: none;">Submit Rating</button>
+                        </form>
+                        <span class="rating-value"><%= post.ratings.length %> รีวิว</span>
                     </div>
                     
-                    <h2 class="post-title"><%= post.post_topic %></h2>
-
-                    <%- include('./partials/rating.ejs') %>
                     <p class="post-description"><%= post.post_describe %></p>
                     
                 </div>
@@ -96,8 +104,30 @@
                                     <% } %>
                 </div>
             </section>
-            
-            
+
+            <section class="comments">
+                <h2>Comments</h2>
+                <% if (post.comments && post.comments.length> 0) { %>
+                    <% post.comments.forEach(comment=> { %>
+                        <div class="comment-item">
+                            <% if (comment.user.profile_picture) { %>
+                                <img src="/uploads/<%= comment.user.profile_picture.split('\\').pop() %>"
+                                    alt="<%= comment.user.name %>" class="comment-image">
+                                <% } else { %>
+                                    <img src="/images/default-profile.png" alt="Default Profile" class="comment-image">
+                                    <% } %>
+                                        <div class="comment-content">
+                                            <strong>
+                                                <%= comment.user.name %>
+                                            </strong><br>
+                                            <%= comment.text %>
+                                        </div>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <p>No comments yet. Be the first to comment!</p>
+                                <% } %>
+            </section>
         </main>
         <%- include('./partials/comment-section.ejs') %>
 
