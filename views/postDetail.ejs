@@ -20,13 +20,19 @@
                 <% } %>
                 <div class="post-info">
                     <div class="author-info">
-                        <% if (post.createdBy.profile_picture) { %>
-                            <img src="/uploads/<%= post.createdBy.profile_picture.split('\\').pop() %>" alt="Profile" class="author-image">
-                        <% } else { %>
-                            <img src="/images/default-profile.png" alt="Default Profile" class="author-image">
-                        <% } %>
+                        <a href="/main/user/profile/<%= post.createdBy._id %>">
+                        <img src="<%= post.createdBy.profile_picture %>" alt="Profile" class="author-image">
                         <span class="author-name"><%= post.createdBy.profile_name %></span>
+                        </a>
+                        <% if (post.createdBy.username === user.username ){ %>
+                        <div class="edit-del-btn">                            
+                            <form action="/post/<%= post._id %>/delete" method="POST" style="display: inline-block;">
+                                <button class="delete-post" type="submit">ลบ</button>
+                            </form> 
+                        </div>   
+                        <% } %>
                     </div>
+                    <h2 class="post-title"><%= post.post_topic %></h2>
                     <h2 class="post-title"><%= post.post_topic %></h2>
                     <div class="post-rating">
                         <form action="/main/post/<%= post._id %>/rate" method="POST" class="rating-form">
