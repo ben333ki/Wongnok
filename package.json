@@ -5,6 +5,7 @@
     "body-parser": "^1.20.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
+    "connect-session-sequelize": "^7.1.7",
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
@@ -12,9 +13,11 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.9.0",
     "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.5",
     "nodemon": "^3.1.9",
     "passport": "^0.7.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.37.5"
   },
   "name": "wongnok",
   "version": "1.0.0",

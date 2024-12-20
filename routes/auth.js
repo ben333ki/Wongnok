@@ -4,7 +4,9 @@ const User = require('../models/user');
 const FollowList = require('../models/followlist');
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
 
+// Configure multer for file upload
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/uploads/'); // Directory where files will be stored
@@ -24,27 +26,31 @@ router.get('/register', (req, res) => {
 // Handle Form Submission (Add User with Profile Picture)
 router.post('/register', upload.single('profile_picture'), async (req, res) => {
     try {
- 
         const { profile_name, username, user_password, user_email, user_bio } = req.body;
         const defaultProfilePicture = '/images/defaultProfile.png';
 
-        const newUser = new User({
+        // Hash the user's password before saving it
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(user_password, salt);
+
+        // Create a new user instance
+        const newUser = await User.create({
             profile_name,
             username,
-            user_password,
+            user_password: hashedPassword,
             user_email,
             user_bio,
             profile_picture: defaultProfilePicture,
         });
+        console.log('Original Password:', user_password);
+        console.log('Hashed Password:', hashedPassword);
 
-        await newUser.save();
         res.redirect('/login');
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while saving the user.');
     }
 });
-
 
 // Display login form
 router.get('/login', (req, res) => {
@@ -57,28 +63,29 @@ router.post('/login', async (req, res) => {
         const { username, user_password } = req.body;
 
         // Find user by username
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ where: { username } });
 
         if (!user) {
             return res.status(400).send('Invalid username or password.');
         }
 
-        // Check if password is valid
-        const isMatch = await user.isValidPassword(user_password);
-
+        // Check if password is valid by comparing the entered password with the stored hashed password
+        console.log('Entered Password:', user_password);
+        console.log('Stored Hashed Password:', user.user_password);
+        const isMatch = await bcrypt.compare(user_password, user.user_password);
+        console.log('Password Match:', isMatch);
+        
         if (!isMatch) {
             return res.status(400).send('Invalid username or password.');
         }
 
-
         // Store user information in session
         req.session.user = {
-            userId: user._id,
+            userId: user.id,
             profileName: user.profile_name,
             username: user.username,
             profile_picture: user.profile_picture,
         };
-
         // Redirect to the main page
         res.redirect('/main/user');
     } catch (err) {
@@ -116,18 +123,17 @@ router.post('/change-profile-picture', upload.single('profile_picture'), async (
         const newProfilePicturePath = `/uploads/${file.filename}`;
 
         // Update the user's profile picture in the database
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
+        const updatedUser = await User.update(
             { profile_picture: newProfilePicturePath },
-            { new: true } // Return the updated document
+            { where: { id: userId }, returning: true, plain: true }
         );
 
-        if (!updatedUser) {
+        if (!updatedUser[1]) {
             return res.status(404).send('User not found.');
         }
 
         // Update the session with the new profile picture path
-        req.session.user.profile_picture = updatedUser.profile_picture;
+        req.session.user.profile_picture = updatedUser[1].profile_picture;
 
         // Redirect back to the user's profile page
         res.redirect('/main/user/profile');
@@ -136,7 +142,5 @@ router.post('/change-profile-picture', upload.single('profile_picture'), async (
         res.status(500).send('An error occurred while updating the profile picture.');
     }
 });
-
-
 
 module.exports = router;

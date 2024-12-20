@@ -1,16 +1,18 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config'); // Correct path to config
+const User = require('./user');
 
-const followSchema = new mongoose.Schema({
-    follower_ID: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User', 
-        required: true 
-    },
-    followed_ID: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User', 
-        required: true 
-    },
-}, { timestamps: true });
+const Follow = sequelize.define('Follow', {
+    follower_ID: { type: DataTypes.INTEGER, references: { model: User, key: 'id' } },
+    followed_ID: { type: DataTypes.INTEGER, references: { model: User, key: 'id' } },
+});
 
-module.exports = mongoose.model('Follow', followSchema);
+sequelize.sync({ force: false })  // Set to 'true' to force table creation (drops tables if they exist)
+    .then(() => {
+        console.log("Database synchronized");
+    })
+    .catch((err) => {
+        console.error("Error synchronizing the database:", err);
+    });
+
+module.exports = Follow;
