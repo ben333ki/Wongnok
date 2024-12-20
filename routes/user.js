@@ -98,23 +98,6 @@ router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
 
 
 
-// router.get('/main', isAuthenticated, async (req, res) => {
-//     try {
-//         const userId = req.session.user.userId;
-//         const user = await User.findById(userId);
-
-//         if (!user) {
-//             return res.status(404).send('User not found');
-//         }
-
-//         res.render('main', { user });
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Error loading main page');
-//     }
-// });
-
-
 const Follow = require('../models/followlist'); // Import Follow model
 const user = require('../models/user');
 
@@ -175,33 +158,7 @@ router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (r
   }
 });
 
-// router.post('/main/user/profile/:userId/toggleFollow', isAuthenticated, async (req, res) => {
-//   try {
-//       const followerId = req.session.user.userId; // Logged-in user
-//       const followedId = req.params.userId; // User being followed/unfollowed
 
-//       const existingFollow = await FollowList.findOne({
-//           follower_ID: followerId,
-//           followed_ID: followedId,
-//       });
-
-//       if (existingFollow) {
-//           // If already following, unfollow
-//           await FollowList.deleteOne({ _id: existingFollow._id });
-//           return res.json({ success: true, isFollowing: false });
-//       } else {
-//           // If not following, follow
-//           await FollowList.create({
-//               follower_ID: followerId,
-//               followed_ID: followedId,
-//           });
-//           return res.json({ success: true, isFollowing: true });
-//       }
-//   } catch (err) {
-//       console.error(err);
-//       return res.status(500).json({ success: false, message: 'Error toggling follow status.' });
-//   }
-// });
 
 router.post('/main/user/edit-profile', isAuthenticated, async (req, res) => {
   try {
