@@ -8,7 +8,10 @@ const userSchema = new mongoose.Schema({
     user_password: { type: String, required: true },
     user_email: { type: String, required: true, unique: true },
     user_bio: { type: String },
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 });
+
+
 
 // Hash the password before saving
 userSchema.pre('save', async function (next) {

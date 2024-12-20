@@ -32,14 +32,17 @@ router.get('/main/user', isAuthenticated, async (req, res) => {
     try {
       // Fetch all posts, populate the `createdBy` field (user who created the post)
       const posts = await Post.find().populate('createdBy');
+      const loginUser = req.session.user; // Logged-in user
+
       const user = req.session.user;
+
       console.log(user)
   
       if (!posts.length) {
         return res.status(404).send('No posts found');
       }
   
-      res.render('main', { posts, user }); // Render all posts on the `allPosts` view
+      res.render('main', { posts, user, loginUser }); // Render all posts on the `allPosts` view
     } catch (error) {
       console.error(error);
       res.status(500).send('Error retrieving posts');
@@ -365,6 +368,47 @@ router.post('/main/post/:postId/comment/:commentId/delete', isAuthenticated, asy
     res.status(500).send('Error deleting comment');
   }
 });
+
+router.post('/main/post/:postId/favorite', isAuthenticated, async (req, res) => {
+  try {
+      const postId = req.params.postId;
+      const userId = req.session.user.userId;
+
+      // Fetch the post from the database
+      const post = await Post.findById(postId);
+      if (!post) {
+          return res.status(404).json({ success: false, message: 'Post not found.' });
+      }
+
+      // Ensure that the favorites array exists in the session
+      if (!req.session.user.favorites) {
+          req.session.user.favorites = [];
+      }
+
+      // Check if the post is already in the user's favorites
+      const isFavorite = req.session.user.favorites.includes(postId);
+
+      if (isFavorite) {
+          // Remove from favorites
+          req.session.user.favorites = req.session.user.favorites.filter(id => id !== postId);
+      } else {
+          // Add to favorites
+          req.session.user.favorites.push(postId);
+      }
+
+      // Save the session with the updated favorites list
+      await req.session.save(); // Save session to persist changes
+
+      // Return updated status
+      res.json({ success: true, isFavorite: !isFavorite });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ success: false, message: 'Error processing favorite.' });
+  }
+});
+
+
+
 
 module.exports = router;
 
