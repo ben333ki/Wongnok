@@ -300,6 +300,7 @@ router.post('/main/post/:id/comment', isAuthenticated, async (req, res) => {
 });
 
 
+
 router.post('/main/post/:postId/comment/:commentId/delete', isAuthenticated, async (req, res) => {
   try {
     const { postId, commentId } = req.params;
@@ -374,7 +375,6 @@ router.post('/main/post/:postId/favorite', isAuthenticated, async (req, res) => 
 
 
 module.exports = router;
-
 
 
 

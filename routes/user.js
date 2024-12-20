@@ -96,8 +96,6 @@ router.get('/main/user/profile/:userId?', isAuthenticated, async (req, res) => {
 });
 
 
-
-
 const Follow = require('../models/followlist'); // Import Follow model
 const user = require('../models/user');
 
