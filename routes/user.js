@@ -5,12 +5,10 @@ const User = require('../models/user');
 const FollowList = require('../models/followlist');
 const { isAuthenticated } = require('../middleware/index')
 
-
-
 router.get('/main/user/following', isAuthenticated, async (req, res) => {
     try {
-        const userId = req.session.user.userId; // ID ของผู้ใช้ที่เข้าสู่ระบบ
-        const followList = await FollowList.find({ follower_ID: userId }).populate('followed_ID'); // ดึงข้อมูลผู้ใช้ที่ติดตาม
+        const userId = req.session.user.userId; 
+        const followList = await FollowList.find({ follower_ID: userId }).populate('followed_ID'); 
         const user = req.session.user;
         const loginUser = req.session.user;
 

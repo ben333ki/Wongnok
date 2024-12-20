@@ -5,7 +5,7 @@ const config = {
     mysql: {
         database: 'wongnok', // ชื่อฐานข้อมูล
         username: 'root',     // ชื่อผู้ใช้ MySQL
-        password: 'ben333ki',     // รหัสผ่าน MySQL
+        password: 'css222',     // รหัสผ่าน MySQL
         host: 'localhost',             // หรือ IP ของเซิร์ฟเวอร์ MySQL
         dialect: 'mysql',              // ใช้ MySQL
     },
