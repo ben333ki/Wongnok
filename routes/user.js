@@ -11,7 +11,6 @@ router.get('/main/user/following', isAuthenticated, async (req, res) => {
         const followList = await FollowList.find({ follower_ID: userId }).populate('followed_ID'); 
         const user = req.session.user;
         const loginUser = req.session.user;
-
         
         if (!followList.length) {
             return res.render('following', { posts: [], followProfiles: [] }); // หากไม่มีข้อมูล
