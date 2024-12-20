@@ -299,41 +299,6 @@ router.post('/main/post/:id/comment', isAuthenticated, async (req, res) => {
   }
 });
 
-// Update a comment on a post
-// router.put('/posts/:postId/comments/:commentId', isAuthenticated, async (req, res) => {
-//   try {
-//       const { postId, commentId } = req.params;
-//       const { comment_describe } = req.body;
-//       const userId = req.session.user.userId;
-
-//       if (!comment_describe || comment_describe.trim() === '') {
-//           return res.status(400).send('Comment description cannot be empty.');
-//       }
-
-//       const post = await Post.findById(postId);
-//       if (!post) {
-//           return res.status(404).send('Post not found.');
-//       }
-
-//       const comment = post.comments.id(commentId);
-//       if (!comment) {
-//           return res.status(404).send('Comment not found.');
-//       }
-
-//       if (comment.author.id.toString() !== userId.toString()) {
-//           return res.status(403).send('You are not authorized to edit this comment.');
-//       }
-
-//       // Update the comment description
-//       comment.comment_describe = comment_describe;
-//       await post.save();
-
-//       res.status(200).send('Comment updated successfully.');
-//   } catch (error) {
-//       console.error(error);
-//       res.status(500).send('Error updating comment.');
-//   }
-// });
 
 router.post('/main/post/:postId/comment/:commentId/delete', isAuthenticated, async (req, res) => {
   try {

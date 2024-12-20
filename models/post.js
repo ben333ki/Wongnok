@@ -1,43 +1,46 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config'); // Correct path to config
+const User = require('./user');
 
-// Process schema embedded inside the Post schema
-const processSchema = new mongoose.Schema({
-    no_step: { type: Number, required: true }, // Step number in the process
-    process_picture: { type: String }, // Picture for the process step (optional)
-    process_describe: { type: String, required: true }, // Description of the process step
+const Post = sequelize.define('Post', {
+    post_topic: { type: DataTypes.STRING, allowNull: false },
+    post_picture: { type: DataTypes.STRING },
+    avg_score: { type: DataTypes.FLOAT, defaultValue: 0 },
+    post_time: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    post_describe: { type: DataTypes.TEXT, allowNull: false },
+    youtube_url: { type: DataTypes.STRING },
 });
 
-// Ingredient schema embedded inside the Post schema
-const ingredientSchema = new mongoose.Schema({
-    ingredient_name: { type: String, required: true }, // Name of the ingredient
-    ingredient_amount: { type: String, required: true }, // Amount of the ingredient (e.g., 1 cup, 2 tbsp)
+// Change the 'as' alias to prevent naming collision
+Post.belongsTo(User, { as: 'createdByUser', foreignKey: 'createdBy' });
+
+const Ingredient = sequelize.define('Ingredient', {
+    ingredient_name: { type: DataTypes.STRING, allowNull: false },
+    ingredient_amount: { type: DataTypes.STRING, allowNull: false },
 });
 
-const commentSchema = new mongoose.Schema({
-    author:{
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        username: String
-        },
-        comment_describe: String
+const Process = sequelize.define('Process', {
+    no_step: { type: DataTypes.INTEGER, allowNull: false },
+    process_picture: { type: DataTypes.STRING },
+    process_describe: { type: DataTypes.TEXT, allowNull: false },
 });
 
-// Main Post schema
-const postSchema = new mongoose.Schema({
-    post_topic: { type: String, required: true }, // Topic of the post
-    post_picture: { type: String }, // Picture for the post (optional)
-    avg_score: { type: Number, default: 0 }, // Average score for the post (optional)
-    post_time: { type: Date, default: Date.now }, // Timestamp for when the post was created
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // User who created the post
-    post_describe: { type: String, required: true }, // Description of the post
-    youtube_url : { type: String },
-    processes: [processSchema], // Array of processes (each post can have multiple steps)
-    ingredients: [ingredientSchema], // Array of ingredients (each post can have multiple ingredients)
-    ratings: [{ user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, rating: Number }], // เพิ่มฟิลด์ ratings
-    comments: [commentSchema]
+const Comment = sequelize.define('Comment', {
+    comment_describe: { type: DataTypes.TEXT },
+    username: { type: DataTypes.STRING },
 });
 
+Ingredient.belongsTo(Post, { foreignKey: 'postId' });
+Process.belongsTo(Post, { foreignKey: 'postId' });
+Comment.belongsTo(Post, { foreignKey: 'postId' });
+Comment.belongsTo(User, { as: 'author', foreignKey: 'authorId' });
+sequelize.sync({ force: false })  // Set to 'true' to force table creation (drops tables if they exist)
+    .then(() => {
+        console.log("Database synchronized");
+    })
+    .catch((err) => {
+        console.error("Error synchronizing the database:", err);
+    });
 
-module.exports = mongoose.model('Post', postSchema);
+
+module.exports = { Post, Ingredient, Process, Comment };
