@@ -7,7 +7,7 @@ const User = sequelize.define('User', {
     profile_name: { type: DataTypes.STRING, allowNull: false },
     profile_picture: { type: DataTypes.STRING },
     username: { type: DataTypes.STRING, allowNull: false, unique: true },
-    user_password: { type: DataTypes.STRING, allowNull: false },
+    user_password: { type: DataTypes.STRING(60), allowNull: false },
     user_email: { type: DataTypes.STRING, allowNull: false, unique: true },
     user_bio: { type: DataTypes.TEXT },
 });
@@ -30,13 +30,14 @@ User.beforeSave(async (user, options) => {
 User.prototype.isValidPassword = async function (password) {
     return await bcrypt.compare(password, this.user_password);
 };
+
 sequelize.sync({ force: false })  // Set to 'true' to force table creation (drops tables if they exist)
     .then(() => {
         console.log("Database synchronized");
     })
     .catch((err) => {
         console.error("Error synchronizing the database:", err);
-    });
+});
 
 
 module.exports = User;

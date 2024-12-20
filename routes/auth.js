@@ -24,17 +24,43 @@ router.get('/register', (req, res) => {
 });
 
 // Handle Form Submission (Add User with Profile Picture)
+// router.post('/register', upload.single('profile_picture'), async (req, res) => {
+//     try {
+//         const { profile_name, username, user_password, user_email, user_bio } = req.body;
+//         const defaultProfilePicture = '/images/defaultProfile.png';
+
+//         // Hash the user's password before saving it
+//         const salt = await bcrypt.genSalt(10);
+//         const hashedPassword = await bcrypt.hash(user_password, salt);
+
+//         // Create a new user instance
+//         const newUser = await User.create({
+//             profile_name,
+//             username,
+//             user_password: hashedPassword,
+//             user_email,
+//             user_bio,
+//             profile_picture: defaultProfilePicture,
+//         });
+//         console.log('Original Password:', user_password);
+//         console.log('Hashed Password:', hashedPassword);
+
+//         res.redirect('/login');
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('An error occurred while saving the user.');
+//     }
+// });
+
+// Register a new user
+// Registration code
 router.post('/register', upload.single('profile_picture'), async (req, res) => {
+    const { profile_name, username, user_password, user_email, user_bio } = req.body;
+    const defaultProfilePicture = '/images/defaultProfile.png';
+
     try {
-        const { profile_name, username, user_password, user_email, user_bio } = req.body;
-        const defaultProfilePicture = '/images/defaultProfile.png';
-
-        // Hash the user's password before saving it
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(user_password, salt);
-
-        // Create a new user instance
-        const newUser = await User.create({
+        const hashedPassword = await bcrypt.hash(user_password, 10);  // Hash the password before saving
+        const user = await User.create({
             profile_name,
             username,
             user_password: hashedPassword,
@@ -42,57 +68,90 @@ router.post('/register', upload.single('profile_picture'), async (req, res) => {
             user_bio,
             profile_picture: defaultProfilePicture,
         });
-        console.log('Original Password:', user_password);
-        console.log('Hashed Password:', hashedPassword);
 
         res.redirect('/login');
     } catch (err) {
-        console.error(err);
-        res.status(500).send('An error occurred while saving the user.');
+        console.log(err);
+        res.status(500).json({ error: 'Internal server error.' });
     }
 });
+
+
 
 // Display login form
 router.get('/login', (req, res) => {
     res.render('login'); // Render the login HTML form
 });
 
-// Handle login logic
-router.post('/login', async (req, res) => {
-    try {
-        const { username, user_password } = req.body;
+// // Login Route
+// router.post('/login', async (req, res) => {
+//     try {
+//         const { username, user_password } = req.body;
 
-        // Find user by username
+//         // Strip out any leading/trailing spaces from the entered password
+//         const cleanEnteredPassword = user_password.trim();
+
+//         // Find the user by username
+//         const user = await User.findOne({ where: { username } });
+
+//         if (!user) {
+//             return res.status(400).send('Invalid username or password.');
+//         }
+
+//         // Compare passwords
+//         const isMatch = await bcrypt.compare(cleanEnteredPassword, user.user_password);
+
+//         console.log('Password match result:', isMatch); // Log the comparison result
+
+//         if (!isMatch) {
+//             return res.status(400).send('Invalid username or password.');
+//         }
+
+//         // If password matches, store user information in session
+//         req.session.user = {
+//             userId: user.id,
+//             username: user.username,
+//             profile_picture: user.profile_picture,
+//         };
+
+//         res.redirect('/main/user');
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('An error occurred while logging in.');
+//     }
+// });
+
+// Login Endpoint
+router.post('/login', async (req, res) => {
+    const { username, user_password } = req.body;
+
+    if (!username || !user_password) {
+        return res.status(400).json({ error: 'Username and password are required.' });
+    }
+
+    try {
         const user = await User.findOne({ where: { username } });
 
-        if (!user) {
-            return res.status(400).send('Invalid username or password.');
-        }
+        if (!user) return res.status(404).json({ error: 'User not found.' });
 
-        // Check if password is valid by comparing the entered password with the stored hashed password
         console.log('Entered Password:', user_password);
         console.log('Stored Hashed Password:', user.user_password);
-        const isMatch = await bcrypt.compare(user_password, user.user_password);
-        console.log('Password Match:', isMatch);
-        
-        if (!isMatch) {
-            return res.status(400).send('Invalid username or password.');
-        }
 
-        // Store user information in session
+        const isPasswordValid = await bcrypt.compare(user_password, user.user_password);
+        if (!isPasswordValid) return res.status(401).json({ error: 'Invalid password.' });
+
         req.session.user = {
             userId: user.id,
-            profileName: user.profile_name,
             username: user.username,
             profile_picture: user.profile_picture,
         };
-        // Redirect to the main page
         res.redirect('/main/user');
     } catch (err) {
-        console.error(err);
-        res.status(500).send('An error occurred while logging in.');
+        console.log(err);
+        res.status(500).json({ error: 'Internal server error.' });
     }
 });
+
 
 
 // Logout route
@@ -144,3 +203,4 @@ router.post('/change-profile-picture', upload.single('profile_picture'), async (
 });
 
 module.exports = router;
+
