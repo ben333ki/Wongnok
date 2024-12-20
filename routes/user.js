@@ -12,6 +12,8 @@ router.get('/main/user/following', isAuthenticated, async (req, res) => {
         const userId = req.session.user.userId; // ID ของผู้ใช้ที่เข้าสู่ระบบ
         const followList = await FollowList.find({ follower_ID: userId }).populate('followed_ID'); // ดึงข้อมูลผู้ใช้ที่ติดตาม
         const user = req.session.user;
+        const loginUser = req.session.user;
+
         
         if (!followList.length) {
             return res.render('following', { posts: [], followProfiles: [] }); // หากไม่มีข้อมูล
@@ -23,8 +25,10 @@ router.get('/main/user/following', isAuthenticated, async (req, res) => {
 
         res.render('following', { 
             posts, user,
-            followProfiles: followList.map(follow => follow.followed_ID) // โปรไฟล์ของผู้ใช้ที่ติดตาม
+            followProfiles: followList.map(follow => follow.followed_ID),// โปรไฟล์ของผู้ใช้ที่ติดตาม
+            loginUser
         });
+            loginUser 
     } catch (error) {
         console.error(error);
         res.status(500).send('Error retrieving following users or posts.');

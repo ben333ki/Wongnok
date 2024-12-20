@@ -9,7 +9,24 @@
     </title>
     <link rel="stylesheet" href="/css/post.css">
 </head>
+<style>
 
+.delete-post {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px; /* Optional: add some space between comment and button */
+    transition-duration: 0.3s;
+}
+
+.delete-post:hover {
+    background-color: darkred;
+}
+
+</style>
 <body>
     <%- include('./partials/header.ejs') %>
     <main>
@@ -18,19 +35,13 @@
                 <% if (post.post_picture) { %>
                     <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="post-image">
                 <% } %>
+                
                 <div class="post-info">
                     <div class="author-info">
                         <a href="/main/user/profile/<%= post.createdBy._id %>">
                         <img src="<%= post.createdBy.profile_picture %>" alt="Profile" class="author-image">
                         <span class="author-name"><%= post.createdBy.profile_name %></span>
                         </a>
-                        <% if (post.createdBy.username === user.username ){ %>
-                        <div class="edit-del-btn">                            
-                            <form action="/post/<%= post._id %>/delete" method="POST" style="display: inline-block;">
-                                <button class="delete-post" type="submit">ลบ</button>
-                            </form> 
-                        </div>   
-                        <% } %>
                     </div>
                     <h2 class="post-title"><%= post.post_topic %></h2>
                     <div class="post-rating">
@@ -53,6 +64,13 @@
                     <p class="post-description"><%= post.post_describe %></p>
                     
                 </div>
+                <% if (post.createdBy.username === user.username ){ %>
+                    <div class="edit-del-btn">                            
+                        <form action="/post/<%= post._id %>/delete" method="POST" style="display: inline-block;">
+                            <button class="delete-post" type="submit">ลบ</button>
+                        </form> 
+                    </div>   
+                    <% } %>
             </div>
 
                 <div class="ingredients-section">

@@ -15,7 +15,7 @@
       <button class="favorite-button"
           id="favoriteButton"
           data-post-id="<%= post._id %>"
-          class="<%= loginUser.favorites.includes(post._id) ? 'favorite-active' : '' %>">
+          >
           ♥
       </button>
     </div>
@@ -25,7 +25,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-      const favoriteButtons = document.querySelectorAll(".favorite-button");
+      const favoriteButtons = document.querySelectorAll(".favorite-buttosn");
 
       favoriteButtons.forEach(button => {
           button.addEventListener("click", async () => {
