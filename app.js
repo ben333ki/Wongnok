@@ -46,19 +46,21 @@ const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 const ratingRoutes = require('./routes/rating');
+const mysqlRoutes = require('./routes/mysql');
 
 // Use routes
 app.use(authRoutes);
 app.use(postRoutes);
 app.use(userRoutes);
 app.use(ratingRoutes);
-
-
+app.use(mysqlRoutes);
 
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+app.use('/auth', authRoutes); // เพิ่ม path prefix
 
 

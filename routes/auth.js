@@ -137,6 +137,9 @@ router.post('/change-profile-picture', upload.single('profile_picture'), async (
     }
 });
 
-
+router.post('/register', (req, res) => {
+    console.log('Request Body:', req.body);
+    res.send('Register Endpoint');
+});
 
 module.exports = router;

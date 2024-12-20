@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type="file"] {
+            margin-top: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+    <form id="register-form" method="POST" enctype="multipart/form-data">
+        <label for="profile_name">Full Name:</label>
+        <input type="text" id="profile_name" name="profile_name" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="user_password">Password:</label>
+        <input type="password" id="user_password" name="user_password" required>
+
+        <label for="user_email">Email:</label>
+        <input type="email" id="user_email" name="user_email" required>
+
+        <label for="user_bio">Bio (Optional):</label>
+        <textarea id="user_bio" name="user_bio" rows="4" placeholder="Tell us something about yourself..."></textarea>
+
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+
+        <button type="submit">Register</button>
+
+        <div id="error-message" class="error"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("register-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData();
+        formData.append("profile_name", document.getElementById("profile_name").value);
+        formData.append("username", document.getElementById("username").value);
+        formData.append("user_password", document.getElementById("user_password").value);
+        formData.append("user_email", document.getElementById("user_email").value);
+        formData.append("user_bio", document.getElementById("user_bio").value);
+        formData.append("profile_picture", document.getElementById("profile_picture").files[0]);
+        
+        fetch("http://localhost:3000/api/insert-user", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById("error-message").textContent = data.error;
+            } else {
+                alert("Registration successful!");
+                window.location.href = "/login";  // Redirect to login page after successful registration
+            }
+        })
+        .catch(error => {
+            document.getElementById("error-message").textContent = "An error occurred: " + error.message;
+        });
+    });
+</script>
+
+</body>
+</html>
