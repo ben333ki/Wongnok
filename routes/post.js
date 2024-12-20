@@ -408,8 +408,6 @@ router.post('/main/post/:postId/favorite', isAuthenticated, async (req, res) => 
 });
 
 
-
-
 module.exports = router;
 
 

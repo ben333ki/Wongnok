@@ -6,6 +6,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/home.css">
 </head>
+<style>
+
+.nopost {
+    color: #8C4D2B;
+
+}
+
+</style>
 <body>
     <%- include('./partials/header.ejs') %>
     <div class="body">
@@ -15,7 +23,7 @@
             <% if (posts && posts.length) { %>
                 <%- include('./partials/containpost.ejs') %>
             <% } else { %>
-                <p>No posts from users you follow.</p>
+                <h2 class="nopost">No posts from users you follow.</h2>
             <% } %>
         </div>
         
