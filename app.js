@@ -18,10 +18,10 @@ app.use(setUserLocals);
 const sequelize = config.sequelize; // Using the sequelize instance from config.js
 
 // Test MySQL connection
-sequelize
-    .authenticate()
-    .then(() => console.log('MySQL Connected'))
-    .catch((err) => console.error('Unable to connect to MySQL:', err));
+// sequelize
+//     .authenticate()
+//     .then(() => console.log('MySQL Connected'))
+//     .catch((err) => console.error('Unable to connect to MySQL:', err));
 
 // Session Store using MySQL
 const sessionStore = new SequelizeStore({
@@ -46,6 +46,13 @@ app.use(
 // Sync session table
 sessionStore.sync();
 
+sequelize.sync({ force: false })  // Set to 'true' to force table creation (drops tables if they exist)
+    .then(() => {
+        console.log("Database synchronized");
+    })
+    .catch((err) => {
+        console.error("Error synchronizing the database:", err);
+    });
 // View Engine
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');

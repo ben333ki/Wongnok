@@ -25,84 +25,79 @@
                     </div>
                 </form> 
             <% } %>
-            <% if (user.username !== loginUser.username ) { %>
-                <button
-                id="followButton-<%= user._id %>"
-                data-followed="<%= isFollowing %>"
-                onclick="toggleFollow('<%= user._id %>')"
-                >
-                    <%= isFollowing ? 'Unfollow' : 'Follow' %>
-                </button>
-            
-            <% } %>
+            <!-- Follow/Unfollow Button -->
+            <div class="follow-button-container">
+                <% if (loginUserId !== user.id ) { %>
+                    <button 
+                        id="followButton-<%= user.id %>" 
+                        class="follow-button" 
+                        onclick="toggleFollow('<%= user.id %>')">
+                        <%= isFollowing ? 'Unfollow' : 'Follow' %>
+                    </button>
+                <% } %>
+            </div>
         </div>
         
     </div>
 
-    <!-- File Upload Form -->
-    <!--<div id="upload-form" style="display: none;">
-    <!    <form id="image-upload-form" action="/main/user/profile/upload" method="POST" enctype="multipart/form-data">
-        <label for="profile-picture-upload">Upload new profile picture:</label>
-        <input type="file" id="profile-picture-upload" name="profile_picture" accept="image/*" required>
-        <button type="submit">Upload</button>
-        <button type="button" id="cancel-upload">Cancel</button>
-    </form>
-    </div>-->
-    <!-- Followers and Posts Section -->
+
 <!-- Followers and Posts Section -->
 <div class="stats">
     <div class="stat">
-        <span><%= followerCount %></span>  <!-- Dynamic follower count -->
-        <p>followers</p>
+        <span><%= followerCount %></span> <!-- Dynamic follower count -->
+        <p>Followers</p>
     </div>
     <div class="stat">
-        <span><%= postCount %></span>  <!-- Dynamic post count -->
-        <p>posts</p>
+        <span><%= postCount %></span> <!-- Dynamic post count -->
+        <p>Posts</p>
     </div>
 </div>
 
-    <!-- Description Section -->
-    <div class="description">
-        <p><%= user.user_bio || 'No bio provided.' %></p>
-    </div>
+<!-- Description Section -->
+<div class="description">
+    <p><%= user.user_bio || 'No bio provided.' %></p>
 </div>
+
+
 
 <script>
     const editButton = document.getElementById('edit-profile-button');
     const editForm = document.getElementById('edit-profile-form');
     const cancelEdit = document.getElementById('cancel-edit');
 
-    editButton.addEventListener('click', () => {
-        editForm.style.display = 'block';
-        editButton.style.display = 'none';
-    });
+    if (editButton && editForm && cancelEdit) {
+        editButton.addEventListener('click', () => {
+            editForm.style.display = 'block';
+            editButton.style.display = 'none';
+        });
 
-    cancelEdit.addEventListener('click', () => {
-        editForm.style.display = 'none';
-        editButton.style.display = 'inline-block';
-    });
+        cancelEdit.addEventListener('click', () => {
+            editForm.style.display = 'none';
+            editButton.style.display = 'inline-block';
+        });
+    }
 
     async function toggleFollow(userId) {
-    try {
-        const response = await fetch(`/main/user/profile/${userId}/toggleFollow`, { method: 'POST' });
-        const data = await response.json();
+        try {
+            const response = await fetch(`/main/user/profile/${userId}/toggleFollow`, { method: 'POST' });
+            const data = await response.json();
 
-        if (data.success) {
-            // Select the specific button for this user
-            const button = document.getElementById(`followButton-${userId}`);
-            if (button) {
-                button.textContent = data.isFollowing ? 'Unfollow' : 'Follow';
+            if (data.success) {
+                // Select the specific button for this user
+                const button = document.getElementById(`followButton-${userId}`);
+                if (button) {
+                    button.textContent = data.isFollowing ? 'Unfollow' : 'Follow';
+                } else {
+                    console.error('Follow button not found in the DOM');
+                }
             } else {
-                console.error('Follow button not found in the DOM');
+                alert(data.message || 'Failed to toggle follow status.');
             }
-        } else {
-            alert(data.message || 'Failed to toggle follow status.');
+        } catch (err) {
+            console.error(err);
+            alert('An error occurred. Please try again later.');
         }
-    } catch (err) {
-        console.error(err);
-        alert('An error occurred. Please try again later.');
     }
-}
-
 </script>
+
 

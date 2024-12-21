@@ -99,15 +99,24 @@ router.post('/login', async (req, res) => {
 
 
 
-// Logout route
 router.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).send('Error while logging out');
-        }
-        res.redirect('/login'); // Redirect to the login page after logout
-    });
+    try {
+        // Optionally, perform any cleanup related to the user session here (if needed)
+        // For example, if you store session data in MySQL, you might update the session status
+
+        // Destroy the session
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send('Error while logging out');
+            }
+            res.redirect('/login'); // Redirect to the login page after logout
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error while logging out');
+    }
 });
+
 
 // Change Profile Picture
 router.post('/change-profile-picture', upload.single('profile_picture'), async (req, res) => {

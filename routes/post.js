@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/post');
-const User = require('../models/user');
+const { Post, User, Ingredient, Process } = require('../models/post'); // Adjust path as needed
 // const FollowList = require('../models/followlist'); // Replace with your Follow schema if applicable
 const multer = require('multer');
 const { isAuthenticated } = require('../middleware/index')
@@ -9,11 +8,12 @@ const methodOverride = require('method-override');
 
 router.use(methodOverride('_method'));  // This tells Express to look for the "_method" field in the request
 
-
 router.get('/test', isAuthenticated, (req, res) => {
   console.log(req.session.user); // Debug: Log the user session object
   res.render('test', { user: req.session.user });
 });
+
+
 
 // Configure multer for file uploads (e.g., images)
 const storage = multer.diskStorage({
@@ -27,47 +27,74 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// View all post
+// View all posts
 router.get('/main/user', isAuthenticated, async (req, res) => {
-    try {
-      // Fetch all posts, populate the `createdBy` field (user who created the post)
-      const posts = await Post.find().populate('createdBy');
+  try {
+      // Fetch all posts with the associated `createdByUser` and `ratings`
+      const posts = await Post.findAll({
+          include: [
+              {
+                  model: User, 
+                  as: 'createdByUser', // Alias to match the association
+                  attributes: ['profile_name', 'profile_picture', 'username'],
+              }
+          ]
+      });
+      
       const loginUser = req.session.user; // Logged-in user
-
       const user = req.session.user;
 
-      console.log(user)
-  
-      if (!posts.length) {
-        return res.status(404).send('No posts found');
-      }
-  
-      res.render('main', { posts, user, loginUser }); // Render all posts on the `allPosts` view
-    } catch (error) {
+
+      // Pass the posts and user data to the EJS view
+      res.render('main', { posts, user, loginUser }); // Render all posts on the `main` view
+  } catch (error) {
       console.error(error);
       res.status(500).send('Error retrieving posts');
-    }
-  });
+  }
+});
+
+
+
 
 // View a specific post
 router.get('/main/user/post/:id', isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.id;
     const user = req.session.user;
-    // Populate only the `createdBy` field since `recipe` is no longer used
-    const post = await Post.findById(postId).populate('createdBy').populate('comments.author.id'); ;
+
+    // Fetch the post by its ID and include the associated `createdByUser`, `Ingredient`, and `Process`
+    const post = await Post.findOne({
+      where: { id: postId },
+      include: [
+        {
+          model: User,
+          as: 'createdByUser',  // Include the user who created the post
+        },
+        {
+          model: Ingredient,  // Include Ingredient
+        },
+        {
+          model: Process,  // Include Process
+        },
+      ],
+    });
 
     if (!post) {
       return res.status(404).send('Post not found');
     }
 
-    // Ensure the correct user object is passed
+    // Render the post detail view
     res.render('postDetail', { post, user });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving post');
   }
 });
+
+
+
+
+
 
 
 
@@ -94,21 +121,16 @@ router.post(
     { name: 'processes[12][process_picture]', maxCount: 1 },
     { name: 'processes[13][process_picture]', maxCount: 1 },
     { name: 'processes[14][process_picture]', maxCount: 1 },
-    // Add more fields as needed for dynamic steps
   ]),
   async (req, res) => {
     try {
-      console.log('Session User ID:', req.session.user.userId);
-
-      const { post_topic, post_describe, ingredients, processes, youtube_url } = req.body; // Include post_describe here
-      const post_picture = req.files['post_picture']
-        ? req.files['post_picture'][0].path
-        : '';
+      const { post_topic, post_describe, ingredients, processes, youtube_url } = req.body;
+      const post_picture = req.files['post_picture'] ? req.files['post_picture'][0].path : '';
 
       const parsedProcesses = processes.map((process, index) => ({
         no_step: index + 1,
-        process_picture: req.files[`processes[${index}][process_picture]`]
-          ? req.files[`processes[${index}][process_picture]`][0].path
+        process_picture: req.files[`processes[${index}][process_picture]`] 
+          ? req.files[`processes[${index}][process_picture]`][0].path 
           : '',
         process_describe: process.process_describe,
       }));
@@ -118,18 +140,33 @@ router.post(
         ingredient_amount: ingredient.ingredient_amount,
       }));
 
-      const newPost = new Post({
+      // Create the post
+      const newPost = await Post.create({
         post_topic,
-        post_describe, // Save the description of the post
+        post_describe,
         post_picture,
         youtube_url,
-        createdBy: req.session.user.userId,
-        ingredients: parsedIngredients,
-        processes: parsedProcesses,
+        createdBy: req.session.user.userId, // User who created the post
       });
 
-      await newPost.save();
-      res.redirect(`/main/user/post/${newPost._id}`);
+      // Create associated ingredients
+      await Promise.all(parsedIngredients.map(async (ingredient) => {
+        await Ingredient.create({
+          ...ingredient,
+          postId: newPost.id, // Associate with the created post
+        });
+      }));
+
+      // Create associated processes
+      await Promise.all(parsedProcesses.map(async (process) => {
+        await Process.create({
+          ...process,
+          postId: newPost.id, // Associate with the created post
+        });
+      }));
+
+      // Redirect to the post detail page after creation
+      res.redirect(`/main/user/post/${newPost.id}`);
     } catch (err) {
       console.error(err);
       res.status(500).send('Error creating post');
@@ -138,19 +175,39 @@ router.post(
 );
 
 
+
 // Route to delete a post
 router.post('/post/:id/delete', isAuthenticated, async (req, res) => {
   try {
-      const post = await Post.findById(req.params.id);
-      if (!post || post.createdBy.toString() !== req.session.user.userId) {
-          return res.status(403).send('You are not authorized to delete this post');
-      }
+    const postId = req.params.id;
+    const userId = req.session.user.userId;
 
-      await Post.findByIdAndDelete(req.params.id);
-      res.redirect('/main/user'); // Redirect to the posts list after deleting
+    // Fetch the post by its ID using Sequelize
+    const post = await Post.findOne({ where: { id: postId } });
+
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+
+    // Check if the logged-in user is the creator of the post
+    if (post.createdBy !== userId) {
+      return res.status(403).send('You are not authorized to delete this post');
+    }
+
+    // Delete associated processes related to the post
+    await Process.destroy({ where: { postId: postId } });
+
+    // Delete associated ingredients related to the post
+    await Ingredient.destroy({ where: { postId: postId } });
+
+    // Delete the post itself
+    await post.destroy(); // Sequelize method for deleting the post
+
+    // Redirect to the user's posts list after deleting
+    res.redirect('/main/user');
   } catch (err) {
-      console.error(err);
-      res.status(500).send('Error deleting the post');
+    console.error(err);
+    res.status(500).send('Error deleting the post and related data');
   }
 });
 

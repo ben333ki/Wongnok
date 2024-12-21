@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt'); // Import bcrypt
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config'); // Import Sequelize instance from config
 
+
 // Define User model using Sequelize
 const User = sequelize.define('User', {
     profile_name: { type: DataTypes.STRING, allowNull: false },
@@ -11,6 +12,7 @@ const User = sequelize.define('User', {
     user_email: { type: DataTypes.STRING, allowNull: false, unique: true },
     user_bio: { type: DataTypes.TEXT },
 });
+
 
 // Hash the password before saving
 User.beforeSave(async (user, options) => {
@@ -25,6 +27,8 @@ User.beforeSave(async (user, options) => {
         throw err; // Pass error to next middleware
     }
 });
+
+
 
 // Add a method to compare passwords
 User.prototype.isValidPassword = async function (password) {

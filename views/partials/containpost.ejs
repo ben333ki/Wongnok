@@ -1,27 +1,27 @@
 <div id="posts-container">
-<div class="containpost">
-  <% posts.forEach(post => { %>
-    <div class="recipe-card">
-      <a href="/main/user/post/<%= post._id %>"><img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" /></a>
-      <div class="recipe-details">
-        <p><strong>Created by:</strong> <%= post.createdBy ? post.createdBy.profile_name : 'Unknown' %></p>
-        <a href="/main/user/post/<%= post._id %>"><h3 class="recipe-title"><%= post.post_topic %></h3></a>
-        <div class="recipe-rating">
-          <label for="rating"><strong>คะแนนเฉลี่ย:</strong> <%= post.avg_score.toFixed(2) %></label>
-          <span class="rating-value">จาก <%= post.ratings.length %> รีวิว</span>
+  <div class="containpost">
+    <% posts.forEach(post => { %>
+      <div class="recipe-card">
+        <a href="/main/user/post/<%= post.dataValues.id %>">
+          <img src="/uploads/<%= post.post_picture.split('\\').pop() %>" alt="<%= post.post_topic %>" class="recipe-image" />
+        </a>
+        <div class="recipe-details">
+          <p><strong>Created by:</strong> <%= post.createdByUser ? post.createdByUser.profile_name : 'Unknown' %></p>
+          <a href="/main/user/post/<%= post.dataValues.id %>">
+            <h3 class="recipe-title"><%= post.post_topic %></h3>
+          </a>
+          <div class="recipe-rating">
+            <label for="rating"><strong>คะแนนเฉลี่ย:</strong> <%= post.avg_score.toFixed(2) %></label>
+          </div>
         </div>
-      </div>
-      <!-- Assuming you are in the post view -->
-      <button class="favorite-button"
-          id="favoriteButton"
-          data-post-id="<%= post._id %>"
-          >
+        <button class="favorite-button" id="favoriteButton" data-post-id="<%= post.dataValues.id %>">
           ♥
-      </button>
-    </div>
-  <% }) %>
+        </button>
+      </div>
+    <% }) %>
+  </div>
 </div>
-</div>
+
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
