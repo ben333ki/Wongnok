@@ -26,22 +26,12 @@ const Process = sequelize.define('Process', {
     process_describe: { type: DataTypes.TEXT, allowNull: false },
 });
 
-// const Comment = sequelize.define('Comment', {
-//     comment_describe: { type: DataTypes.TEXT },
-//     username: { type: DataTypes.STRING },
-// });
 
 Ingredient.belongsTo(Post, { foreignKey: 'postId' });
-Post.hasMany(Ingredient, { foreignKey: 'postId' }); // Add this if missing
+Post.hasMany(Ingredient, { foreignKey: 'postId' }); 
 
 Process.belongsTo(Post, { foreignKey: 'postId' });
-Post.hasMany(Process, { foreignKey: 'postId' }); // Add this if missing
-
-// Comment.belongsTo(Post, { foreignKey: 'postId' });
-// Post.hasMany(Comment, { as: 'Comments', foreignKey: 'postId' });
-
-// Comment.belongsTo(User, { as: 'author', foreignKey: 'authorId' });
-// User.hasMany(Comment, { as: 'author', foreignKey: 'authorId' }); // Add this if missing
+Post.hasMany(Process, { foreignKey: 'postId' }); 
 
 
 sequelize.sync({ force: false })  // Set to 'true' to force table creation (drops tables if they exist)
